@@ -1,0 +1,5 @@
+movie_id,title,genre,release_year,is_available
+M001,Space Journey,Sci-Fi,2020,1
+M002,Love in Seoul,Romance,2022,1
+M003,Laugh Out Loud,Comedy,2021,1
+M004,Old Classic,Drama,1999,0
