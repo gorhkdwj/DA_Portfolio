@@ -1,0 +1,17 @@
+[project]
+name = "data-11-statistics-practice"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "jupyter>=1.1.1",
+    "matplotlib>=3.10.8",
+    "pandas>=3.0.0",
+    "plotly>=6.5.2",
+    "scikit-learn>=1.8.0",
+    "scipy>=1.17.0",
+    "seaborn>=0.13.2",
+    "squarify>=0.4.4",
+    "statsmodels>=0.14.6",
+]
