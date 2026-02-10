@@ -129,8 +129,11 @@ chi2, p_value = chisquare(observed, f_exp=expected)
 print(f"χ² = {chi2:.4f}, p-value = {p_value:.4f}")
 
 # 조정된 잔차 (Adjusted Residuals)
-residuals = (observed - expected) / np.sqrt(expected)
-print(f"조정된 잔차: {residuals}")`
+# 표준화 잔차(Pearson)가 아닌 조정된 잔차(Standardized) 사용
+n = observed.sum()
+props = expected / n
+adj_residuals = (observed - expected) / np.sqrt(expected * (1 - props))
+print(f"조정된 잔차: {adj_residuals}")`
                         }}
                     }
                 ]
@@ -301,7 +304,7 @@ print(f"W = {w_stat:.4f}, p-value = {p_value:.4f}")`
                                                             next: { id: 'result_anova', result: {
                                                                 name: '일원배치 분산분석',
                                                                 english: 'One-Way ANOVA',
-                                                                desc: '3개+ 집단 평균 차이를 검정합니다.\n예: 3개 배경별 월 매출 차이\n\n✅ 유의하면 → Tukey HSD 사후검정으로 어떤 집단 쌍이 다른지 확인',
+                                                                desc: '3개+ 집단 평균 차이를 검정합니다. (등분산 가정 충족 시)\n예: 3개 배경별 월 매출 차이\n\n✅ 유의하면 → Tukey HSD 사후검정 (모든 집단 쌍 비교)',
                                                                 conditions: ['3개 이상 독립 그룹', '종속변수: 연속형', '정규분포 가정', '등분산 가정'],
                                                                 code: `from scipy.stats import f_oneway, levene
 from statsmodels.stats.multicomp import pairwise_tukeyhsd
@@ -325,7 +328,7 @@ print(tukey)`
                                                             next: { id: 'result_welch_anova', result: {
                                                                 name: "Welch's ANOVA",
                                                                 english: "Welch's ANOVA",
-                                                                desc: "3개+ 집단 평균 차이를 이분산 보정하여 검정합니다.\n예: 학력별 연봉 차이\n\n✅ 유의하면 → Games-Howell 사후검정으로 어떤 집단 쌍이 다른지 확인",
+                                                                desc: "3개+ 집단 평균 차이를 이분산 보정하여 검정합니다. (등분산 가정 위배 시)\n예: 학력별 연봉 차이\n\n✅ 유의하면 → Games-Howell 사후검정 (집단 간 분산이 다를 때 엄격한 차이 검정)",
                                                                 conditions: ['3개 이상 독립 그룹', '종속변수: 연속형', '정규분포 가정', '등분산 가정 불충족'],
                                                                 code: `import pingouin as pg
 
@@ -347,7 +350,7 @@ print(posthoc)`
                                                 next: { id: 'result_kruskal', result: {
                                                     name: 'Kruskal-Wallis 검정',
                                                     english: 'Kruskal-Wallis H Test',
-                                                    desc: '3개+ 집단 분포 위치 차이를 비모수적으로 검정합니다.\n예: 3개 브랜드 만족도 순위 비교\n\n✅ 유의하면 → Dunn test 사후검정으로 어떤 집단 쌍이 다른지 확인',
+                                                    desc: '3개+ 집단 분포 위치 차이를 비모수적으로 검정합니다.\n예: 3개 브랜드 만족도 순위 비교\n\n✅ 유의하면 → Dunn Test 사후검정 (순위 기반 쌍별 비교)',
                                                     conditions: ['3개 이상 독립 그룹', '종속변수: 연속형 또는 순서형', '정규분포 가정 불충족'],
                                                     code: `from scipy.stats import kruskal
 import scikit_posthocs as sp
@@ -386,7 +389,7 @@ print(dunn)`
                                                             next: { id: 'result_rm_anova', result: {
                                                                 name: '반복측정 분산분석',
                                                                 english: 'Repeated Measures ANOVA',
-                                                                desc: '반복측정 평균 차이를 검정합니다.\n예: 1·3·6개월 후 체중 변화 추적\n\n✅ 유의하면 → Bonferroni 쌍별 비교로 어떤 시점 쌍이 다른지 확인',
+                                                                desc: '반복측정 평균 차이를 검정합니다. (구형성 가정 충족 시)\n예: 1·3·6개월 후 체중 변화 추적\n\n✅ 유의하면 → Bonferroni 쌍별 비교 (시점 간 차이 확인)',
                                                                 conditions: ['같은 대상의 3회 이상 측정', '종속변수: 연속형', '정규분포·구형성 가정 충족'],
                                                                 code: `import pingouin as pg
 
@@ -406,7 +409,7 @@ print(posthoc)`
                                                             next: { id: 'result_rm_anova_gg', result: {
                                                                 name: '반복측정 ANOVA + G-G 보정',
                                                                 english: 'RM ANOVA with Greenhouse-Geisser Correction',
-                                                                desc: '구형성 위반 시 Greenhouse-Geisser 보정을 적용한 반복측정 ANOVA입니다.\n예: 4주간 매주 측정한 혈압 변화\n\n✅ 유의하면 → Bonferroni 쌍별 비교',
+                                                                desc: '구형성 위반 시 Greenhouse-Geisser 보정을 적용한 반복측정 ANOVA입니다.\n예: 4주간 매주 측정한 혈압 변화\n\n✅ 유의하면 → Bonferroni 쌍별 비교 (자유도 보정 후 수행)',
                                                                 conditions: ['같은 대상의 3회 이상 측정', '종속변수: 연속형', '정규분포 충족, 구형성 불충족'],
                                                                 code: `import pingouin as pg
 
@@ -540,7 +543,12 @@ import pandas as pd
 cross_tab = pd.crosstab(df['var1'], df['var2'])
 chi2, p_value, dof, expected = chi2_contingency(cross_tab)
 print(f"χ² = {chi2:.4f}, p-value = {p_value:.4f}")
-print(f"자유도 = {dof}")`
+print(f"자유도 = {dof}")
+
+# 조정된 잔차 (Adjusted Residuals)
+import numpy as np
+residuals = (cross_tab.values - expected) / np.sqrt(expected)
+print(f"조정된 잔차:\\n{residuals}")`
                                                 }}
                                             },
                                             {
@@ -568,7 +576,12 @@ df['age_group'] = df['age_group'].replace(
 
 cross_tab = pd.crosstab(df['age_group'], df['outcome'])
 chi2, p_value, dof, expected = chi2_contingency(cross_tab)
-print(f"χ² = {chi2:.4f}, p-value = {p_value:.4f}")`
+print(f"χ² = {chi2:.4f}, p-value = {p_value:.4f}")
+
+# 조정된 잔차 (Adjusted Residuals)
+import numpy as np
+residuals = (cross_tab.values - expected) / np.sqrt(expected)
+print(f"조정된 잔차:\\n{residuals}")`
                                                             }}
                                                         },
                                                         {
@@ -577,7 +590,7 @@ print(f"χ² = {chi2:.4f}, p-value = {p_value:.4f}")`
                                                             next: { id: 'result_ffh', result: {
                                                                 name: 'Fisher-Freeman-Halton 검정',
                                                                 english: 'Fisher-Freeman-Halton Test',
-                                                                desc: 'R×C 교차표의 정확검정입니다. Fisher 검정의 확장판으로 소표본에서 사용합니다.\n예: 소규모 병원 3개 치료법별 부작용 유형 비교',
+                                                                desc: 'R×C 교차표의 정확검정입니다. Fisher 검정의 확장판으로 소표본에서 사용합니다.\n예: 소규모 병원 3개 치료법별 부작용 유형 비교\n\n✅ 유의하면 → 조정된 잔차 분석 (원인 셀 파악)',
                                                                 conditions: ['R×C 교차표', '기대빈도 < 5 셀이 20% 초과', '소표본'],
                                                                 code: `from scipy.stats import fisher_exact
 # R×C의 경우 scipy는 2×2만 지원
@@ -588,7 +601,12 @@ from scipy.stats import chi2_contingency
 chi2, p_value, dof, expected = chi2_contingency(
     table, lambda_="log-likelihood")
 print(f"G² = {chi2:.4f}, p-value = {p_value:.4f}")
-print("※ 정확검정은 R의 fisher.test() 권장")`
+
+# 사후검정: 조정된 잔차 (Adjusted Residuals)
+import numpy as np
+residuals = (table - expected) / np.sqrt(expected)
+print(f"조정된 잔차:\\n{residuals}")
+print("※ 정확검정은 R의 fisher.test() 권장 (Monte Carlo)")`
                                                             }}
                                                         }
                                                     ]
@@ -634,7 +652,7 @@ print(f"p-value = {result.pvalue:.4f}")`
                                     next: { id: 'result_bowker', result: {
                                         name: 'McNemar-Bowker 검정',
                                         english: 'McNemar-Bowker Test',
-                                        desc: '처리 전후 분포 변화를 다범주에서 검정합니다. McNemar 검정의 확장판입니다.\n예: 교육 전후 선호도 분포 변화\n\n✅ 유의하면 → 쌍별 McNemar로 어떤 범주 쌍이 변화했는지 확인',
+                                        desc: '처리 전후 분포 변화를 다범주에서 검정합니다. McNemar 검정의 확장판입니다.\n예: 교육 전후 선호도 분포 변화\n\n✅ 유의하면 → 쌍별 McNemar 검정 (어떤 범주 쌍이 변화했는지 확인)',
                                         conditions: ['같은 대상의 2회 측정', '종속변수: 다범주(3개 이상)', '대응 k×k 교차표'],
                                         code: `from statsmodels.stats.contingency_tables import SquareTable
 import numpy as np
@@ -646,7 +664,13 @@ table = np.array([[30, 5, 2],
 sq = SquareTable(table)
 result = sq.symmetry()
 print(f"χ² = {result.statistic:.4f}")
-print(f"p-value = {result.pvalue:.4f}")`
+print(f"p-value = {result.pvalue:.4f}")
+
+# 사후검정: 쌍별 McNemar (수동 반복)
+# for i in range(len(categories)):
+#     for j in range(i+1, len(categories)):
+#         sub_table = ... # 2x2 테이블 구성
+#         mcnemar(sub_table)`
                                     }}
                                 },
                                 {
@@ -665,7 +689,15 @@ data = np.array([[1,1,0], [1,0,0], [0,0,0],
                  [1,1,1], [0,1,0]])
 result = cochrans_q(data)
 print(f"Q = {result.statistic:.4f}")
-print(f"p-value = {result.pvalue:.4f}")`
+print(f"p-value = {result.pvalue:.4f}")
+
+# 사후검정: 쌍별 McNemar + Bonferroni
+# pingouin 패키지 활용 예시
+# import pingouin as pg
+# posthoc = pg.pairwise_tests(data=df, dv='outcome',
+#                             within='time', subject='id',
+#                             padjust='bonf')
+# print(posthoc)`
                                     }}
                                 }
                             ]
@@ -771,7 +803,7 @@ print(f"Kendall τ = {tau:.4f}, p-value = {p_value:.4f}")`
                                                 next: { id: 'result_linear_reg', result: {
                                                     name: '선형 회귀분석',
                                                     english: 'Linear/Multiple Regression',
-                                                    desc: 'X로 Y를 예측·설명합니다.\n예: 면적으로 부동산 가격 예측\n\n✅ 모델 적합 후 → 잔차 진단 (정규성, 등분산성, 독립성)',
+                                                    desc: 'X로 Y를 예측·설명합니다.\n예: 면적으로 부동산 가격 예측\n\n✅ 모델 적합 후 → 잔차 진단 (정규성, 등분산성, 독립성) 필수 점검',
                                                     conditions: ['종속변수: 연속형', '선형 관계', 'VIF < 10', '독립성, 정규성, 등분산성'],
                                                     code: `import statsmodels.api as sm
 from statsmodels.stats.outliers_influence import variance_inflation_factor
@@ -783,7 +815,24 @@ print(model.summary())
 # VIF 확인
 for i, col in enumerate(X.columns[1:]):
     vif = variance_inflation_factor(X.values, i+1)
-    print(f"{col}: VIF = {vif:.2f}")`
+    print(f"{col}: VIF = {vif:.2f}")
+
+# 잔차 진단
+resid = model.resid
+from statsmodels.stats.stattools import jarque_bera, durbin_watson
+from statsmodels.stats.diagnostic import het_breuschpagan
+
+# 1. 정규성 (Jarque-Bera)
+jb, p_jb, _, _ = jarque_bera(resid)
+print(f"Jarque-Bera p = {p_jb:.4f} (p>0.05면 정규성)")
+
+# 2. 등분산성 (Breusch-Pagan)
+_, p_bp, _, _ = het_breuschpagan(resid, model.model.exog)
+print(f"Breusch-Pagan p = {p_bp:.4f} (p>0.05면 등분산)")
+
+# 3. 독립성 (Durbin-Watson, 2에 가까우면 독립)
+dw = durbin_watson(resid)
+print(f"Durbin-Watson = {dw:.4f}")`
                                                 }}
                                             },
                                             {
@@ -831,7 +880,11 @@ X_poly = poly.fit_transform(df[['x']])
 
 model = LinearRegression().fit(X_poly, df['y'])
 print(f"R² = {model.score(X_poly, df['y']):.4f}")
-print(f"계수: {model.coef_}")`
+print(f"계수: {model.coef_}")
+
+# 잔차 진단 (LinearRegression 모델도 동일하게 검정 필요)
+resid = df['y'] - model.predict(X_poly)
+# Jarque-Bera, Breusch-Pagan 등 수행 권장`
                                     }}
                                 }
                             ]

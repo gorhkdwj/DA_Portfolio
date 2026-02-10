@@ -1,109 +1,100 @@
-# 📂 [프로젝트 코드명: 예) PJ05_Fintech_Data_Pipeline]
+# � 통계 분석 종합 의사결정 트리 (Statistical Test Decision Tree)
 
-**(부제: [프로젝트의 핵심 기능과 가치를 한 줄로 요약])**
-> *예시: 지저분한 주식 거래 로그 정제 및 가중평균(VWAP) 산출 시스템*
+**(부제: 올바른 통계 검정 기법을 찾아주는 인터랙티브 가이드)**
 
-> **"[프로젝트를 관통하는 핵심 메시지나 철학]"**
-> *예시: "쓰레기 데이터(Garbage In)를 황금 같은 정보(Gold Out)로."*
-> [기존 방식의 문제점]을 해결하기 위해, **[핵심 기술 스택]** 기반으로 구축한 [프로젝트 정의]입니다.
+> **"데이터는 준비되었는데, 어떤 분석을 해야 할지 모르겠다면?"**
+> 복잡한 통계 기법 선택 과정을 **직관적인 질문과 답변(Step-by-Step)** 형태로 풀어낸 웹 애플리케이션입니다.
 
 ---
 
 ## 1. Project Overview
 
-* **프로젝트 명:** [프로젝트 코드명]
-* **수행 기간:** 202X.XX.XX (1일)
+데이터 분석 프로젝트에서 가장 난관인 **"적절한 통계 검정 방법 선택"**을 돕기 위해 개발되었습니다. 분석 목적, 변수 유형, 데이터 분포(정규성 등)에 따라 최적의 통계 기법을 추천하고, 바로 사용할 수 있는 **Python 코드 예제**까지 제공합니다.
 
-### 💼 가상 시나리오 (Scenario)
-> **"[현실감 있는 상황 묘사: 문제 발생]"**
->
-> 당신은 [가상의 회사/직책]입니다. [언제/어디서] [어떤 문제 상황]이 발생했습니다.
-> (예: 레거시 시스템 오류로 데이터가 오염됨, 트래픽 폭주로 서버가 다운됨 등)
->
-> 팀장님/클라이언트는 **"[구체적인 요구사항 및 제약조건(시간/리소스)]"**을 요청했습니다. 당신의 임무는 [해결책]을 구축하여 이 문제를 해결하는 것입니다.
+* **수행 기간:** 2026.02.10 (1일)
+* **배포 URL:** [GitHub Pages Link](https://gorhkdwj.github.io/DA_Portfolio/01_Daily_Project/PJ07_통계검정_종합_의사결정트리/index.html)
 
-* **목표:**
-  1. [목표 1: 기술적/기능적 목표] (예: 데이터 정규화)
-  2. [목표 2: 도메인/비즈니스 목표] (예: 논리적 결측치 보간)
-  3. [목표 3: 최종 산출물/성과] (예: VWAP 지표 산출)
+### 🎯 핵심 목표
+
+1. **정확한 기법 선정:** 정규성, 등분산성, 표본 크기 등 통계적 가정(Assumption)을 고려한 정밀한 가이드 제공.
+2. **직관적 UX:** 어려운 통계 용어 대신, 예시와 아이콘을 활용하여 누구나 쉽게 따라갈 수 있는 UI 구성.
+3. **실무 적용성:** `scipy.stats`, `statsmodels` 등 실제 Python 라이브러리 활용 코드 즉시 제공.
 
 ---
 
-## 2. Tech Stack & Concepts
-본 프로젝트에 사용된 주요 기술과 핵심 개념입니다.
+## 2. Key Features & Decision Logic
 
-* **Language & Library:** [사용 언어 및 버전], [주요 라이브러리]
-* **[핵심 개념 1: 예) OOP]:**
-    * [해당 개념이 코드에 어떻게 적용되었는지 설명]
-* **[핵심 개념 2: 예) Advanced Pandas]:**
-    * `기능명`: [사용 이유 및 효과]
-    * `기능명`: [사용 이유 및 효과]
+이 프로젝트는 크게 **4가지 분석 목적**에 따라 20여 종 이상의 통계 기법을 분류합니다.
 
----
+### ⓵ 단일 표본 (Single Sample)
 
-## 3. Implementation Details
-[프로젝트의 전체 흐름을 요약하는 문장: 예) 주입 -> 처리 -> 분석]
+* **목적:** 하나의 집단이 특정 기준값과 차이가 있는지 확인.
+* **주요 로직:**
+  * 연속형: 정규성 만족 시 `One-Sample t-test`, 불만족 시 `Wilcoxon Signed-Rank`.
+  * 비율형: 표본 수에 따라 `z-test` 또는 `Binomial Test`.
+  * 범주형: `Chi-square Goodness of Fit`.
 
-### Step 1: [단계 명: 예) Raw Data Injection]
-[이 단계에서 수행한 작업과 입력 데이터의 상태 설명]
+### ⓶ 집단 비교 (Group Comparison)
 
-### Step 2: [단계 명: 예) Preprocessing (Class Name)]
-[이 단계의 핵심 로직이나 알고리즘 설명]
+* **목적:** 두 개 이상의 집단 간 차이 비교 (A/B 테스트 등).
+* **주요 로직:**
+  * **집단 수 & 대응 여부:** 2집단(Independent/Paired) vs 3집단 이상(ANOVA 등).
+  * **가정 검정:** 정규성(Shapiro-Wilk) 및 등분산성(Levene) 결과에 따른 분기.
+  * **비모수 검정:** `Mann-Whitney U`, `Kruskal-Wallis`, `Friedman Test` 등 포함.
+  * **사후 검정:** `Tukey HSD`, `Games-Howell`, `Dunn Test` 등 안내.
 
-1.  **`메서드명`**: [기능 설명 및 사용된 핵심 기술]
-2.  **`메서드명`**: [기능 설명]
-3.  **`메서드명`**: [기능 설명]
+### ⓷ 범주형 분석 (Categorical Analysis)
 
-### Step 3: [단계 명: 예) Analysis & Result]
-[최종 결과물 도출 과정 및 사용된 수식/로직]
-* **공식/로직:** $LaTeX 수식 입력$
-* [결과물에 대한 해석 및 의미]
+* **목적:** 범주형 변수 간의 빈도 차이 및 연관성(독립성) 분석.
+* **주요 로직:**
+  * **교차표 크기:** 2x2 vs RxC.
+  * **기대 빈도 이슈:** `Fisher's Exact Test` 및 `Fisher-Freeman-Halton` (Monte Carlo) 자동 추천.
+  * **대응 표본:** `McNemar`(2시점), `Cochran's Q`(3시점 이상) 등.
 
----
+### ⓸ 관계 분석 (Relationship Analysis)
 
-## 4. Troubleshooting
-프로젝트 진행 중 발생한 주요 이슈와 해결 과정입니다.
-
-### Issue 1: [발생한 문제의 기술적 정의]
-* **Problem:** [문제가 발생한 구체적인 현상]
-* **Cause:** [원인 분석 (라이브러리 특성, 로직 오류, 데이터 문제 등)]
-* **Fix:** [해결 방법 및 적용된 코드/옵션]
-* **Insight:** (선택) [이 문제를 통해 얻은 교훈이나 향후 대책]
-
-### Issue 2: [또 다른 주요 이슈]
-* **Problem:** ...
-* **Cause:** ...
-* **Fix:** ...
+* **목적:** 변수 간의 상관성 파악 또는 수치 예측.
+* **주요 로직:**
+  * **상관관계:** 선형(`Pearson`), 서열/비선형(`Spearman`), 소표본(`Kendall`).
+  * **회귀분석:** 다중공선성(VIF) 문제 시 `Ridge/Lasso`, 비선형 시 `Polynomial Regression`.
 
 ---
 
-## 5. Retrospective & Insights
-### Domain Knowledge: [도메인 지식 관련 회고]
-[단순 코딩을 넘어 해당 산업/분야(금융, 이커머스 등)에 대해 이해한 점]
+## 3. Tech Stack
 
-### Tech Insight: [기술적 성장 관련 회고]
-[새롭게 익힌 문법, 라이브러리 옵션, 아키텍처 설계 능력 등]
-
-### Data Integrity / Architecture: [설계 및 품질 관련 회고]
-[데이터의 무결성, 코드의 구조, 확장성 등에 대한 고찰]
+* **Frontend:** HTML5, CSS3, JavaScript (Vanilla)
+  * 별도의 프레임워크 없이 가볍고 빠른 성능 구현.
+  * CSS Flexbox/Grid를 활용한 반응형 레이아웃.
+* **Design:** Modern UI Style
+  * Soft Shadow, Rounded Corners, Interactive Hover Effects.
 
 ---
 
-## 6. Future Work
-본 프로젝트의 기능을 확장하거나 고도화할 계획입니다.
+## 4. How to Use
 
-* **[기능 확장 1]:** [구체적인 구현 계획]
-* **[기능 확장 2]:** [구체적인 구현 계획]
+### 💻 로컬에서 실행하기
+
+1. 이 저장소를 클론(Clone)하거나 다운로드합니다.
+2. `index.html` 파일을 더블 클릭하여 브라우저에서 엽니다.
+3. 또는 VS Code의 **Live Server** 확장 프로그램을 사용하면 실시간으로 실행 가능합니다.
+
+### 🌐 웹에서 실행하기
+
+* GitHub Pages를 통해 언제 어디서든 접속 가능합니다.
+* URL: `https://gorhkdwj.github.io/DA_Portfolio/01_Daily_Project/PJ07_통계검정_종합_의사결정트리/index.html`
 
 ---
 
-## 7. Project Structure
+## 5. Project Structure
+
 ```bash
-├── [메인 파일명].ipynb       # 메인 코드 및 분석 리포트
-├── data/
-│   ├── [데이터 파일 1].csv   # [파일 설명]
-│   └── [데이터 파일 2].csv   # [파일 설명]
-└── README.md                # 프로젝트 문서
+📂 PJ07_통계검정_종합_의사결정트리
+├── index.html       # 메인 UI 구조 (질문 영역, 결과 영역)
+├── app.js           # 의사결정 트리 데이터(JSON) 및 로직(Traversal) 구현
+├── style.css        # 전체 디자인 스타일링
+└── README.md        # 프로젝트 설명서
 ```
 
-*Created by [김재천/gorhkdwj]*
+---
+
+*Created by **Kim Jae-cheon (gorhkdwj)** | Data Analyst Portfolio*
