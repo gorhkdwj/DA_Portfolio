@@ -14,7 +14,7 @@ const decisionTree = {
             color: 'cyan',
             next: {
                 id: 'single_type',
-                question: 'Y의 측정 수준은?',
+                question: '목표 변수(Y)의 유형은?',
                 description: '분석하려는 종속변수(Y)의 유형을 선택하세요.',
                 options: [
                     {
@@ -953,7 +953,7 @@ function updateBreadcrumb() {
 }
 
 function getColsClass(count) {
-    if (count === 2) return 'options-grid--cols-2';
+    if (count === 2 || count === 4) return 'options-grid--cols-2';
     if (count >= 3) return 'options-grid--cols-3';
     return '';
 }
