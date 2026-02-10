@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="데이터 유형과 분석 목적에 따라 적절한 통계 검정 방법을 선택할 수 있도록 안내하는 인터랙티브 의사결정트리">
+    <title>통계검정 의사결정트리 | Statistical Test Decision Guide</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Background Effects -->
+    <div class="bg-effects">
+        <div class="bg-orb bg-orb-1"></div>
+        <div class="bg-orb bg-orb-2"></div>
+        <div class="bg-orb bg-orb-3"></div>
+    </div>
+
+    <!-- App Container -->
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="app-header__icon">🧪</div>
+            <h1 class="app-header__title">통계검정 의사결정트리</h1>
+            <p class="app-header__subtitle">
+                데이터의 유형과 분석 목적에 맞는 통계 검정 방법을 찾아보세요.<br>
+                각 단계별 질문에 답하면 최적의 검정 방법을 추천해 드립니다.
+            </p>
+        </header>
+
+        <!-- Progress Bar -->
+        <div class="progress-section">
+            <div class="progress-bar-container">
+                <div class="progress-bar-fill" id="progressFill" style="width: 0%"></div>
+            </div>
+            <div class="progress-info">
+                <span class="progress-step-text" id="progressStepText">시작</span>
+                <div class="progress-breadcrumb" id="breadcrumbContainer"></div>
+            </div>
+        </div>
+
+        <!-- Main Content (Dynamic) -->
+        <main id="mainContent"></main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p class="app-footer__text">Created by 김재천/gorhkdwj · PJ07 통계검정 종합 의사결정트리</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
