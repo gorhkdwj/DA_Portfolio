@@ -453,7 +453,7 @@ requires-dist = [
     { name = "plotly", specifier = ">=6.5.2" },
     { name = "scikit-learn", specifier = ">=1.8.0" },
     { name = "scikit-posthocs", specifier = ">=0.12.0" },
-    { name = "scipy", specifier = ">=1.17.0" },
+    { name = "scipy", specifier = ">=1.9" },
     { name = "seaborn", specifier = ">=0.13.2" },
     { name = "squarify", specifier = ">=0.4.4" },
     { name = "statsmodels", specifier = ">=0.14.6" },
