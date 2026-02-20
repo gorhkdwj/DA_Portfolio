@@ -1,0 +1,50 @@
+.trend-chart-container {
+  padding: 16px;
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.trend-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.trend-header h3 {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.trend-controls {
+  display: flex;
+  gap: 8px;
+  background: rgba(0,0,0,0.2);
+  padding: 4px;
+  border-radius: 8px;
+}
+
+.trend-controls button {
+  padding: 4px 12px;
+  border-radius: 6px;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
+
+.trend-controls button:hover {
+  color: var(--text-primary);
+}
+
+.trend-controls button.active {
+  background: var(--accent-break);
+  color: white;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
+}
+
+.chart-wrapper {
+  height: 300px;
+  width: 100%;
+}

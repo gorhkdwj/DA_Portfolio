@@ -1,0 +1,102 @@
+.timer-display-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2.5rem 0;
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+  100% { transform: translateY(0px); }
+}
+
+.timer-circle-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 50%;
+  padding: 14px;
+  border: 4px solid rgba(255, 255, 255, 0.04);
+  box-shadow: 
+    inset 0 0 30px rgba(0,0,0,0.2),
+    0 12px 40px rgba(0, 0, 0, 0.25);
+}
+
+.timer-svg {
+  transform: rotate(-90deg);
+}
+
+.timer-track {
+  fill: transparent;
+  stroke: rgba(255, 255, 255, 0.04);
+}
+
+.timer-progress {
+  fill: transparent;
+  transition: stroke-dashoffset 1s linear, stroke 0.5s ease;
+}
+
+.focus-mode .timer-progress {
+  filter: drop-shadow(0 0 12px rgba(255, 182, 185, 0.6));
+}
+
+.break-mode .timer-progress {
+  filter: drop-shadow(0 0 12px rgba(181, 234, 215, 0.6));
+}
+
+.longBreak-mode .timer-progress {
+  filter: drop-shadow(0 0 12px rgba(160, 196, 255, 0.6));
+}
+
+.timer-text-container {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.timer-time {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 5rem;
+  letter-spacing: -1px;
+  font-weight: 700;
+  margin-bottom: 0.2rem;
+  font-variant-numeric: tabular-nums;
+  background: linear-gradient(180deg, #ffffff 0%, #fefaea 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+
+.timer-phase {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  opacity: 0.95;
+  transition: color 0.3s ease;
+}
+
+.focus-mode .timer-phase {
+  color: #ffb6b9;
+  text-shadow: 0 0 10px rgba(255, 182, 185, 0.4);
+}
+
+.break-mode .timer-phase {
+  color: #b5ead7;
+  text-shadow: 0 0 10px rgba(181, 234, 215, 0.4);
+}
+
+.longBreak-mode .timer-phase {
+  color: #a0c4ff;
+  text-shadow: 0 0 10px rgba(160, 196, 255, 0.4);
+}

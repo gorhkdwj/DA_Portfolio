@@ -1,0 +1,43 @@
+.page-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  /* background transition is handled smoothly if we change overall body color, but let's just do it on container */
+  transition: background-color 0.5s ease;
+  min-height: 100vh;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.app-title {
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+  background: linear-gradient(to right, #fff, #94a3b8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.settings-btn {
+  color: var(--text-secondary);
+  transition: all 0.3s ease;
+}
+
+.settings-btn:hover {
+  color: var(--text-primary);
+  transform: rotate(45deg);
+}
+
+.timer-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 80px; /* space for nav */
+}
