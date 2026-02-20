@@ -422,6 +422,7 @@ version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
     { name = "ipykernel" },
+    { name = "itables" },
     { name = "joblib" },
     { name = "jupyter" },
     { name = "kagglehub" },
@@ -443,6 +444,7 @@ dependencies = [
 [package.metadata]
 requires-dist = [
     { name = "ipykernel", specifier = ">=7.1.0" },
+    { name = "itables", specifier = ">=2.7.0" },
     { name = "joblib", specifier = ">=1.5.3" },
     { name = "jupyter", specifier = ">=1.1.1" },
     { name = "kagglehub", specifier = ">=0.4.1" },
@@ -730,6 +732,15 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/7c/1a/3c8edc664e06e6bd06cce40c6b22da5f1429aa4224d0c590f3be21c91ead/isoduration-20.11.0.tar.gz", hash = "sha256:ac2f9015137935279eac671f94f89eb00584f940f5dc49462a0c4ee692ba1bd9", size = 11649, upload-time = "2020-11-01T11:00:00.312Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/7b/55/e5326141505c5d5e34c5e0935d2908a74e4561eca44108fbfb9c13d2911a/isoduration-20.11.0-py3-none-any.whl", hash = "sha256:b2904c2a4228c3d44f409c8ae8e2370eb21a26f7ac2ec5446df141dde3452042", size = 11321, upload-time = "2020-11-01T10:59:58.02Z" },
+]
+
+[[package]]
+name = "itables"
+version = "2.7.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/35/c1/bd0bdc1314cf2d682d4e364c2df381f127a39c7d1953a008af5de66f9e7d/itables-2.7.0.tar.gz", hash = "sha256:fd9e541973a654f79dcebbd7c0d875a08db7b99a3fc467a91de260c78f6643ea", size = 2386312, upload-time = "2026-02-04T19:52:14.823Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/4f/f9/dffe93846eb054da789173c3c03e8f6a565e2c18bb941d54085032f8060b/itables-2.7.0-py3-none-any.whl", hash = "sha256:68910282840c0770da2f336a207e64c75e052b31949ac97faa15a1f621727a4c", size = 2420679, upload-time = "2026-02-04T19:52:08.031Z" },
 ]
 
 [[package]]
