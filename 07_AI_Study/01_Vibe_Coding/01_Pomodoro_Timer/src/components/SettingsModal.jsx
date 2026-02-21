@@ -83,12 +83,14 @@ export default function SettingsModal({ onClose }) {
   };
 
   React.useEffect(() => {
-    // Live background preview
+    // Live background preview while settings modal is open
     let activeTheme = localBgTheme;
     if (activeTheme === 'mondayMorning') activeTheme = 'Wallpaper1';
 
     if (activeTheme && activeTheme !== 'none') {
       const custom = settings.customThemes?.find(t => t.id === activeTheme);
+      // Use relative path (./themes/) for Electron file:// compatibility
+      // Absolute /themes/ resolves to C:\themes\ in Electron - wrong!
       const bgUrl = custom ? custom.dataUrl : `./themes/${activeTheme}.jpg`;
       document.body.style.backgroundImage = `url('${bgUrl}')`;
       document.body.style.backgroundSize = 'cover';
@@ -103,32 +105,16 @@ export default function SettingsModal({ onClose }) {
   }, [localBgTheme, settings.customThemes]);
 
   React.useEffect(() => {
-    // Cleanup active audio when modal closes or unmounts
+    // Cleanup active audio when modal closes or unmounts.
+    // Background restoration is delegated entirely to App.jsx's useEffect,
+    // which watches the Zustand store with correct absolute paths (/themes/).
+    // Do NOT touch document.body background here — Electron file:// paths would break it.
     return () => {
       if (activeAudioCleanup.current) {
         activeAudioCleanup.current();
       }
-      // Revert background preview if closed without saving
-      // use getState() to prevent stale closure from overwriting handleSave's new theme state
-      const latestGlobalTheme = useSettingsStore.getState().bgTheme;
-      let activeTheme = latestGlobalTheme;
-      if (activeTheme === 'mondayMorning') activeTheme = 'Wallpaper1';
-      
-      if (activeTheme && activeTheme !== 'none') {
-        const custom = settings.customThemes?.find(t => t.id === activeTheme);
-        const bgUrl = custom ? custom.dataUrl : `./themes/${activeTheme}.jpg`;
-        document.body.style.backgroundImage = `url('${bgUrl}')`;
-        document.body.style.backgroundSize = 'cover';
-        document.body.style.backgroundPosition = 'center';
-        document.body.style.backgroundRepeat = 'no-repeat';
-        document.body.style.backgroundAttachment = 'fixed';
-        document.body.style.backgroundColor = 'transparent';
-      } else {
-        document.body.style.backgroundImage = 'none';
-        document.body.style.backgroundColor = 'var(--bg-primary)';
-      }
     };
-  }, [settings.bgTheme, settings.customThemes]);
+  }, []);
 
   const handlePresetChange = (e) => {
     const pId = e.target.value;
