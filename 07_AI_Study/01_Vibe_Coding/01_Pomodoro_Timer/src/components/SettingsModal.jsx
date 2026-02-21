@@ -84,9 +84,12 @@ export default function SettingsModal({ onClose }) {
 
   React.useEffect(() => {
     // Live background preview
-    if (localBgTheme && localBgTheme !== 'none') {
-      const custom = settings.customThemes?.find(t => t.id === localBgTheme);
-      const bgUrl = custom ? custom.dataUrl : `./themes/${localBgTheme}.jpg`;
+    let activeTheme = localBgTheme;
+    if (activeTheme === 'mondayMorning') activeTheme = 'Wallpaper1';
+
+    if (activeTheme && activeTheme !== 'none') {
+      const custom = settings.customThemes?.find(t => t.id === activeTheme);
+      const bgUrl = custom ? custom.dataUrl : `./themes/${activeTheme}.jpg`;
       document.body.style.backgroundImage = `url('${bgUrl}')`;
       document.body.style.backgroundSize = 'cover';
       document.body.style.backgroundPosition = 'center';
@@ -106,9 +109,14 @@ export default function SettingsModal({ onClose }) {
         activeAudioCleanup.current();
       }
       // Revert background preview if closed without saving
-      if (settings.bgTheme && settings.bgTheme !== 'none') {
-        const custom = settings.customThemes?.find(t => t.id === settings.bgTheme);
-        const bgUrl = custom ? custom.dataUrl : `./themes/${settings.bgTheme}.jpg`;
+      // use getState() to prevent stale closure from overwriting handleSave's new theme state
+      const latestGlobalTheme = useSettingsStore.getState().bgTheme;
+      let activeTheme = latestGlobalTheme;
+      if (activeTheme === 'mondayMorning') activeTheme = 'Wallpaper1';
+      
+      if (activeTheme && activeTheme !== 'none') {
+        const custom = settings.customThemes?.find(t => t.id === activeTheme);
+        const bgUrl = custom ? custom.dataUrl : `./themes/${activeTheme}.jpg`;
         document.body.style.backgroundImage = `url('${bgUrl}')`;
         document.body.style.backgroundSize = 'cover';
         document.body.style.backgroundPosition = 'center';
@@ -168,7 +176,8 @@ export default function SettingsModal({ onClose }) {
       // Toggle on
       setPlayingPreview(soundType);
       setLastPreviewedSound(soundType);
-      const stopSound = playBeep(soundType, localVolume);
+      const volToUse = soundType === localFocusSound ? localFocusVolume : localBreakVolume;
+      const stopSound = playBeep(soundType, volToUse);
       activeAudioCleanup.current = stopSound;
       
       // Auto-reset button state after a generous amount of time if we can't reliably track 'ended' event for oscillators 
