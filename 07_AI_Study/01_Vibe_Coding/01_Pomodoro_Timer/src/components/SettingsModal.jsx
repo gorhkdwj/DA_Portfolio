@@ -183,11 +183,12 @@ export default function SettingsModal({ onClose }) {
     if (activeAudioCleanup.current) {
       activeAudioCleanup.current();
     }
-    const stopSound = playBeep(localFocusSound, localVolume);
+    const soundToPlay = playingPreview === localBreakSound ? localBreakSound : localFocusSound;
+    const stopSound = playBeep(soundToPlay, localVolume);
     activeAudioCleanup.current = stopSound;
-    setPlayingPreview(localFocusSound);
+    setPlayingPreview(soundToPlay);
     setTimeout(() => {
-        setPlayingPreview((prev) => (prev === localFocusSound ? null : prev));
+        setPlayingPreview((prev) => (prev === soundToPlay ? null : prev));
     }, 1000);
   };
 

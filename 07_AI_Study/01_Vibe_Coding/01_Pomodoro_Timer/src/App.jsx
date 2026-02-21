@@ -10,10 +10,13 @@ function App() {
   const { bgTheme, customThemes, designTheme } = useSettingsStore();
 
   const getThemeSrc = () => {
-    if (!bgTheme) return null;
-    const custom = customThemes?.find(t => t.id === bgTheme);
+    let activeTheme = bgTheme;
+    if (activeTheme === 'mondayMorning') activeTheme = 'Wallpaper1';
+    
+    if (!activeTheme) return null;
+    const custom = customThemes?.find(t => t.id === activeTheme);
     if (custom) return custom.dataUrl;
-    return `/themes/${bgTheme}.jpg`;
+    return `/themes/${activeTheme}.jpg`;
   };
 
   const navigate = useNavigate();
@@ -21,9 +24,12 @@ function App() {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
   useEffect(() => {
-    if (bgTheme) {
-      const custom = customThemes?.find(t => t.id === bgTheme);
-      const bgUrl = custom ? custom.dataUrl : `/themes/${bgTheme}.jpg`;
+    let activeTheme = bgTheme;
+    if (activeTheme === 'mondayMorning') activeTheme = 'Wallpaper1';
+
+    if (activeTheme) {
+      const custom = customThemes?.find(t => t.id === activeTheme);
+      const bgUrl = custom ? custom.dataUrl : `/themes/${activeTheme}.jpg`;
       document.body.style.backgroundImage = `url('${bgUrl}')`;
       document.body.style.backgroundSize = 'cover';
       document.body.style.backgroundPosition = 'center';
