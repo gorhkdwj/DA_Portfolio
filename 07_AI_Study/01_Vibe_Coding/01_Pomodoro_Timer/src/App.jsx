@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import { Analytics as VercelAnalytics } from '@vercel/analytics/react';
 import Timer from './pages/Timer';
 import Analytics from './pages/Analytics';
 import Navigation from './components/Navigation';
@@ -97,6 +98,8 @@ function App() {
       {isSettingsOpen && (
         <SettingsModal onClose={() => setIsSettingsOpen(false)} />
       )}
+      
+      <VercelAnalytics />
     </>
   );
 }
