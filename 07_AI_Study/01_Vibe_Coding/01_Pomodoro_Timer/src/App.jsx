@@ -13,7 +13,7 @@ function App() {
     if (!bgTheme) return null;
     const custom = customThemes?.find(t => t.id === bgTheme);
     if (custom) return custom.dataUrl;
-    return `./themes/${bgTheme}.jpg`;
+    return `/themes/${bgTheme}.jpg`;
   };
 
   const navigate = useNavigate();
@@ -23,7 +23,7 @@ function App() {
   useEffect(() => {
     if (bgTheme) {
       const custom = customThemes?.find(t => t.id === bgTheme);
-      const bgUrl = custom ? custom.dataUrl : `./themes/${bgTheme}.jpg`;
+      const bgUrl = custom ? custom.dataUrl : `/themes/${bgTheme}.jpg`;
       document.body.style.backgroundImage = `url('${bgUrl}')`;
       document.body.style.backgroundSize = 'cover';
       document.body.style.backgroundPosition = 'center';
