@@ -551,17 +551,17 @@ export default function SettingsModal({ onClose }) {
     
     {showConfirmClose && (
       <div className="modal-overlay" style={{ zIndex: 3000 }}>
-        <div className="confirm-dialog glass-panel">
+        <div className="confirm-dialog glass-panel" style={{ minWidth: '340px', padding: '28px 24px' }}>
           <h4>{t('unsavedChanges') || 'Unsaved Changes'}</h4>
-          <p style={{ marginTop: '12px', marginBottom: '24px', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
-            {t('unsavedPrompt') || '변경사항이 있습니다. 저장하지 않고 나가시겠습니까?'}
+          <p style={{ marginTop: '12px', marginBottom: '24px', color: 'var(--text-secondary)', lineHeight: 1.5, wordBreak: 'keep-all' }}>
+            {t('unsavedPrompt') || '변경사항이 있습니다. 어떻게 할까요?'}
           </p>
-          <div className="confirm-actions">
-            <button className="confirm-btn cancel" onClick={() => setShowConfirmClose(false)}>
-              {t('cancel') || 'Cancel'}
+          <div className="confirm-actions" style={{ display: 'flex', gap: '12px' }}>
+            <button className="confirm-btn" style={{ flex: 1, backgroundColor: 'var(--accent-break)', color: 'white', whiteSpace: 'nowrap' }} onClick={() => { handleSave(); setShowConfirmClose(false); }}>
+              {t('saveAndExit') || 'Save and Exit'}
             </button>
-            <button className="confirm-btn discard" onClick={onClose}>
-              {t('discard') || 'Discard'}
+            <button className="confirm-btn discard" style={{ flex: 1, whiteSpace: 'nowrap' }} onClick={onClose}>
+              {t('exitWithoutSaving') || 'Exit Without Saving'}
             </button>
           </div>
         </div>

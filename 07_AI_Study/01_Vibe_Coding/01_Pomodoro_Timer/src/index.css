@@ -42,6 +42,24 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Custom WebKit Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary); 
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--text-secondary); 
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-primary); 
+}
+
 #root {
   display: flex;
   flex-direction: column;

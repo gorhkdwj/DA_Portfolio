@@ -61,9 +61,9 @@ export const translations = {
     shortcutR: 'R: 타이머 / 통계 화면 전환',
     shortcutEsc: 'Esc: 화면 닫기 / 복귀',
     unsavedChanges: '저장되지 않은 변경사항',
-    unsavedPrompt: '변경사항이 있습니다. 저장하지 않고 나가시겠습니까?',
-    cancel: '취소',
-    discard: '저장하지 않고 나가기',
+    unsavedPrompt: '변경사항이 있습니다. 어떻게 할까요?',
+    saveAndExit: '저장하고 나가기',
+    exitWithoutSaving: '저장하지 않고 나가기',
   },
   en: {
     timer: 'Timer',
@@ -127,9 +127,9 @@ export const translations = {
     shortcutR: 'R: Toggle Timer / Analytics',
     shortcutEsc: 'Esc: Close settings / Back to Timer',
     unsavedChanges: 'Unsaved Changes',
-    unsavedPrompt: 'You have unsaved changes. Are you sure you want to discard them?',
-    cancel: 'Cancel',
-    discard: 'Discard',
+    unsavedPrompt: 'You have unsaved changes. What would you like to do?',
+    saveAndExit: 'Save and Exit',
+    exitWithoutSaving: 'Exit Without Saving',
   }
 };
 
