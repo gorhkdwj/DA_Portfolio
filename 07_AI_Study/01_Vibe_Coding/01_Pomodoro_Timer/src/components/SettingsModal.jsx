@@ -21,7 +21,7 @@ export default function SettingsModal({ onClose }) {
   const [localBreakSound, setLocalBreakSound] = useState(settings.breakSound);
   const [localPresetId, setLocalPresetId] = useState(settings.selectedPresetId);
   const [localLanguage, setLocalLanguage] = useState(settings.language);
-  const [localBgTheme, setLocalBgTheme] = useState(settings.bgTheme || 'none');
+  const [localBgTheme, setLocalBgTheme] = useState(settings.bgTheme || 'mondayMorning');
   const [localDesignTheme, setLocalDesignTheme] = useState(settings.designTheme || 'minimal');
   const [playingPreview, setPlayingPreview] = useState(null); // stores soundType being played
   const [showConfirmClose, setShowConfirmClose] = useState(false); // Controls custom confirm dialog
@@ -259,7 +259,6 @@ export default function SettingsModal({ onClose }) {
                 value={localBgTheme}
                 onChange={e => setLocalBgTheme(e.target.value)}
               >
-                <option value="none">{t('themeNone')}</option>
                 <option value="Wallpaper1">{t('theme1')}</option>
                 <option value="Wallpaper2">{t('theme2')}</option>
                 <option value="Wallpaper3">{t('theme3')}</option>
@@ -277,7 +276,7 @@ export default function SettingsModal({ onClose }) {
                     const theme = settings.customThemes?.find(t => t.id === localBgTheme);
                     if (theme) deleteLocalAsset(theme.dataUrl);
                     settings.removeCustomTheme(localBgTheme);
-                    setLocalBgTheme('none');
+                    setLocalBgTheme('mondayMorning');
                   }}
                   title={t('deleteCustom')}
                 >

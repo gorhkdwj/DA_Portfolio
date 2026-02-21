@@ -10,7 +10,7 @@ function App() {
   const { bgTheme, customThemes, designTheme } = useSettingsStore();
 
   const getThemeSrc = () => {
-    if (!bgTheme || bgTheme === 'none') return null;
+    if (!bgTheme) return null;
     const custom = customThemes?.find(t => t.id === bgTheme);
     if (custom) return custom.dataUrl;
     return `./themes/${bgTheme}.jpg`;
@@ -21,7 +21,7 @@ function App() {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
   useEffect(() => {
-    if (bgTheme && bgTheme !== 'none') {
+    if (bgTheme) {
       const custom = customThemes?.find(t => t.id === bgTheme);
       const bgUrl = custom ? custom.dataUrl : `./themes/${bgTheme}.jpg`;
       document.body.style.backgroundImage = `url('${bgUrl}')`;
