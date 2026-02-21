@@ -4,7 +4,7 @@ import { getTranslation } from '../utils/i18n';
 import './TimerDisplay.css';
 
 export default function TimerDisplay({ phase, formattedTime, timeLeft, totalTimeInPhase }) {
-  const { language } = useSettingsStore();
+  const { language, designTheme } = useSettingsStore();
   const t = (key) => getTranslation(language, key);
 
   const radius = 130;
@@ -24,6 +24,7 @@ export default function TimerDisplay({ phase, formattedTime, timeLeft, totalTime
   };
 
   const getStrokeColor = () => {
+    if (designTheme === 'cyberpunk') return 'url(#cyberpunkGradient)';
     if (isFocus) return 'url(#focusGradient)';
     if (isLongBreak) return 'url(#longBreakGradient)';
     return 'url(#breakGradient)';
@@ -54,13 +55,25 @@ export default function TimerDisplay({ phase, formattedTime, timeLeft, totalTime
               <feGaussianBlur stdDeviation="3" result="blur" />
               <feComposite in="SourceGraphic" in2="blur" operator="over" />
             </filter>
+            
+            <linearGradient id="cyberpunkGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#06b6d4" />  {/* Cyan */}
+              <stop offset="100%" stopColor="#a855f7" /> {/* Purple */}
+            </linearGradient>
+            <filter id="cyberpunkGlow">
+              <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+              <feMerge>
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
           </defs>
           
           <circle
             cx={radius} cy={radius} r={radius - 2} 
-            stroke="rgba(255,255,255,0.03)" 
-            strokeWidth="3" 
-            strokeDasharray="8 8" 
+            stroke={designTheme === 'cyberpunk' ? "rgba(255, 255, 255, 0.05)" : "rgba(255,255,255,0.03)"} 
+            strokeWidth={designTheme === 'cyberpunk' ? "4" : "3"} 
+            strokeDasharray={designTheme === 'cyberpunk' ? "none" : "8 8"} 
             fill="none" 
             transform="rotate(90 130 130)"
           />
@@ -82,7 +95,7 @@ export default function TimerDisplay({ phase, formattedTime, timeLeft, totalTime
             r={normalizedRadius}
             cx={radius}
             cy={radius}
-            filter="url(#glow)"
+            filter={designTheme === 'cyberpunk' ? "url(#cyberpunkGlow)" : "url(#glow)"}
           />
         </svg>
         <div className="timer-text-container">

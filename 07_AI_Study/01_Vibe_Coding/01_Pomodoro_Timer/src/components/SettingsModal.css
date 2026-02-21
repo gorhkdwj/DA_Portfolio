@@ -299,3 +299,44 @@
   from { opacity: 0; transform: translateY(20px); scale: 0.95; }
   to { opacity: 1; transform: translateY(0); scale: 1; }
 }
+
+.confirm-dialog {
+  max-width: 320px;
+  text-align: center;
+  padding: 24px;
+}
+
+.confirm-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.confirm-btn {
+  flex: 1;
+  padding: 10px;
+  border-radius: 12px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.confirm-btn.cancel {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+  border: 1px solid var(--glass-border);
+}
+
+.confirm-btn.cancel:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.confirm-btn.discard {
+  background: rgba(239, 68, 68, 0.2);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.confirm-btn.discard:hover {
+  background: rgba(239, 68, 68, 0.4);
+  transform: translateY(-1px);
+}

@@ -3,6 +3,8 @@ export const translations = {
     timer: '타이머',
     analytics: '통계',
     settings: '설정',
+    display: '화면 테마',
+    designTheme: '디자인 테마',
     focusTime: '집중 시간',
     breakTime: '휴식 시간',
     classicPomodoro: '기본 뽀모도로',
@@ -58,11 +60,17 @@ export const translations = {
     shortcut3: '3: 긴 휴식 전환',
     shortcutR: 'R: 타이머 / 통계 화면 전환',
     shortcutEsc: 'Esc: 화면 닫기 / 복귀',
+    unsavedChanges: '저장되지 않은 변경사항',
+    unsavedPrompt: '변경사항이 있습니다. 저장하지 않고 나가시겠습니까?',
+    cancel: '취소',
+    discard: '저장하지 않고 나가기',
   },
   en: {
     timer: 'Timer',
     analytics: 'Analytics',
     settings: 'Settings',
+    display: 'Display Settings',
+    designTheme: 'Design Theme',
     focusTime: 'Focus Time',
     breakTime: 'Break Time',
     classicPomodoro: 'Classic Pomodoro',
@@ -118,6 +126,10 @@ export const translations = {
     shortcut3: '3: Switch to Long Break',
     shortcutR: 'R: Toggle Timer / Analytics',
     shortcutEsc: 'Esc: Close settings / Back to Timer',
+    unsavedChanges: 'Unsaved Changes',
+    unsavedPrompt: 'You have unsaved changes. Are you sure you want to discard them?',
+    cancel: 'Cancel',
+    discard: 'Discard',
   }
 };
 

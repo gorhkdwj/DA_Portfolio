@@ -13,10 +13,14 @@
   border-radius: 50%;
   color: var(--text-primary);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ----- GLASSMORPHISM THEME (Default) ----- */
+.theme-glassmorphism .control-btn {
   box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
 }
 
-.control-btn.primary {
+.theme-glassmorphism .control-btn.primary {
   width: 88px;
   height: 88px;
   background: var(--accent-focus); /* Default to focus */
@@ -24,31 +28,25 @@
   box-shadow: 0 6px 20px rgba(255, 182, 185, 0.5), inset 0 2px 5px rgba(255,255,255,0.4);
 }
 
-.control-btn.primary:hover {
+.theme-glassmorphism .control-btn.primary:hover {
   transform: scale(1.08) translateY(-4px);
   box-shadow: 0 10px 25px rgba(255, 182, 185, 0.6), inset 0 2px 5px rgba(255,255,255,0.5);
 }
 
-.control-btn.primary:active {
+.theme-glassmorphism .control-btn.primary:active {
   transform: scale(0.92) translateY(2px);
 }
 
-.control-btn.primary.is-active {
-  /* Pause State styling - Explicitly different */
+.theme-glassmorphism .control-btn.primary.is-active {
   background: linear-gradient(135deg, #ffffff, #fefaea);
-  color: #ff7b89; /* match the focus theme slightly */
+  color: #ff7b89;
   box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3), inset 0 -2px 5px rgba(0,0,0,0.1);
 }
 
-.break-mode .control-btn.primary.is-active {
-  color: #55d8a8; /* match break theme when paused in break */
-}
+.theme-glassmorphism.break-mode .control-btn.primary.is-active { color: #55d8a8; }
+.theme-glassmorphism.longBreak-mode .control-btn.primary.is-active { color: #73a2ff; }
 
-.longBreak-mode .control-btn.primary.is-active {
-  color: #73a2ff; /* match long break theme */
-}
-
-.control-btn.secondary {
+.theme-glassmorphism .control-btn.secondary {
   width: 56px;
   height: 56px;
   background: rgba(255,255,255,0.1);
@@ -56,30 +54,130 @@
   backdrop-filter: blur(8px);
 }
 
-.control-btn.secondary:hover {
+.theme-glassmorphism .control-btn.secondary:hover {
   background: rgba(255, 255, 255, 0.2);
   transform: scale(1.1) translateY(-2px);
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
-.control-btn.secondary:active {
+.theme-glassmorphism .control-btn.secondary:active {
   transform: scale(0.9) translateY(2px);
 }
 
-.break-mode .control-btn.primary:not(.is-active) {
+.theme-glassmorphism.break-mode .control-btn.primary:not(.is-active) {
   background: linear-gradient(135deg, #b5ead7, #55d8a8);
   box-shadow: 0 6px 20px rgba(181, 234, 215, 0.5), inset 0 2px 5px rgba(255,255,255,0.4);
 }
 
-.break-mode .control-btn.primary:not(.is-active):hover {
+.theme-glassmorphism.break-mode .control-btn.primary:not(.is-active):hover {
   box-shadow: 0 10px 25px rgba(181, 234, 215, 0.6), inset 0 2px 5px rgba(255,255,255,0.5);
 }
 
-.longBreak-mode .control-btn.primary:not(.is-active) {
+.theme-glassmorphism.longBreak-mode .control-btn.primary:not(.is-active) {
   background: linear-gradient(135deg, #a0c4ff, #73a2ff);
   box-shadow: 0 6px 20px rgba(160, 196, 255, 0.5), inset 0 2px 5px rgba(255,255,255,0.4);
 }
 
-.longBreak-mode .control-btn.primary:not(.is-active):hover {
+.theme-glassmorphism.longBreak-mode .control-btn.primary:not(.is-active):hover {
   box-shadow: 0 10px 25px rgba(160, 196, 255, 0.6), inset 0 2px 5px rgba(255,255,255,0.5);
+}
+
+
+/* ----- MINIMAL THEME ----- */
+.theme-minimal .control-btn.primary {
+  width: 140px;
+  height: 56px;
+  border-radius: 28px; /* Pill shape */
+  background: #ffffff;
+  color: #1a1a1a;
+  font-weight: 600;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+}
+
+.theme-minimal .control-btn.primary:hover {
+  background: #f0f0f0;
+  transform: translateY(-2px);
+}
+
+.theme-minimal .control-btn.primary.is-active {
+  background: transparent;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+}
+
+.theme-minimal .control-btn.secondary {
+  width: 56px;
+  height: 56px;
+  background: transparent;
+  color: #ffffff;
+  border: 2px solid transparent;
+}
+
+.theme-minimal .control-btn.secondary:hover {
+  background: rgba(255,255,255,0.1);
+  border: 2px solid rgba(255,255,255,0.3);
+}
+
+
+/* ----- CYBERPUNK NEON THEME ----- */
+.theme-cyberpunk .control-btn {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(8px);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+/* Secondary Buttons (Stop, Skip) */
+.theme-cyberpunk .control-btn.secondary {
+  width: 56px;
+  height: 56px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.theme-cyberpunk .control-btn.secondary:hover {
+  border-color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+  color: #fff;
+  transform: scale(1.05);
+}
+
+.theme-cyberpunk .control-btn.secondary:active {
+  transform: scale(0.95);
+}
+
+/* Primary Play/Pause Button */
+.theme-cyberpunk .control-btn.primary {
+  width: 80px;
+  height: 64px;
+  border: 2px solid #22d3ee; /* Cyan 400 */
+  background: rgba(8, 51, 68, 0.3); /* Cyan 950 / 30% */
+  color: #22d3ee;
+  box-shadow: 0 0 15px rgba(34, 211, 238, 0.3), inset 0 0 10px rgba(34, 211, 238, 0.2);
+}
+
+.theme-cyberpunk .control-btn.primary svg {
+  filter: drop-shadow(0 0 8px rgba(34, 211, 238, 0.8));
+}
+
+.theme-cyberpunk .control-btn.primary:not(.is-active):hover {
+  background: rgba(22, 78, 99, 0.4); /* Cyan 900 */
+  border-color: #67e8f9; /* Cyan 300 */
+  box-shadow: 0 0 25px rgba(34, 211, 238, 0.6), inset 0 0 15px rgba(34, 211, 238, 0.4);
+  transform: scale(1.05);
+  color: #a5f3fc; /* Cyan 200 */
+}
+
+.theme-cyberpunk .control-btn.primary.is-active:hover {
+  background: rgba(22, 78, 99, 0.4); 
+  border-color: #67e8f9; 
+  box-shadow: 0 0 25px rgba(34, 211, 238, 0.6), inset 0 0 15px rgba(34, 211, 238, 0.4);
+  transform: scale(1.05);
+  color: #a5f3fc; 
+}
+
+.theme-cyberpunk .control-btn.primary:active {
+  transform: scale(0.95);
 }

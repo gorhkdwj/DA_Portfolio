@@ -45,7 +45,7 @@
     "productName": "Pomodoro Timer",
     "directories": {
       "buildResources": "build",
-      "output": "dist-installer"
+      "output": "dist-final"
     },
     "files": [
       "dist/**/*",

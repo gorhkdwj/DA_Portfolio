@@ -22,7 +22,26 @@ export default function SettingsModal({ onClose }) {
   const [localPresetId, setLocalPresetId] = useState(settings.selectedPresetId);
   const [localLanguage, setLocalLanguage] = useState(settings.language);
   const [localBgTheme, setLocalBgTheme] = useState(settings.bgTheme || 'none');
+  const [localDesignTheme, setLocalDesignTheme] = useState(settings.designTheme || 'minimal');
   const [playingPreview, setPlayingPreview] = useState(null); // stores soundType being played
+  const [showConfirmClose, setShowConfirmClose] = useState(false); // Controls custom confirm dialog
+  
+  // Track if changes are made to prompt user before closing
+  const isDirty = (
+    localFocus !== settings.focusTime ||
+    localBreak !== settings.breakTime ||
+    localLongBreak !== settings.longBreakTime ||
+    localLongBreakInterval !== settings.longBreakInterval ||
+    localAutoBreak !== settings.autoStartBreaks ||
+    localAutoPom !== settings.autoStartPoms ||
+    localVolume !== settings.volume ||
+    localFocusSound !== settings.focusSound ||
+    localBreakSound !== settings.breakSound ||
+    localPresetId !== settings.selectedPresetId ||
+    localLanguage !== settings.language ||
+    localBgTheme !== settings.bgTheme ||
+    localDesignTheme !== settings.designTheme
+  );
   
   const themeInputRef = React.useRef(null);
   const focusInputRef = React.useRef(null);
@@ -61,13 +80,44 @@ export default function SettingsModal({ onClose }) {
   };
 
   React.useEffect(() => {
+    // Live background preview
+    if (localBgTheme && localBgTheme !== 'none') {
+      const custom = settings.customThemes?.find(t => t.id === localBgTheme);
+      const bgUrl = custom ? custom.dataUrl : `./themes/${localBgTheme}.jpg`;
+      document.body.style.backgroundImage = `url('${bgUrl}')`;
+      document.body.style.backgroundSize = 'cover';
+      document.body.style.backgroundPosition = 'center';
+      document.body.style.backgroundRepeat = 'no-repeat';
+      document.body.style.backgroundAttachment = 'fixed';
+      document.body.style.backgroundColor = 'transparent';
+    } else {
+      document.body.style.backgroundImage = 'none';
+      document.body.style.backgroundColor = 'var(--bg-primary)';
+    }
+  }, [localBgTheme, settings.customThemes]);
+
+  React.useEffect(() => {
     // Cleanup active audio when modal closes or unmounts
     return () => {
       if (activeAudioCleanup.current) {
         activeAudioCleanup.current();
       }
+      // Revert background preview if closed without saving
+      if (settings.bgTheme && settings.bgTheme !== 'none') {
+        const custom = settings.customThemes?.find(t => t.id === settings.bgTheme);
+        const bgUrl = custom ? custom.dataUrl : `./themes/${settings.bgTheme}.jpg`;
+        document.body.style.backgroundImage = `url('${bgUrl}')`;
+        document.body.style.backgroundSize = 'cover';
+        document.body.style.backgroundPosition = 'center';
+        document.body.style.backgroundRepeat = 'no-repeat';
+        document.body.style.backgroundAttachment = 'fixed';
+        document.body.style.backgroundColor = 'transparent';
+      } else {
+        document.body.style.backgroundImage = 'none';
+        document.body.style.backgroundColor = 'var(--bg-primary)';
+      }
     };
-  }, []);
+  }, [settings.bgTheme, settings.customThemes]);
 
   const handlePresetChange = (e) => {
     const pId = e.target.value;
@@ -86,6 +136,7 @@ export default function SettingsModal({ onClose }) {
 
   const handleSave = () => {
     settings.setBgTheme(localBgTheme);
+    settings.setDesignTheme(localDesignTheme);
     settings.setLanguage(localLanguage);
     settings.setFocusTime(localFocus);
     settings.setBreakTime(localBreak);
@@ -123,6 +174,31 @@ export default function SettingsModal({ onClose }) {
     }
   };
 
+  const handleVolumeChange = (e) => {
+    const newVol = parseFloat(e.target.value);
+    setLocalVolume(newVol);
+  };
+  
+  const handleVolumeRelease = () => {
+    if (activeAudioCleanup.current) {
+      activeAudioCleanup.current();
+    }
+    const stopSound = playBeep(localFocusSound, localVolume);
+    activeAudioCleanup.current = stopSound;
+    setPlayingPreview(localFocusSound);
+    setTimeout(() => {
+        setPlayingPreview((prev) => (prev === localFocusSound ? null : prev));
+    }, 1000);
+  };
+
+  const handleClose = () => {
+    if (isDirty) {
+      setShowConfirmClose(true);
+      return;
+    }
+    onClose();
+  };
+
   const getPresetName = (name) => {
     if (name === 'Classic Pomodoro') return t('classicPomodoro');
     if (name === 'Long Focus') return t('longFocus');
@@ -131,16 +207,17 @@ export default function SettingsModal({ onClose }) {
   };
 
   return (
+    <>
     <div className="modal-overlay" onClick={() => {
       if (activeAudioCleanup.current) activeAudioCleanup.current();
-      onClose();
+      handleClose();
     }}>
       <div className="modal-content glass-panel" onClick={e => e.stopPropagation()}>
         <div className="modal-header">
           <h3>{t('settings')}</h3>
           <button className="close-btn" onClick={() => {
             if (activeAudioCleanup.current) activeAudioCleanup.current();
-            onClose();
+            handleClose();
           }}>
             <X size={24} />
           </button>
@@ -148,19 +225,34 @@ export default function SettingsModal({ onClose }) {
 
         <div className="modal-body">
           <section className="settings-section">
-            <h4><Globe size={18} style={{ marginRight: '8px', verticalAlign: 'middle' }} />{t('language')}</h4>
-            <select 
-              className="settings-select styled-select"
-              value={localLanguage}
-              onChange={e => setLocalLanguage(e.target.value)}
-            >
-              <option value="ko">{t('langKo')}</option>
-              <option value="en">{t('langEn')}</option>
-            </select>
-          </section>
-
-          <section className="settings-section">
-            <h4>{t('backgroundTheme')}</h4>
+            <h4><Globe size={18} style={{ marginRight: '8px', verticalAlign: 'middle' }} />{t('display')}</h4>
+            <div style={{ display: 'flex', gap: '8px', marginBottom: '8px' }}>
+              <div style={{ flex: 1 }}>
+                <label style={{ fontSize: '0.9rem', opacity: 0.8, display: 'block', marginBottom: '4px' }}>{t('language')}</label>
+                <select 
+                  className="settings-select styled-select"
+                  value={localLanguage}
+                  onChange={e => setLocalLanguage(e.target.value)}
+                >
+                  <option value="ko">{t('langKo')}</option>
+                  <option value="en">{t('langEn')}</option>
+                </select>
+              </div>
+              <div style={{ flex: 1 }}>
+                <label style={{ fontSize: '0.9rem', opacity: 0.8, display: 'block', marginBottom: '4px' }}>{t('designTheme') || 'Design Theme'}</label>
+                <select 
+                  className="settings-select styled-select"
+                  value={localDesignTheme}
+                  onChange={e => setLocalDesignTheme(e.target.value)}
+                >
+                  <option value="minimal">Minimalist</option>
+                  <option value="glassmorphism">Glassmorphism</option>
+                  <option value="cyberpunk">Cyberpunk Neon</option>
+                </select>
+              </div>
+            </div>
+            
+            <label style={{ fontSize: '0.9rem', opacity: 0.8, display: 'block', marginBottom: '4px' }}>{t('backgroundTheme')}</label>
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <select 
                 className="settings-select styled-select flex-1"
@@ -390,7 +482,9 @@ export default function SettingsModal({ onClose }) {
                   type="range" 
                   min="0" max="1" step="0.1" 
                   value={localVolume} 
-                  onChange={e => setLocalVolume(Number(e.target.value))} 
+                  onChange={handleVolumeChange} 
+                  onMouseUp={handleVolumeRelease}
+                  onTouchEnd={handleVolumeRelease}
                 />
               </div>
             </div>
@@ -420,5 +514,25 @@ export default function SettingsModal({ onClose }) {
         </div>
       </div>
     </div>
+    
+    {showConfirmClose && (
+      <div className="modal-overlay" style={{ zIndex: 3000 }}>
+        <div className="confirm-dialog glass-panel">
+          <h4>{t('unsavedChanges') || 'Unsaved Changes'}</h4>
+          <p style={{ marginTop: '12px', marginBottom: '24px', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
+            {t('unsavedPrompt') || '변경사항이 있습니다. 저장하지 않고 나가시겠습니까?'}
+          </p>
+          <div className="confirm-actions">
+            <button className="confirm-btn cancel" onClick={() => setShowConfirmClose(false)}>
+              {t('cancel') || 'Cancel'}
+            </button>
+            <button className="confirm-btn discard" onClick={onClose}>
+              {t('discard') || 'Discard'}
+            </button>
+          </div>
+        </div>
+      </div>
+    )}
+    </>
   );
 }

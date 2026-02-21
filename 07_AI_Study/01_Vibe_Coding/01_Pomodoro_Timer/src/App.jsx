@@ -7,7 +7,7 @@ import SettingsModal from './components/SettingsModal';
 import { useSettingsStore } from './store/settingsStore';
 
 function App() {
-  const { bgTheme, customThemes } = useSettingsStore();
+  const { bgTheme, customThemes, designTheme } = useSettingsStore();
 
   const getThemeSrc = () => {
     if (!bgTheme || bgTheme === 'none') return null;
@@ -22,11 +22,19 @@ function App() {
 
   useEffect(() => {
     if (bgTheme && bgTheme !== 'none') {
+      const custom = customThemes?.find(t => t.id === bgTheme);
+      const bgUrl = custom ? custom.dataUrl : `./themes/${bgTheme}.jpg`;
+      document.body.style.backgroundImage = `url('${bgUrl}')`;
+      document.body.style.backgroundSize = 'cover';
+      document.body.style.backgroundPosition = 'center';
+      document.body.style.backgroundRepeat = 'no-repeat';
+      document.body.style.backgroundAttachment = 'fixed';
       document.body.style.backgroundColor = 'transparent';
     } else {
+      document.body.style.backgroundImage = 'none';
       document.body.style.backgroundColor = 'var(--bg-primary)';
     }
-  }, [bgTheme]);
+  }, [bgTheme, customThemes]);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -72,10 +80,7 @@ function App() {
 
   return (
     <>
-      {bgTheme && bgTheme !== 'none' && (
-        <img src={getThemeSrc()} className="global-bg-image" alt="Background Theme" />
-      )}
-      <div className="app-wrapper">
+      <div className={`app-wrapper theme-${designTheme}`}>
         <Routes>
           <Route path="/" element={<Timer />} />
           <Route path="/analytics" element={<Analytics />} />

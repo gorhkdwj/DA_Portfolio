@@ -22,7 +22,8 @@ export const useSettingsStore = create(
       focusSound: 'City_Lights_Recharge.mp3', // Default Focus sound
       breakSound: 'bell', // Synthesizer bell
       language: 'ko', // 'ko', 'en'
-      bgTheme: 'none', // 'none', 'Wallpaper1', etc.
+      bgTheme: 'mondayMorning', // 'none', 'Wallpaper1', etc.
+      designTheme: 'minimal', // 'glassmorphism', 'minimal', 'cyberpunk'
       customThemes: [], // Array of { id, name, dataUrl }
       customSounds: [], // Array of { id, name, dataUrl }
       
@@ -54,6 +55,7 @@ export const useSettingsStore = create(
       setBreakSound: (type) => set({ breakSound: type }),
       setLanguage: (lang) => set({ language: lang }),
       setBgTheme: (theme) => set({ bgTheme: theme }),
+      setDesignTheme: (theme) => set({ designTheme: theme }),
       addCustomTheme: (themeObj) => set((state) => ({ customThemes: [...state.customThemes, themeObj] })),
       addCustomSound: (soundObj) => set((state) => ({ customSounds: [...state.customSounds, soundObj] })),
       removeCustomTheme: (id) => set((state) => ({ 
