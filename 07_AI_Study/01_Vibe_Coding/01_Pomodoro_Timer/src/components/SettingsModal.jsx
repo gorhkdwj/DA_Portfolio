@@ -24,6 +24,7 @@ export default function SettingsModal({ onClose }) {
   const [localBgTheme, setLocalBgTheme] = useState(settings.bgTheme || 'mondayMorning');
   const [localDesignTheme, setLocalDesignTheme] = useState(settings.designTheme || 'minimal');
   const [playingPreview, setPlayingPreview] = useState(null); // stores soundType being played
+  const [lastPreviewedSound, setLastPreviewedSound] = useState(null); // Remembers last playing context for volume slider
   const [showConfirmClose, setShowConfirmClose] = useState(false); // Controls custom confirm dialog
   
   // Track if changes are made to prompt user before closing
@@ -163,6 +164,7 @@ export default function SettingsModal({ onClose }) {
     } else {
       // Toggle on
       setPlayingPreview(soundType);
+      setLastPreviewedSound(soundType);
       const stopSound = playBeep(soundType, localVolume);
       activeAudioCleanup.current = stopSound;
       
@@ -183,10 +185,17 @@ export default function SettingsModal({ onClose }) {
     if (activeAudioCleanup.current) {
       activeAudioCleanup.current();
     }
-    const soundToPlay = playingPreview === localBreakSound ? localBreakSound : localFocusSound;
+    
+    // Default to focus sound if they haven't explicitly previewed anything else
+    let soundToPlay = localFocusSound;
+    if (lastPreviewedSound === localBreakSound) {
+        soundToPlay = localBreakSound;
+    }
+
     const stopSound = playBeep(soundToPlay, localVolume);
     activeAudioCleanup.current = stopSound;
     setPlayingPreview(soundToPlay);
+    setLastPreviewedSound(soundToPlay);
     setTimeout(() => {
         setPlayingPreview((prev) => (prev === soundToPlay ? null : prev));
     }, 1000);
