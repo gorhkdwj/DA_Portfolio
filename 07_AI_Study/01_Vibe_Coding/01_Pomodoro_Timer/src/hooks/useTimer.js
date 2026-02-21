@@ -4,7 +4,7 @@ import { useLogStore } from '../store/logStore';
 import { playBeep } from '../utils/sound';
 
 export function useTimer() {
-  const { focusTime, breakTime, longBreakTime, longBreakInterval, autoStartBreaks, autoStartPoms, focusSound, breakSound, volume } = useSettingsStore();
+  const { focusTime, breakTime, longBreakTime, longBreakInterval, autoStartBreaks, autoStartPoms, focusSound, breakSound, focusVolume, breakVolume } = useSettingsStore();
   const addLog = useLogStore(state => state.addLog);
 
   const [phase, setPhase] = useState('focus'); // 'focus' | 'break' | 'longBreak'
@@ -51,7 +51,7 @@ export function useTimer() {
       nextPhase = 'focus';
     }
 
-    playBeep(nextPhase === 'focus' ? focusSound : breakSound, volume);
+    playBeep(nextPhase === 'focus' ? focusSound : breakSound, nextPhase === 'focus' ? focusVolume : breakVolume);
     
     // Log the session
     const durationMins = phase === 'focus' ? focusTime : (phase === 'longBreak' ? longBreakTime : breakTime);
@@ -70,7 +70,7 @@ export function useTimer() {
         (nextPhase === 'focus' && autoStartPoms)) {
       setIsActive(true);
     }
-  }, [phase, pomodorosSinceLongBreak, focusTime, breakTime, longBreakTime, longBreakInterval, autoStartBreaks, autoStartPoms, focusSound, breakSound, volume, addLog]);
+  }, [phase, pomodorosSinceLongBreak, focusTime, breakTime, longBreakTime, longBreakInterval, autoStartBreaks, autoStartPoms, focusSound, breakSound, focusVolume, breakVolume, addLog]);
 
   useEffect(() => {
     if (isActive && timeLeft > 0) {

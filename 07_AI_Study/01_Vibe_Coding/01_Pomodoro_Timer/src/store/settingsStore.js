@@ -14,11 +14,12 @@ export const useSettingsStore = create(
       breakTime: 5,  // in minutes
       longBreakTime: 15, // in minutes
       longBreakInterval: 4, // 0 means disabled
-      autoStartBreaks: true,
+      autoStartBreaks: false,
       autoStartPoms: false,
       selectedPresetId: '1',
       presets: DEFAULT_PRESETS,
-      volume: 0.8,
+      focusVolume: 0.5,
+      breakVolume: 0.5,
       focusSound: 'City_Lights_Recharge.mp3', // Default Focus sound
       breakSound: 'bell', // Synthesizer bell
       language: 'ko', // 'ko', 'en'

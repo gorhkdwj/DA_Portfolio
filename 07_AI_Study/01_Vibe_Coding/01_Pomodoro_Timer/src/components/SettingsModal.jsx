@@ -16,7 +16,8 @@ export default function SettingsModal({ onClose }) {
   const [localLongBreakInterval, setLocalLongBreakInterval] = useState(settings.longBreakInterval);
   const [localAutoBreak, setLocalAutoBreak] = useState(settings.autoStartBreaks);
   const [localAutoPom, setLocalAutoPom] = useState(settings.autoStartPoms);
-  const [localVolume, setLocalVolume] = useState(settings.volume);
+  const [localFocusVolume, setLocalFocusVolume] = useState(settings.focusVolume !== undefined ? settings.focusVolume : 0.5);
+  const [localBreakVolume, setLocalBreakVolume] = useState(settings.breakVolume !== undefined ? settings.breakVolume : 0.5);
   const [localFocusSound, setLocalFocusSound] = useState(settings.focusSound);
   const [localBreakSound, setLocalBreakSound] = useState(settings.breakSound);
   const [localPresetId, setLocalPresetId] = useState(settings.selectedPresetId);
@@ -35,7 +36,8 @@ export default function SettingsModal({ onClose }) {
     localLongBreakInterval !== settings.longBreakInterval ||
     localAutoBreak !== settings.autoStartBreaks ||
     localAutoPom !== settings.autoStartPoms ||
-    localVolume !== settings.volume ||
+    localFocusVolume !== settings.focusVolume ||
+    localBreakVolume !== settings.breakVolume ||
     localFocusSound !== settings.focusSound ||
     localBreakSound !== settings.breakSound ||
     localPresetId !== settings.selectedPresetId ||
@@ -145,7 +147,8 @@ export default function SettingsModal({ onClose }) {
     settings.setLongBreakInterval(localLongBreakInterval);
     settings.setAutoStartBreaks(localAutoBreak);
     settings.setAutoStartPoms(localAutoPom);
-    settings.setVolume(localVolume);
+    settings.setFocusVolume(localFocusVolume);
+    settings.setBreakVolume(localBreakVolume);
     settings.setFocusSound(localFocusSound);
     settings.setBreakSound(localBreakSound);
     settings.setSelectedPreset(localPresetId);
@@ -176,28 +179,39 @@ export default function SettingsModal({ onClose }) {
     }
   };
 
-  const handleVolumeChange = (e) => {
-    const newVol = parseFloat(e.target.value);
-    setLocalVolume(newVol);
+  const handleFocusVolumeChange = (e) => {
+    setLocalFocusVolume(parseFloat(e.target.value));
+  };
+
+  const handleBreakVolumeChange = (e) => {
+    setLocalBreakVolume(parseFloat(e.target.value));
   };
   
-  const handleVolumeRelease = () => {
+  const handleFocusVolumeRelease = () => {
     if (activeAudioCleanup.current) {
       activeAudioCleanup.current();
     }
     
-    // Default to focus sound if they haven't explicitly previewed anything else
-    let soundToPlay = localFocusSound;
-    if (lastPreviewedSound === localBreakSound) {
-        soundToPlay = localBreakSound;
-    }
-
-    const stopSound = playBeep(soundToPlay, localVolume);
+    const stopSound = playBeep(localFocusSound, localFocusVolume);
     activeAudioCleanup.current = stopSound;
-    setPlayingPreview(soundToPlay);
-    setLastPreviewedSound(soundToPlay);
+    setPlayingPreview(localFocusSound);
+    setLastPreviewedSound(localFocusSound);
     setTimeout(() => {
-        setPlayingPreview((prev) => (prev === soundToPlay ? null : prev));
+        setPlayingPreview((prev) => (prev === localFocusSound ? null : prev));
+    }, 1000);
+  };
+
+  const handleBreakVolumeRelease = () => {
+    if (activeAudioCleanup.current) {
+      activeAudioCleanup.current();
+    }
+    
+    const stopSound = playBeep(localBreakSound, localBreakVolume);
+    activeAudioCleanup.current = stopSound;
+    setPlayingPreview(localBreakSound);
+    setLastPreviewedSound(localBreakSound);
+    setTimeout(() => {
+        setPlayingPreview((prev) => (prev === localBreakSound ? null : prev));
     }, 1000);
   };
 
@@ -424,6 +438,17 @@ export default function SettingsModal({ onClose }) {
                     <PlayCircle size={28} style={{ color: playingPreview === localFocusSound ? '#ef4444' : 'inherit' }} />
                   </button>
                 </div>
+                <div className="volume-slider">
+                  <Volume2 size={16} style={{ color: 'var(--text-secondary)' }} />
+                  <input 
+                    type="range" 
+                    min="0" max="1" step="0.1" 
+                    value={localFocusVolume} 
+                    onChange={handleFocusVolumeChange} 
+                    onMouseUp={handleFocusVolumeRelease}
+                    onTouchEnd={handleFocusVolumeRelease}
+                  />
+                </div>
                 <input 
                   type="file" 
                   accept="audio/*" 
@@ -474,6 +499,17 @@ export default function SettingsModal({ onClose }) {
                     <PlayCircle size={28} style={{ color: playingPreview === localBreakSound ? '#ef4444' : 'inherit' }} />
                   </button>
                 </div>
+                <div className="volume-slider">
+                  <Volume2 size={16} style={{ color: 'var(--text-secondary)' }} />
+                  <input 
+                    type="range" 
+                    min="0" max="1" step="0.1" 
+                    value={localBreakVolume} 
+                    onChange={handleBreakVolumeChange} 
+                    onMouseUp={handleBreakVolumeRelease}
+                    onTouchEnd={handleBreakVolumeRelease}
+                  />
+                </div>
                 <input 
                   type="file" 
                   accept="audio/*" 
@@ -484,17 +520,6 @@ export default function SettingsModal({ onClose }) {
                 <button className="upload-btn" onClick={() => breakInputRef.current.click()}>
                   {t('addCustomSound')}
                 </button>
-              </div>
-
-              <div className="volume-slider">
-                <input 
-                  type="range" 
-                  min="0" max="1" step="0.1" 
-                  value={localVolume} 
-                  onChange={handleVolumeChange} 
-                  onMouseUp={handleVolumeRelease}
-                  onTouchEnd={handleVolumeRelease}
-                />
               </div>
             </div>
           </section>
