@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, protocol } = require('electron');
 const path = require('path');
 
 let mainWindow;
@@ -34,13 +34,26 @@ function createWindow() {
   });
 }
 
+// Needed to register custom protocols before app is ready
+protocol.registerSchemesAsPrivileged([
+  { scheme: 'asset', privileges: { bypassCSP: true, secure: true, supportFetchAPI: true, corsEnabled: true } }
+]);
+
 app.whenReady().then(() => {
+  protocol.registerFileProtocol('asset', (request, callback) => {
+    const url = request.url.substr(8); // Strip "asset://"
+    const decodedUrl = decodeURI(url); // Handle spaces
+    // Normalize path to prevent directory traversal outside of appData (basic check)
+    callback({ path: path.normalize(`${decodedUrl}`) });
+  });
+
   createWindow();
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
 });
+
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit();

@@ -11,7 +11,7 @@ export const playBeep = (type, volume) => {
   stopCurrentAlarm(); // Ensure previous is stopped before starting new
 
   try {
-    if (type.startsWith('data:audio/') || type.startsWith('file://') || type.startsWith('blob:')) {
+    if (type.startsWith('data:audio/') || type.startsWith('file://') || type.startsWith('asset://') || type.startsWith('blob:')) {
       const audio = new Audio(type);
       audio.volume = volume;
       audio.play().catch(e => console.warn("Audio play blocked", e));

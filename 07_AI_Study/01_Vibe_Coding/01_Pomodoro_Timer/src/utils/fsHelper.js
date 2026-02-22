@@ -37,19 +37,19 @@ export const saveAssetToLocal = (sourceFile, type) => {
 
   fs.copyFileSync(sourcePath, destPath);
   
-  // Return the file URL format
-  return `file:///${destPath.replace(/\\/g, '/')}`;
+  // Return the asset URL format for the custom protocol
+  return `asset://${destPath.replace(/\\/g, '/')}`;
 };
 
 export const deleteLocalAsset = (fileUrl) => {
-  if (!isElectron() || !fileUrl?.startsWith('file:///')) return;
+  if (!isElectron() || !fileUrl?.startsWith('asset://')) return;
   
   try {
     const fs = window.require('fs');
-    // Basic conversion from file:///C:/... to C:/... (or /Users/... on Mac)
-    let pathStr = fileUrl.replace('file:///', '');
-    // On Windows, the path looks like file:///C:/Users/..., so removing file:/// gives C:/Users/...
-    // Wait, on Mac it's file:///Users/..., so removing file:/// gives Users/..., missing the root slash.
+    // Basic conversion from asset://C:/... to C:/... (or /Users/... on Mac)
+    let pathStr = fileUrl.replace('asset://', '');
+    // On Windows, the path looks like asset://C:/Users/..., so removing asset:// gives C:/Users/...
+    // Wait, on Mac it's asset:///Users/..., so removing asset:// gives /Users/...
     const os = window.require('os');
     if (os.platform() !== 'win32') {
       pathStr = '/' + pathStr;
