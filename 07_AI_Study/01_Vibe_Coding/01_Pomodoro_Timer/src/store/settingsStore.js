@@ -20,8 +20,8 @@ export const useSettingsStore = create(
       presets: DEFAULT_PRESETS,
       focusVolume: 0.5,
       breakVolume: 0.5,
-      focusSound: 'City_Lights_Recharge.mp3', // Default Focus sound
-      breakSound: 'bell', // Synthesizer bell
+      focusSound: '쉬는시간 1.mp3', // Default Focus sound
+      breakSound: 'City_Lights_Recharge.mp3', // Default Break sound
       language: 'ko', // 'ko', 'en'
       bgTheme: 'mondayMorning', // 'none', 'Wallpaper1', etc.
       designTheme: 'minimal', // 'glassmorphism', 'minimal', 'cyberpunk'

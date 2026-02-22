@@ -49,7 +49,7 @@ function ensureDefaultAssets() {
   }
 
   // Default sounds
-  const defaultSounds = ['AirHorn.wav', 'City_Lights_Recharge.mp3', 'MetalGong.wav'];
+  const defaultSounds = ['AirHorn.wav', 'City_Lights_Recharge.mp3', 'MetalGong.wav', '쉬는시간 1.mp3'];
   for (const file of defaultSounds) {
     const dest = path.join(soundDir, file);
     if (!fs.existsSync(dest)) {

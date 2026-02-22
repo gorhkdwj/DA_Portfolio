@@ -407,6 +407,7 @@ export default function SettingsModal({ onClose }) {
                     value={localFocusSound}
                     onChange={e => setLocalFocusSound(e.target.value)}
                   >
+                    <option value="쉬는시간 1.mp3">{t('breakTime1')}</option>
                     <option value="City_Lights_Recharge.mp3">{t('cityLights')}</option>
                     <option value="AirHorn.wav">{t('airHorn')}</option>
                     <option value="MetalGong.wav">{t('metalGong')}</option>
@@ -468,6 +469,7 @@ export default function SettingsModal({ onClose }) {
                     value={localBreakSound}
                     onChange={e => setLocalBreakSound(e.target.value)}
                   >
+                    <option value="쉬는시간 1.mp3">{t('breakTime1')}</option>
                     <option value="City_Lights_Recharge.mp3">{t('cityLights')}</option>
                     <option value="AirHorn.wav">{t('airHorn')}</option>
                     <option value="MetalGong.wav">{t('metalGong')}</option>
