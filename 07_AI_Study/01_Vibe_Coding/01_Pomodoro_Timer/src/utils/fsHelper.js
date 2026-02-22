@@ -21,8 +21,8 @@ export const saveAssetToLocal = (sourceFile, type) => {
   // Determine an app data directory
   const isWindows = os.platform() === 'win32';
   const appDataDir = isWindows 
-    ? path.join(os.homedir(), 'AppData', 'Roaming', 'PomodoroTimer')
-    : path.join(os.homedir(), '.pomodorotimer');
+    ? path.join(os.homedir(), 'AppData', 'Roaming', 'focusflow')
+    : path.join(os.homedir(), '.focusflow');
     
   const customAssetsDir = path.join(appDataDir, 'custom_assets');
   
