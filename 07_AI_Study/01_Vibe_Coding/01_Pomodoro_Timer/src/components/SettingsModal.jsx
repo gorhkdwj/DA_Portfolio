@@ -3,7 +3,7 @@ import { X, Save, Volume2, PlayCircle, Globe } from 'lucide-react';
 import { useSettingsStore } from '../store/settingsStore';
 import { getTranslation } from '../utils/i18n';
 import { playBeep } from '../utils/sound';
-import { saveAssetToLocal, deleteLocalAsset, isElectron, getAssetDirs } from '../utils/fsHelper';
+import { saveAssetToLocal, deleteLocalAsset, isElectron } from '../utils/fsHelper';
 import './SettingsModal.css';
 
 export default function SettingsModal({ onClose }) {
@@ -93,11 +93,7 @@ export default function SettingsModal({ onClose }) {
       if (custom) {
         bgUrl = custom.dataUrl;
       } else if (isElectron()) {
-        const dirs = getAssetDirs();
-        if (dirs) {
-          const pathModule = window.require('path');
-          bgUrl = `asset://${pathModule.join(dirs.backgrounds, activeTheme + '.jpg').split(pathModule.sep).join('/')}`;
-        }
+        bgUrl = `asset://backgrounds/${encodeURIComponent(activeTheme + '.jpg')}`;
       }
       if (!bgUrl) bgUrl = `${import.meta.env.BASE_URL}themes/${activeTheme}.jpg`;
       document.body.style.backgroundImage = `url('${bgUrl}')`;

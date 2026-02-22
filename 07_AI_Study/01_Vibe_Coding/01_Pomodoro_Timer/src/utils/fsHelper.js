@@ -49,7 +49,8 @@ export const saveAssetToLocal = (sourceFile, type) => {
       try {
         const buffer = Buffer.from(reader.result);
         fs.writeFileSync(destPath, buffer);
-        const assetUrl = `asset://${destPath.split(path.sep).join('/')}`;
+        const folderName = type === 'theme' ? 'backgrounds' : 'sounds';
+        const assetUrl = `asset://${folderName}/${encodeURIComponent(fileName)}`;
         console.log('Saved asset to:', destPath, '→', assetUrl);
         resolve(assetUrl);
       } catch (err) {

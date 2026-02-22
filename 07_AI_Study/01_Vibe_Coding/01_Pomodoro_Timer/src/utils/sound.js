@@ -1,4 +1,4 @@
-import { isElectron, getAssetDirs } from './fsHelper';
+import { isElectron } from './fsHelper';
 
 let currentActiveAudio = null;
 
@@ -27,11 +27,7 @@ export const playBeep = (type, volume) => {
     if (type.endsWith('.mp3') || type.endsWith('.wav')) {
       let audioSrc;
       if (isElectron()) {
-        const dirs = getAssetDirs();
-        if (dirs) {
-          const path = window.require('path');
-          audioSrc = `asset://${path.join(dirs.sounds, type).split(path.sep).join('/')}`;
-        }
+        audioSrc = `asset://sounds/${encodeURIComponent(type)}`;
       }
       if (!audioSrc) audioSrc = `${import.meta.env.BASE_URL}sounds/${type}`;
       const audio = new Audio(audioSrc);

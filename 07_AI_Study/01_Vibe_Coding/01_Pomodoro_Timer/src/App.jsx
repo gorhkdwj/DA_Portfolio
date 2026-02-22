@@ -7,7 +7,7 @@ import Navigation from './components/Navigation';
 import SettingsModal from './components/SettingsModal';
 import { useSettingsStore } from './store/settingsStore';
 import { stopCurrentAlarm } from './utils/sound';
-import { isElectron, getAssetDirs } from './utils/fsHelper';
+import { isElectron } from './utils/fsHelper';
 
 function App() {
   const { bgTheme, customThemes, designTheme } = useSettingsStore();
@@ -21,11 +21,7 @@ function App() {
     if (custom) return custom.dataUrl;
     // In Electron: load from unified backgrounds folder
     if (isElectron()) {
-      const dirs = getAssetDirs();
-      if (dirs) {
-        const path = window.require('path');
-        return `asset://${path.join(dirs.backgrounds, activeTheme + '.jpg').split(path.sep).join('/')}`;
-      }
+      return `asset://backgrounds/${encodeURIComponent(activeTheme + '.jpg')}`;
     }
     return `${import.meta.env.BASE_URL}themes/${activeTheme}.jpg`;
   };
@@ -44,11 +40,7 @@ function App() {
       if (custom) {
         bgUrl = custom.dataUrl;
       } else if (isElectron()) {
-        const dirs = getAssetDirs();
-        if (dirs) {
-          const path = window.require('path');
-          bgUrl = `asset://${path.join(dirs.backgrounds, activeTheme + '.jpg').split(path.sep).join('/')}`;
-        }
+        bgUrl = `asset://backgrounds/${encodeURIComponent(activeTheme + '.jpg')}`;
       }
       if (!bgUrl) bgUrl = `${import.meta.env.BASE_URL}themes/${activeTheme}.jpg`;
       document.body.style.backgroundImage = `url('${bgUrl}')`;

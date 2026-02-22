@@ -101,9 +101,26 @@ protocol.registerSchemesAsPrivileged([
 
 app.whenReady().then(() => {
   protocol.registerFileProtocol('asset', (request, callback) => {
-    const url = request.url.substr(8); // Strip "asset://"
-    const decodedUrl = decodeURI(url);
-    callback({ path: path.normalize(decodedUrl) });
+    try {
+      const parsedUrl = new URL(request.url);
+      const appDataDir = getAppDataDir();
+      
+      if (parsedUrl.hostname === 'backgrounds' || parsedUrl.hostname === 'sounds') {
+        const decodedPath = decodeURIComponent(parsedUrl.pathname.replace(/^\//, ''));
+        const absolutePath = path.join(appDataDir, parsedUrl.hostname, decodedPath);
+        callback({ path: path.normalize(absolutePath) });
+      } else {
+        // Fallback for any old absolute paths that might still be stored (asset://c/Users/...)
+        let rawPath = request.url.replace(/^asset:\/\//, '');
+        if (process.platform === 'win32' && rawPath.match(/^[a-zA-Z]\//)) {
+          rawPath = rawPath.substring(0, 1) + ':' + rawPath.substring(1);
+        }
+        callback({ path: path.normalize(decodeURI(rawPath)) });
+      }
+    } catch (e) {
+      const url = request.url.substr(8);
+      callback({ path: path.normalize(decodeURI(url)) });
+    }
   });
 
   // Pre-create folders and copy default assets
