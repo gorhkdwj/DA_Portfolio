@@ -1,23 +1,36 @@
+let currentActiveAudio = null;
+
+export const stopCurrentAlarm = () => {
+  if (currentActiveAudio) {
+    currentActiveAudio();
+    currentActiveAudio = null;
+  }
+};
+
 export const playBeep = (type, volume) => {
+  stopCurrentAlarm(); // Ensure previous is stopped before starting new
+
   try {
     if (type.startsWith('data:audio/') || type.startsWith('file://') || type.startsWith('blob:')) {
       const audio = new Audio(type);
       audio.volume = volume;
       audio.play().catch(e => console.warn("Audio play blocked", e));
-      return () => {
+      currentActiveAudio = () => {
         audio.pause();
         audio.currentTime = 0;
       };
+      return currentActiveAudio;
     }
 
     if (type.endsWith('.mp3') || type.endsWith('.wav')) {
       const audio = new Audio(`${import.meta.env.BASE_URL}sounds/${type}`);
       audio.volume = volume;
       audio.play().catch(e => console.warn("Audio play blocked", e));
-      return () => {
+      currentActiveAudio = () => {
         audio.pause();
         audio.currentTime = 0;
       };
+      return currentActiveAudio;
     }
 
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -53,7 +66,7 @@ export const playBeep = (type, volume) => {
       oscillator.stop(audioCtx.currentTime + 0.5);
     }
 
-    return () => {
+    currentActiveAudio = () => {
       try {
         oscillator.stop();
         oscillator.disconnect();
@@ -62,6 +75,7 @@ export const playBeep = (type, volume) => {
         // Handle DOMException if already stopped
       }
     };
+    return currentActiveAudio;
   } catch(e) {
     console.warn("Audio not supported or blocked", e);
     return () => {};

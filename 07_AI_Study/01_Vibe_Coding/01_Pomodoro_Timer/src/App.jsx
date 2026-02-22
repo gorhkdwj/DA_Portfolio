@@ -6,6 +6,7 @@ import Analytics from './pages/Analytics';
 import Navigation from './components/Navigation';
 import SettingsModal from './components/SettingsModal';
 import { useSettingsStore } from './store/settingsStore';
+import { stopCurrentAlarm } from './utils/sound';
 
 function App() {
   const { bgTheme, customThemes, designTheme } = useSettingsStore();
@@ -87,7 +88,10 @@ function App() {
 
   return (
     <>
-      <div className={`app-wrapper theme-${designTheme}`}>
+      <div 
+        className={`app-wrapper theme-${designTheme}`}
+        onClick={() => stopCurrentAlarm()}
+      >
         <Routes>
           <Route path="/" element={<Timer />} />
           <Route path="/analytics" element={<Analytics />} />
