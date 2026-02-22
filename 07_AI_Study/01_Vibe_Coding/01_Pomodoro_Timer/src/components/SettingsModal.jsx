@@ -3,7 +3,7 @@ import { X, Save, Volume2, PlayCircle, Globe } from 'lucide-react';
 import { useSettingsStore } from '../store/settingsStore';
 import { getTranslation } from '../utils/i18n';
 import { playBeep } from '../utils/sound';
-import { saveAssetToLocal, deleteLocalAsset } from '../utils/fsHelper';
+import { saveAssetToLocal, deleteLocalAsset, isElectron } from '../utils/fsHelper';
 import './SettingsModal.css';
 
 export default function SettingsModal({ onClose }) {
@@ -51,12 +51,12 @@ export default function SettingsModal({ onClose }) {
   const breakInputRef = React.useRef(null);
   const activeAudioCleanup = React.useRef(null);
 
-  const handleFileUpload = (e, type) => {
+  const handleFileUpload = async (e, type) => {
     const file = e.target.files[0];
     if (!file) return;
 
     try {
-      const fileUrl = saveAssetToLocal(file, type);
+      const fileUrl = await saveAssetToLocal(file, type);
       if (!fileUrl) {
         alert("Failed to save asset. Run in Electron.");
         return;
@@ -89,9 +89,13 @@ export default function SettingsModal({ onClose }) {
 
     if (activeTheme && activeTheme !== 'none') {
       const custom = settings.customThemes?.find(t => t.id === activeTheme);
-      // Use relative path (./themes/) for Electron file:// compatibility
-      // Absolute /themes/ resolves to C:\themes\ in Electron - wrong!
-      const bgUrl = custom ? custom.dataUrl : `./themes/${activeTheme}.jpg`;
+      let bgUrl;
+      if (custom) {
+        bgUrl = custom.dataUrl;
+      } else if (isElectron()) {
+        bgUrl = `asset://backgrounds/${encodeURIComponent(activeTheme + '.jpg')}`;
+      }
+      if (!bgUrl) bgUrl = `${import.meta.env.BASE_URL}themes/${activeTheme}.jpg`;
       document.body.style.backgroundImage = `url('${bgUrl}')`;
       document.body.style.backgroundSize = 'cover';
       document.body.style.backgroundPosition = 'center';
@@ -413,7 +417,7 @@ export default function SettingsModal({ onClose }) {
                       <option key={s.id} value={s.dataUrl}>{s.name} (Custom)</option>
                     ))}
                   </select>
-                  {localFocusSound.startsWith('file://') || localFocusSound.startsWith('data:audio') || localFocusSound.startsWith('blob:') ? (
+                  {localFocusSound.startsWith('asset://') || localFocusSound.startsWith('file://') || localFocusSound.startsWith('data:audio') || localFocusSound.startsWith('blob:') ? (
                     <button 
                       className="delete-custom-btn" 
                       onClick={() => {
@@ -474,7 +478,7 @@ export default function SettingsModal({ onClose }) {
                       <option key={s.id} value={s.dataUrl}>{s.name} (Custom)</option>
                     ))}
                   </select>
-                  {localBreakSound.startsWith('file://') || localBreakSound.startsWith('data:audio') || localBreakSound.startsWith('blob:') ? (
+                  {localBreakSound.startsWith('asset://') || localBreakSound.startsWith('file://') || localBreakSound.startsWith('data:audio') || localBreakSound.startsWith('blob:') ? (
                     <button 
                       className="delete-custom-btn" 
                       onClick={() => {
