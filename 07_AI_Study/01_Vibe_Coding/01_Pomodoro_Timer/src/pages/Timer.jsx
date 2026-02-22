@@ -1,11 +1,11 @@
 import React from 'react';
 import TimerDisplay from '../components/TimerDisplay';
 import Controls from '../components/Controls';
-import { useTimer } from '../hooks/useTimer';
+import { useGlobalTimer } from '../context/TimerContext';
 import './Timer.css';
 
 export default function Timer() {
-  const timerState = useTimer();
+  const timerState = useGlobalTimer();
 
   return (
     <div className={`page-container ${timerState.phase}-mode`}>
