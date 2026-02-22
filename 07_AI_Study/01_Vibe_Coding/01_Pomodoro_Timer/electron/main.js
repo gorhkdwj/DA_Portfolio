@@ -12,6 +12,7 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false, // In a real production app with sensitive data, use contextBridge + preload
+      sandbox: false, // Required in newer Electron to allow nodeIntegration
       preload: path.join(__dirname, 'preload.js'),
       webSecurity: false // Simplify local file loading for this demo
     },
