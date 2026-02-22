@@ -1,5 +1,7 @@
 const { app, BrowserWindow, protocol } = require('electron');
 const path = require('path');
+const fs = require('fs');
+const os = require('os');
 
 let mainWindow;
 
@@ -46,6 +48,17 @@ app.whenReady().then(() => {
     // Normalize path to prevent directory traversal outside of appData (basic check)
     callback({ path: path.normalize(`${decodedUrl}`) });
   });
+
+  // Pre-create the custom_assets directory so it's always ready
+  const isWindows = os.platform() === 'win32';
+  const appDataDir = isWindows
+    ? path.join(os.homedir(), 'AppData', 'Roaming', 'focusflow')
+    : path.join(os.homedir(), '.focusflow');
+  const customAssetsDir = path.join(appDataDir, 'custom_assets');
+  if (!fs.existsSync(customAssetsDir)) {
+    fs.mkdirSync(customAssetsDir, { recursive: true });
+    console.log('Created custom_assets directory:', customAssetsDir);
+  }
 
   createWindow();
 
