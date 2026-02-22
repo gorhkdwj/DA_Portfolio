@@ -5,6 +5,65 @@ const os = require('os');
 
 let mainWindow;
 
+// ── Asset directory paths ──
+function getAppDataDir() {
+  const isWindows = os.platform() === 'win32';
+  return isWindows
+    ? path.join(os.homedir(), 'AppData', 'Roaming', 'focusflow')
+    : path.join(os.homedir(), '.focusflow');
+}
+
+function getBundledAssetsDir() {
+  // In packaged app: resources/app.asar/dist/  or  resources/app/dist/
+  // In dev: project root / public/
+  const isDev = !app.isPackaged;
+  if (isDev) {
+    return path.join(__dirname, '..', 'public');
+  }
+  return path.join(__dirname, '..', 'dist');
+}
+
+// Copy default assets from the bundled app to AppData on first run
+function ensureDefaultAssets() {
+  const appDataDir = getAppDataDir();
+  const bgDir = path.join(appDataDir, 'backgrounds');
+  const soundDir = path.join(appDataDir, 'sounds');
+
+  // Create directories
+  if (!fs.existsSync(bgDir)) fs.mkdirSync(bgDir, { recursive: true });
+  if (!fs.existsSync(soundDir)) fs.mkdirSync(soundDir, { recursive: true });
+
+  const bundledDir = getBundledAssetsDir();
+
+  // Default backgrounds
+  const defaultBgs = ['Wallpaper1.jpg', 'Wallpaper2.jpg', 'Wallpaper3.jpg', 'Wallpaper4.jpg', 'Wallpaper5.jpg', 'Wallpaper6.jpg'];
+  for (const file of defaultBgs) {
+    const dest = path.join(bgDir, file);
+    if (!fs.existsSync(dest)) {
+      const src = path.join(bundledDir, 'themes', file);
+      if (fs.existsSync(src)) {
+        fs.copyFileSync(src, dest);
+        console.log('Copied default background:', file);
+      }
+    }
+  }
+
+  // Default sounds
+  const defaultSounds = ['AirHorn.wav', 'City_Lights_Recharge.mp3', 'MetalGong.wav'];
+  for (const file of defaultSounds) {
+    const dest = path.join(soundDir, file);
+    if (!fs.existsSync(dest)) {
+      const src = path.join(bundledDir, 'sounds', file);
+      if (fs.existsSync(src)) {
+        fs.copyFileSync(src, dest);
+        console.log('Copied default sound:', file);
+      }
+    }
+  }
+
+  console.log('Asset directories ready:', { bgDir, soundDir });
+}
+
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 900,
@@ -13,16 +72,15 @@ function createWindow() {
     minHeight: 600,
     webPreferences: {
       nodeIntegration: true,
-      contextIsolation: false, // In a real production app with sensitive data, use contextBridge + preload
-      sandbox: false, // Required in newer Electron to allow nodeIntegration
+      contextIsolation: false,
+      sandbox: false,
       preload: path.join(__dirname, 'preload.js'),
-      webSecurity: false // Simplify local file loading for this demo
+      webSecurity: false
     },
-    autoHideMenuBar: true, // Hide default Windows menu bar
-    title: "Pomodoro Timer",
+    autoHideMenuBar: true,
+    title: "FocusFlow",
   });
 
-  // Depending on the environment, load the dev server or the built HTML file
   const isDev = !app.isPackaged;
   if (isDev) {
     mainWindow.loadURL('http://localhost:5173');
@@ -36,7 +94,7 @@ function createWindow() {
   });
 }
 
-// Needed to register custom protocols before app is ready
+// Register custom asset:// protocol before app is ready
 protocol.registerSchemesAsPrivileged([
   { scheme: 'asset', privileges: { bypassCSP: true, secure: true, supportFetchAPI: true, corsEnabled: true } }
 ]);
@@ -44,21 +102,12 @@ protocol.registerSchemesAsPrivileged([
 app.whenReady().then(() => {
   protocol.registerFileProtocol('asset', (request, callback) => {
     const url = request.url.substr(8); // Strip "asset://"
-    const decodedUrl = decodeURI(url); // Handle spaces
-    // Normalize path to prevent directory traversal outside of appData (basic check)
-    callback({ path: path.normalize(`${decodedUrl}`) });
+    const decodedUrl = decodeURI(url);
+    callback({ path: path.normalize(decodedUrl) });
   });
 
-  // Pre-create the custom_assets directory so it's always ready
-  const isWindows = os.platform() === 'win32';
-  const appDataDir = isWindows
-    ? path.join(os.homedir(), 'AppData', 'Roaming', 'focusflow')
-    : path.join(os.homedir(), '.focusflow');
-  const customAssetsDir = path.join(appDataDir, 'custom_assets');
-  if (!fs.existsSync(customAssetsDir)) {
-    fs.mkdirSync(customAssetsDir, { recursive: true });
-    console.log('Created custom_assets directory:', customAssetsDir);
-  }
+  // Pre-create folders and copy default assets
+  ensureDefaultAssets();
 
   createWindow();
 
@@ -66,7 +115,6 @@ app.whenReady().then(() => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
 });
-
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit();

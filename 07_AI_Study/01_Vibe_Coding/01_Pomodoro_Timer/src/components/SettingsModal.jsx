@@ -51,12 +51,12 @@ export default function SettingsModal({ onClose }) {
   const breakInputRef = React.useRef(null);
   const activeAudioCleanup = React.useRef(null);
 
-  const handleFileUpload = (e, type) => {
+  const handleFileUpload = async (e, type) => {
     const file = e.target.files[0];
     if (!file) return;
 
     try {
-      const fileUrl = saveAssetToLocal(file, type);
+      const fileUrl = await saveAssetToLocal(file, type);
       if (!fileUrl) {
         alert("Failed to save asset. Run in Electron.");
         return;

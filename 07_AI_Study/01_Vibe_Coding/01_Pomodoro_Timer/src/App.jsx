@@ -7,6 +7,7 @@ import Navigation from './components/Navigation';
 import SettingsModal from './components/SettingsModal';
 import { useSettingsStore } from './store/settingsStore';
 import { stopCurrentAlarm } from './utils/sound';
+import { isElectron, getAssetDirs } from './utils/fsHelper';
 
 function App() {
   const { bgTheme, customThemes, designTheme } = useSettingsStore();
@@ -18,6 +19,14 @@ function App() {
     if (!activeTheme) return null;
     const custom = customThemes?.find(t => t.id === activeTheme);
     if (custom) return custom.dataUrl;
+    // In Electron: load from unified backgrounds folder
+    if (isElectron()) {
+      const dirs = getAssetDirs();
+      if (dirs) {
+        const path = window.require('path');
+        return `asset://${path.join(dirs.backgrounds, activeTheme + '.jpg').replace(/\\/g, '/')}`;
+      }
+    }
     return `${import.meta.env.BASE_URL}themes/${activeTheme}.jpg`;
   };
 
@@ -31,7 +40,17 @@ function App() {
 
     if (activeTheme) {
       const custom = customThemes?.find(t => t.id === activeTheme);
-      const bgUrl = custom ? custom.dataUrl : `${import.meta.env.BASE_URL}themes/${activeTheme}.jpg`;
+      let bgUrl;
+      if (custom) {
+        bgUrl = custom.dataUrl;
+      } else if (isElectron()) {
+        const dirs = getAssetDirs();
+        if (dirs) {
+          const path = window.require('path');
+          bgUrl = `asset://${path.join(dirs.backgrounds, activeTheme + '.jpg').replace(/\\/g, '/')}`;
+        }
+      }
+      if (!bgUrl) bgUrl = `${import.meta.env.BASE_URL}themes/${activeTheme}.jpg`;
       document.body.style.backgroundImage = `url('${bgUrl}')`;
       document.body.style.backgroundSize = 'cover';
       document.body.style.backgroundPosition = 'center';

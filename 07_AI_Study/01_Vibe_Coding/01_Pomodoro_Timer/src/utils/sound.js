@@ -1,3 +1,5 @@
+import { isElectron, getAssetDirs } from './fsHelper';
+
 let currentActiveAudio = null;
 
 export const stopCurrentAlarm = () => {
@@ -23,7 +25,16 @@ export const playBeep = (type, volume) => {
     }
 
     if (type.endsWith('.mp3') || type.endsWith('.wav')) {
-      const audio = new Audio(`${import.meta.env.BASE_URL}sounds/${type}`);
+      let audioSrc;
+      if (isElectron()) {
+        const dirs = getAssetDirs();
+        if (dirs) {
+          const path = window.require('path');
+          audioSrc = `asset://${path.join(dirs.sounds, type).replace(/\\/g, '/')}`;
+        }
+      }
+      if (!audioSrc) audioSrc = `${import.meta.env.BASE_URL}sounds/${type}`;
+      const audio = new Audio(audioSrc);
       audio.volume = volume;
       audio.play().catch(e => console.warn("Audio play blocked", e));
       currentActiveAudio = () => {
