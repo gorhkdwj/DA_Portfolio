@@ -17,7 +17,7 @@ function App() {
     if (!activeTheme) return null;
     const custom = customThemes?.find(t => t.id === activeTheme);
     if (custom) return custom.dataUrl;
-    return `./themes/${activeTheme}.jpg`;
+    return `${import.meta.env.BASE_URL}themes/${activeTheme}.jpg`;
   };
 
   const navigate = useNavigate();
@@ -30,7 +30,7 @@ function App() {
 
     if (activeTheme) {
       const custom = customThemes?.find(t => t.id === activeTheme);
-      const bgUrl = custom ? custom.dataUrl : `./themes/${activeTheme}.jpg`;
+      const bgUrl = custom ? custom.dataUrl : `${import.meta.env.BASE_URL}themes/${activeTheme}.jpg`;
       document.body.style.backgroundImage = `url('${bgUrl}')`;
       document.body.style.backgroundSize = 'cover';
       document.body.style.backgroundPosition = 'center';

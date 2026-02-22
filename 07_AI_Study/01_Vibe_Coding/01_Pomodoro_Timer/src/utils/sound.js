@@ -11,7 +11,7 @@ export const playBeep = (type, volume) => {
     }
 
     if (type.endsWith('.mp3') || type.endsWith('.wav')) {
-      const audio = new Audio(`./sounds/${type}`);
+      const audio = new Audio(`${import.meta.env.BASE_URL}sounds/${type}`);
       audio.volume = volume;
       audio.play().catch(e => console.warn("Audio play blocked", e));
       return () => {
