@@ -96,7 +96,7 @@ export default function SettingsModal({ onClose }) {
         const dirs = getAssetDirs();
         if (dirs) {
           const pathModule = window.require('path');
-          bgUrl = `asset://${pathModule.join(dirs.backgrounds, activeTheme + '.jpg').replace(/\\/g, '/')}`;
+          bgUrl = `asset://${pathModule.join(dirs.backgrounds, activeTheme + '.jpg').split(pathModule.sep).join('/')}`;
         }
       }
       if (!bgUrl) bgUrl = `${import.meta.env.BASE_URL}themes/${activeTheme}.jpg`;
@@ -421,7 +421,7 @@ export default function SettingsModal({ onClose }) {
                       <option key={s.id} value={s.dataUrl}>{s.name} (Custom)</option>
                     ))}
                   </select>
-                  {localFocusSound.startsWith('file://') || localFocusSound.startsWith('data:audio') || localFocusSound.startsWith('blob:') ? (
+                  {localFocusSound.startsWith('asset://') || localFocusSound.startsWith('file://') || localFocusSound.startsWith('data:audio') || localFocusSound.startsWith('blob:') ? (
                     <button 
                       className="delete-custom-btn" 
                       onClick={() => {
@@ -482,7 +482,7 @@ export default function SettingsModal({ onClose }) {
                       <option key={s.id} value={s.dataUrl}>{s.name} (Custom)</option>
                     ))}
                   </select>
-                  {localBreakSound.startsWith('file://') || localBreakSound.startsWith('data:audio') || localBreakSound.startsWith('blob:') ? (
+                  {localBreakSound.startsWith('asset://') || localBreakSound.startsWith('file://') || localBreakSound.startsWith('data:audio') || localBreakSound.startsWith('blob:') ? (
                     <button 
                       className="delete-custom-btn" 
                       onClick={() => {

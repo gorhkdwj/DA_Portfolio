@@ -24,7 +24,7 @@ function App() {
       const dirs = getAssetDirs();
       if (dirs) {
         const path = window.require('path');
-        return `asset://${path.join(dirs.backgrounds, activeTheme + '.jpg').replace(/\\/g, '/')}`;
+        return `asset://${path.join(dirs.backgrounds, activeTheme + '.jpg').split(path.sep).join('/')}`;
       }
     }
     return `${import.meta.env.BASE_URL}themes/${activeTheme}.jpg`;
@@ -47,7 +47,7 @@ function App() {
         const dirs = getAssetDirs();
         if (dirs) {
           const path = window.require('path');
-          bgUrl = `asset://${path.join(dirs.backgrounds, activeTheme + '.jpg').replace(/\\/g, '/')}`;
+          bgUrl = `asset://${path.join(dirs.backgrounds, activeTheme + '.jpg').split(path.sep).join('/')}`;
         }
       }
       if (!bgUrl) bgUrl = `${import.meta.env.BASE_URL}themes/${activeTheme}.jpg`;

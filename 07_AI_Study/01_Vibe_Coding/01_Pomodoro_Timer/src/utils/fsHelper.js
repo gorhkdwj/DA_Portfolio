@@ -49,7 +49,7 @@ export const saveAssetToLocal = (sourceFile, type) => {
       try {
         const buffer = Buffer.from(reader.result);
         fs.writeFileSync(destPath, buffer);
-        const assetUrl = `asset://${destPath.replace(/\\/g, '/')}`;
+        const assetUrl = `asset://${destPath.split(path.sep).join('/')}`;
         console.log('Saved asset to:', destPath, '→', assetUrl);
         resolve(assetUrl);
       } catch (err) {

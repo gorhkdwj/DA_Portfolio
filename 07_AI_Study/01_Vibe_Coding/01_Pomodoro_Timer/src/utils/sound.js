@@ -30,7 +30,7 @@ export const playBeep = (type, volume) => {
         const dirs = getAssetDirs();
         if (dirs) {
           const path = window.require('path');
-          audioSrc = `asset://${path.join(dirs.sounds, type).replace(/\\/g, '/')}`;
+          audioSrc = `asset://${path.join(dirs.sounds, type).split(path.sep).join('/')}`;
         }
       }
       if (!audioSrc) audioSrc = `${import.meta.env.BASE_URL}sounds/${type}`;
