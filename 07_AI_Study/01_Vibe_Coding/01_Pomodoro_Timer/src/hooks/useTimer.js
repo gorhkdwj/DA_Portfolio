@@ -67,7 +67,8 @@ export function useTimer() {
     // Check auto-start settings
     if ((nextPhase === 'break' && autoStartBreaks) || 
         (nextPhase === 'longBreak' && autoStartBreaks) ||
-        (nextPhase === 'focus' && autoStartPoms)) {
+        (nextPhase === 'focus' && autoStartPoms) ||
+        phase === 'longBreak') {
       setIsActive(true);
     }
   }, [phase, pomodorosSinceLongBreak, focusTime, breakTime, longBreakTime, longBreakInterval, autoStartBreaks, autoStartPoms, focusSound, breakSound, focusVolume, breakVolume, addLog]);

@@ -207,3 +207,21 @@
   text-shadow: 0 0 8px rgba(34,211,238,0.8);
   opacity: 0.8;
 }
+
+/* ----- MOBILE RESPONSIVENESS ----- */
+@media (max-width: 600px) {
+  .theme-minimal .timer-time {
+    font-size: clamp(4rem, 22vw, 7rem);
+    letter-spacing: -2px;
+  }
+  
+  .theme-glassmorphism .timer-time,
+  .theme-cyberpunk .timer-time {
+    font-size: clamp(3rem, 15vw, 4.5rem);
+  }
+
+  .theme-cyberpunk .timer-circle-wrapper {
+    width: 240px;
+    height: 240px;
+  }
+}
