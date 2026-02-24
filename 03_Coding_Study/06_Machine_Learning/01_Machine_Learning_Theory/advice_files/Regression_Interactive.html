@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>회귀 핵심 개념 시각화</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap');
+  :root {
+    --bg: #09090f; --surface: #111118; --card: #16161f; --border: #252535;
+    --a1: #7c6fff; --a2: #ff6b6b; --a3: #3ecf8e; --a4: #f7b731;
+    --text: #e2e2ee; --muted: #6060a0; --hi: #a0a0ff;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Noto Sans KR',sans-serif; background:var(--bg); color:var(--text); }
+
+  header { text-align:center; padding:2.5rem 1.5rem 1.5rem; border-bottom:1px solid var(--border); }
+  header h1 { font-size:1.9rem; font-weight:900; letter-spacing:-0.03em;
+    background:linear-gradient(120deg,var(--a1),var(--hi)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:.4rem; }
+  header p { color:var(--muted); font-size:.85rem; }
+
+  nav { display:flex; justify-content:center; gap:.4rem; padding:1rem 1.5rem; flex-wrap:wrap;
+    background:var(--surface); border-bottom:1px solid var(--border); position:sticky; top:0; z-index:99; }
+  nav button { padding:.4rem .95rem; border:1px solid var(--border); background:transparent; color:var(--muted);
+    border-radius:100px; cursor:pointer; font-family:inherit; font-size:.78rem; font-weight:600; transition:all .2s; }
+  nav button.active, nav button:hover { background:var(--a1); color:#fff; border-color:var(--a1); }
+
+  .section { display:none; padding:2rem 1.5rem; max-width:880px; margin:0 auto; }
+  .section.active { display:block; animation:fadeUp .3s ease; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+
+  h2 { font-size:1.4rem; font-weight:800; letter-spacing:-.02em; margin-bottom:.3rem; }
+  .sub { color:var(--muted); font-size:.83rem; margin-bottom:1.8rem; }
+
+  .card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:1.4rem; margin-bottom:1.1rem; }
+  .card-title { font-size:.72rem; font-weight:700; color:var(--hi); text-transform:uppercase; letter-spacing:.06em; margin-bottom:.9rem; }
+
+  .insight { background:linear-gradient(135deg,#141428,#141c28); border:1px solid #303060;
+    border-radius:10px; padding:.9rem 1.1rem; margin:.9rem 0; font-size:.85rem; line-height:1.7; color:#c0c0f0; }
+  .insight strong { color:#fff; }
+
+  .formula { background:#0b0b16; border:1px solid var(--border); border-radius:8px;
+    padding:.7rem 1.1rem; font-family:'JetBrains Mono',monospace; font-size:.88rem; color:var(--a3); margin:.4rem 0; }
+
+  .chart-wrap { background:#0c0c14; border-radius:10px; padding:.9rem; margin:.9rem 0; }
+
+  .slider-group { margin:.7rem 0; }
+  .slider-row { display:flex; align-items:center; gap:.8rem; margin:.45rem 0; flex-wrap:wrap; }
+  .slider-row label { font-size:.8rem; color:var(--muted); min-width:130px; font-family:'JetBrains Mono',monospace; }
+  .slider-row input[type=range] { flex:1; min-width:100px; accent-color:var(--a1); cursor:pointer; }
+  .slider-row .val { font-family:'JetBrains Mono',monospace; font-size:.82rem; color:var(--a3); min-width:55px; text-align:right; }
+
+  .btn-row { display:flex; gap:.4rem; flex-wrap:wrap; margin:.7rem 0; }
+  .btn { padding:.4rem 1rem; background:var(--a1); color:#fff; border:none; border-radius:8px;
+    cursor:pointer; font-family:inherit; font-size:.8rem; font-weight:600; transition:all .2s; }
+  .btn:hover { opacity:.85; }
+  .btn.ghost { background:var(--surface); border:1px solid var(--border); color:var(--text); }
+  .btn.danger { background:#8b2020; }
+  .btn.success { background:#1a5a35; color:var(--a3); border:1px solid #2a7a45; }
+
+  .metrics { display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:.7rem; margin:.8rem 0; }
+  .metric { background:#0c0c14; border:1px solid var(--border); border-radius:10px; padding:.9rem; text-align:center; }
+  .metric .v { font-size:1.5rem; font-weight:900; font-family:'JetBrains Mono',monospace; margin-bottom:.25rem; }
+  .metric .l { font-size:.7rem; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; }
+
+  table { width:100%; border-collapse:collapse; font-size:.82rem; margin:.7rem 0; }
+  th { background:#1a1a2a; color:var(--hi); padding:.55rem .8rem; text-align:left; font-weight:700; font-size:.72rem; text-transform:uppercase; letter-spacing:.05em; }
+  td { padding:.55rem .8rem; border-bottom:1px solid var(--border); }
+  tr:last-child td { border-bottom:none; }
+
+  .tag { display:inline-block; padding:.2rem .65rem; border-radius:100px; font-size:.74rem; font-weight:700; font-family:'JetBrains Mono',monospace; }
+  .tag.b { background:#1a1a40; color:var(--a1); border:1px solid #303060; }
+  .tag.r { background:#3a1a1a; color:var(--a2); border:1px solid #602020; }
+  .tag.g { background:#1a3528; color:var(--a3); border:1px solid #2a5535; }
+  .tag.y { background:#3a2a10; color:var(--a4); border:1px solid #604015; }
+
+  .two { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+  @media(max-width:580px){.two{grid-template-columns:1fr}}
+
+  .badge { display:inline-block; padding:.15rem .6rem; border-radius:100px; font-size:.72rem; font-weight:700;
+    background:linear-gradient(120deg,var(--a1),var(--a3)); color:#fff; margin-left:.4rem; }
+
+  .loss-bar-wrap { display:flex; flex-direction:column; gap:.5rem; margin:.8rem 0; }
+  .loss-bar-row { display:flex; align-items:center; gap:.7rem; }
+  .loss-bar-label { font-size:.78rem; width:60px; font-family:'JetBrains Mono',monospace; color:var(--muted); }
+  .loss-bar-track { flex:1; height:22px; background:#0c0c14; border-radius:6px; overflow:hidden; border:1px solid var(--border); }
+  .loss-bar-fill { height:100%; border-radius:6px; transition:width .4s ease; display:flex; align-items:center; padding-left:8px; font-size:.72rem; font-weight:700; color:#fff; font-family:'JetBrains Mono',monospace; }
+  .loss-bar-num { font-size:.78rem; color:var(--text); width:70px; text-align:right; font-family:'JetBrains Mono',monospace; }
+
+  .vif-meter { display:flex; align-items:center; gap:1rem; margin:.5rem 0; }
+  .vif-meter label { font-size:.82rem; min-width:90px; }
+  .vif-track { flex:1; height:18px; background:#0c0c14; border-radius:9px; overflow:hidden; border:1px solid var(--border); position:relative; }
+  .vif-fill { height:100%; border-radius:9px; transition:width .5s, background .5s; }
+  .vif-val { font-family:'JetBrains Mono',monospace; font-size:.82rem; min-width:50px; text-align:right; }
+  .vif-status { font-size:.75rem; min-width:70px; }
+
+  .r2-viz { display:flex; gap:.5rem; margin:.8rem 0; flex-wrap:wrap; }
+  .r2-box { flex:1; min-width:140px; background:#0c0c14; border:1px solid var(--border); border-radius:10px; padding:.9rem; text-align:center; }
+  .r2-box .big { font-size:1.8rem; font-weight:900; font-family:'JetBrains Mono',monospace; }
+  .r2-box .sm { font-size:.72rem; color:var(--muted); margin-top:.2rem; }
+  .r2-box .verdict { font-size:.78rem; font-weight:700; margin-top:.4rem; padding:.2rem .6rem; border-radius:100px; display:inline-block; }
+
+  .scenario-card { border:1px solid var(--border); border-radius:10px; padding:.9rem; cursor:pointer; transition:all .2s; }
+  .scenario-card:hover { border-color:var(--a1); background:#1a1a28; }
+  .scenario-card.sel { border-color:var(--a1); background:#1a1a30; }
+  .scenario-card h4 { font-size:.82rem; font-weight:700; margin-bottom:.3rem; }
+  .scenario-card p { font-size:.75rem; color:var(--muted); line-height:1.5; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>회귀 핵심 개념 인터랙티브 가이드</h1>
+  <p>슬라이더·버튼을 직접 조작하며 개념을 체감하세요</p>
+</header>
+
+<nav>
+  <button class="active" onclick="show('s1',this)">① 잔차·RSS·OLS</button>
+  <button onclick="show('s2',this)">② MSE vs MAE vs Huber</button>
+  <button onclick="show('s3',this)">③ 다중공선성·VIF</button>
+  <button onclick="show('s4',this)">④ R²·MAE·RMSE 해석</button>
+</nav>
+
+<!-- ============================================================ S1 ============================================================ -->
+<div id="s1" class="section active">
+  <h2>잔차(Residual) · RSS · OLS</h2>
+  <p class="sub">직선을 직접 움직이면서 잔차가 뭔지, RSS가 왜 줄어드는지 체감하세요</p>
+
+  <div class="card">
+    <div class="card-title">💡 개념 흐름</div>
+    <div class="formula">잔차(e) = 실제값(y) − 예측값(ŷ)  &nbsp;← 각 점마다 존재</div>
+    <div class="formula">RSS = Σ e²  &nbsp;← 잔차를 제곱해 모두 더함</div>
+    <div class="formula">OLS = RSS가 최소가 되는 β₀, β₁ 조합</div>
+    <div class="insight">
+      <strong>왜 제곱하나?</strong><br>
+      ① 잔차에는 +와 −가 섞여 있어서 그냥 더하면 상쇄됨 → 제곱하면 모두 양수<br>
+      ② 작은 오차는 작게, 큰 오차는 훨씬 크게 벌점 → 직관적으로 "나쁜 직선"에 큰 패널티<br>
+      ③ 제곱 함수는 매끄럽게 미분 가능 → 수학적으로 최솟값 계산이 쉬움
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🎮 직선을 직접 움직여보세요</div>
+    <div class="slider-group">
+      <div class="slider-row">
+        <label>기울기 β₁</label>
+        <input type="range" id="sl_slope" min="-1" max="5" step="0.1" value="2.3" oninput="updateS1()">
+        <span class="val" id="sv_slope">2.3</span>
+      </div>
+      <div class="slider-row">
+        <label>절편 β₀</label>
+        <input type="range" id="sl_int" min="-8" max="18" step="0.5" value="4" oninput="updateS1()">
+        <span class="val" id="sv_int">4.0</span>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn" onclick="setLine(2.3,4)">⭐ OLS 최적선</button>
+      <button class="btn ghost" onclick="setLine(0.5,8)">나쁜 직선 A</button>
+      <button class="btn ghost" onclick="setLine(4,0)">나쁜 직선 B</button>
+      <button class="btn ghost" onclick="setLine(2.3,12)">나쁜 직선 C</button>
+    </div>
+    <div class="chart-wrap">
+      <canvas id="c_residual" height="240"></canvas>
+    </div>
+    <div class="metrics">
+      <div class="metric">
+        <div class="v" id="m_rss" style="color:var(--a2)">—</div>
+        <div class="l">RSS (↓낮을수록 좋음)</div>
+      </div>
+      <div class="metric">
+        <div class="v" id="m_mae" style="color:var(--a4)">—</div>
+        <div class="l">MAE</div>
+      </div>
+      <div class="metric">
+        <div class="v" id="m_ols_rss" style="color:var(--a3)">—</div>
+        <div class="l">OLS 최솟값</div>
+      </div>
+    </div>
+    <div class="insight" id="s1_msg">슬라이더를 움직여보세요!</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📊 잔차 분포 (0 근처에 고르게 있어야 정상)</div>
+    <div class="chart-wrap">
+      <canvas id="c_resbar" height="140"></canvas>
+    </div>
+    <div class="insight">
+      잔차가 <strong>0을 중심으로 랜덤하게 퍼져 있으면</strong> 좋은 모델.<br>
+      한쪽으로 쏠리면 → 모델이 체계적으로 과대/과소 예측하는 편향(Bias) 존재.
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ S2 ============================================================ -->
+<div id="s2" class="section">
+  <h2>손실함수 비교: MSE vs MAE vs Huber</h2>
+  <p class="sub">이상치(Outlier)를 추가해서 세 손실함수가 얼마나 다르게 반응하는지 직접 보세요</p>
+
+  <div class="card">
+    <div class="card-title">💡 핵심 차이점</div>
+    <table>
+      <tr><th>손실함수</th><th>오차 작을 때</th><th>오차 클 때</th><th>이상치 민감도</th><th>미분 가능?</th></tr>
+      <tr><td><span class="tag b">MSE</span></td><td>e²</td><td>e² → 폭발</td><td style="color:var(--a2)">매우 민감 ⚠️</td><td style="color:var(--a3)">✓ 전체</td></tr>
+      <tr><td><span class="tag r">MAE</span></td><td>|e|</td><td>|e| → 선형</td><td style="color:var(--a3)">강인 ✓</td><td style="color:var(--a2)">✗ 0에서 불가</td></tr>
+      <tr><td><span class="tag g">Huber</span></td><td>e² (MSE처럼)</td><td>|e| (MAE처럼)</td><td style="color:var(--a4)">절충 균형</td><td style="color:var(--a3)">✓ 전체</td></tr>
+    </table>
+    <div class="insight">
+      <strong>MSE가 회귀의 기본 손실함수인 이유:</strong><br>
+      ① 모든 점에서 미분 가능 → 경사하강법이 안정적<br>
+      ② 볼록(Convex) 함수 → 최솟값이 반드시 1개<br>
+      ③ 오차가 정규분포라는 통계 가정과 수학적으로 동일 (MLE = OLS)
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🎮 이상치를 추가/제거해보세요</div>
+    <div class="btn-row">
+      <button class="btn danger" onclick="addOutlier()">이상치 추가 💥</button>
+      <button class="btn ghost" onclick="removeOutlier()">이상치 제거</button>
+      <button class="btn ghost" onclick="resetOutlier()">초기화</button>
+    </div>
+    <div class="insight" id="outlier_count_msg" style="margin-top:0">이상치 0개 — 세 손실함수 값이 비슷합니다.</div>
+    <div class="chart-wrap">
+      <canvas id="c_loss" height="220"></canvas>
+    </div>
+    <div style="margin:.5rem 0 .3rem; font-size:.78rem; color:var(--muted);">각 방법으로 맞춘 회귀선 비교:</div>
+    <div class="loss-bar-wrap" id="loss_bars"></div>
+    <div class="insight">
+      이상치가 생기면 <span style="color:var(--a1)">MSE 직선</span>이 크게 당겨지고,
+      <span style="color:var(--a2)">MAE 직선</span>은 거의 변하지 않으며,
+      <span style="color:var(--a3)">Huber 직선</span>은 중간 정도 반응합니다.<br>
+      <strong>이상치가 많거나 데이터가 노이즈할수록 MAE·Huber가 유리합니다.</strong>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📐 손실함수 모양 비교 (오차 크기별 벌점)</div>
+    <div class="chart-wrap">
+      <canvas id="c_lossshape" height="200"></canvas>
+    </div>
+    <div class="insight">
+      오차가 <strong>±3 이상</strong>일 때 MSE(파랑)는 급격히 치솟지만 MAE(빨강)·Huber(초록)는 완만합니다.<br>
+      이 차이가 이상치 민감도의 원인입니다.
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ S3 ============================================================ -->
+<div id="s3" class="section">
+  <h2>다중공선성(Multicollinearity) · VIF</h2>
+  <p class="sub">변수들 사이 상관이 높아지면 회귀계수(β)가 어떻게 불안정해지는지 확인하세요</p>
+
+  <div class="card">
+    <div class="card-title">💡 핵심 개념</div>
+    <div class="insight">
+      <strong>다중공선성이란?</strong> 독립변수들끼리 서로 높은 상관관계를 가질 때 발생하는 문제입니다.<br><br>
+      예: TV광고비와 라디오광고비가 거의 같은 패턴으로 움직인다면,<br>
+      "매출 증가가 TV 때문인가, 라디오 때문인가?"를 구분할 수 없음 → β 값이 불안정하게 흔들림<br><br>
+      <strong>VIF(분산팽창지수)</strong> = 다중공선성의 심각도를 수치로 나타낸 지표
+    </div>
+    <table>
+      <tr><th>VIF 값</th><th>해석</th><th>조치</th></tr>
+      <tr><td style="color:var(--a3)">< 5</td><td>양호 ✓</td><td>그대로 사용</td></tr>
+      <tr><td style="color:var(--a4)">5 ~ 10</td><td>주의 필요</td><td>상황 모니터링</td></tr>
+      <tr><td style="color:var(--a2)">> 10</td><td>심각한 다중공선성 ⚠️</td><td>변수 제거 or Ridge 적용</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🎮 변수 간 상관관계를 조절해보세요</div>
+    <div class="slider-group">
+      <div class="slider-row">
+        <label>X₁↔X₂ 상관계수</label>
+        <input type="range" id="sl_corr" min="0" max="0.99" step="0.01" value="0.1" oninput="updateS3()">
+        <span class="val" id="sv_corr">0.10</span>
+      </div>
+    </div>
+    <div class="card-title" style="margin-top:.8rem">VIF 측정값</div>
+    <div id="vif_meters"></div>
+    <div class="chart-wrap">
+      <canvas id="c_coeff" height="220"></canvas>
+    </div>
+    <div class="insight" id="s3_msg">상관계수가 높아질수록 β값이 크게 흔들립니다.</div>
+    <div class="insight">
+      <strong>왜 β가 흔들리나?</strong><br>
+      X₁과 X₂가 비슷한 정보를 담으면, 모델은 β₁=10, β₂=0 으로 해도, β₁=0, β₂=10 으로 해도 예측이 비슷합니다.
+      즉, 정답이 무수히 많아져서 데이터가 조금만 바뀌어도 β가 크게 달라집니다.<br><br>
+      <strong>해결책: Ridge(L2 규제)</strong> → β² 에 벌점을 줘서 β값이 극단적으로 커지지 못하게 잡아줌
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📊 상관행렬 히트맵</div>
+    <div class="chart-wrap">
+      <canvas id="c_heatmap" height="200"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ S4 ============================================================ -->
+<div id="s4" class="section">
+  <h2>R² · MAE · RMSE 해석</h2>
+  <p class="sub">시나리오를 골라 수치와 잔차 그래프를 함께 보면서 모델을 진단하는 법을 배우세요</p>
+
+  <div class="card">
+    <div class="card-title">💡 각 지표가 말해주는 것</div>
+    <table>
+      <tr><th>지표</th><th>질문</th><th>범위/기준</th><th>주의점</th></tr>
+      <tr><td><span class="tag b">R²</span></td><td>분산을 얼마나 설명?</td><td>0~1, 0.7↑ 양호</td><td>Train↑ Test↓이면 과적합</td></tr>
+      <tr><td><span class="tag y">MAE</span></td><td>평균 몇 단위 틀림?</td><td>0에 가까울수록↑</td><td>이상치 영향 적음</td></tr>
+      <tr><td><span class="tag r">RMSE</span></td><td>큰 오차가 있나?</td><td>RMSE ≥ MAE</td><td>차이가 클수록 이상치 의심</td></tr>
+    </table>
+    <div class="insight">
+      <strong>핵심 관계:</strong> 수학적으로 항상 RMSE ≥ MAE<br>
+      RMSE − MAE 차이가 크다 = 큰 오차(이상치)가 일부 존재한다는 신호
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🎮 시나리오를 선택하세요</div>
+    <div class="two" id="scenario_cards">
+      <div class="scenario-card sel" onclick="setScenario(0,this)">
+        <h4>✅ 좋은 모델</h4>
+        <p>R² 높음 + 잔차 랜덤 → 이상적인 상태</p>
+      </div>
+      <div class="scenario-card" onclick="setScenario(1,this)">
+        <h4>⚠️ 이상치 있음</h4>
+        <p>R²는 괜찮지만 RMSE ≫ MAE → 큰 오차 몇 개 존재</p>
+      </div>
+      <div class="scenario-card" onclick="setScenario(2,this)">
+        <h4>📉 과적합</h4>
+        <p>Train R² 높고 Test R² 낮음 → 새 데이터 일반화 실패</p>
+      </div>
+      <div class="scenario-card" onclick="setScenario(3,this)">
+        <h4>〰️ 비선형 구조</h4>
+        <p>R² 낮음 + 잔차에 패턴 → 다항회귀 필요</p>
+      </div>
+    </div>
+
+    <div class="metrics" style="margin-top:1rem">
+      <div class="metric">
+        <div class="v" id="m4_r2" style="color:var(--a1)">—</div>
+        <div class="l">R² (Train)</div>
+      </div>
+      <div class="metric">
+        <div class="v" id="m4_r2t" style="color:var(--hi)">—</div>
+        <div class="l">R² (Test)</div>
+      </div>
+      <div class="metric">
+        <div class="v" id="m4_mae" style="color:var(--a4)">—</div>
+        <div class="l">MAE</div>
+      </div>
+      <div class="metric">
+        <div class="v" id="m4_rmse" style="color:var(--a2)">—</div>
+        <div class="l">RMSE</div>
+      </div>
+    </div>
+
+    <div class="insight" id="s4_verdict">시나리오를 선택하세요.</div>
+
+    <div class="chart-wrap">
+      <canvas id="c_scatter4" height="200"></canvas>
+    </div>
+    <div style="font-size:.78rem; color:var(--muted); margin:.5rem 0 .3rem">잔차 산점도 (패턴 있으면 문제)</div>
+    <div class="chart-wrap">
+      <canvas id="c_resid4" height="150"></canvas>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📋 잔차 패턴별 해결책</div>
+    <table>
+      <tr><th>잔차 패턴</th><th>의미</th><th>해결책</th></tr>
+      <tr><td>랜덤 (패턴 없음)</td><td>모델 적절 ✅</td><td>유지</td></tr>
+      <tr><td>U자 / S자 곡선</td><td>비선형 구조 누락</td><td>PolynomialFeatures, Tree 계열</td></tr>
+      <tr><td>부채꼴 (퍼짐 증가)</td><td>이분산성</td><td>로그 변환, 가중회귀(WLS)</td></tr>
+      <tr><td>일부만 크게 튐</td><td>이상치 존재</td><td>Huber Loss, RANSAC</td></tr>
+    </table>
+  </div>
+</div>
+
+<script>
+// ===================== SHARED DATA =====================
+const seed = (s) => { let x=s; return ()=>{x=Math.sin(x)*10000; return x-Math.floor(x);} };
+const rng = seed(42);
+const N = 25;
+const xs = Array.from({length:N},(_,i)=>i*0.4);
+const ys = xs.map(x => 2.3*x + 4 + (rng()-0.5)*4);
+
+function lsq(xArr,yArr){
+  const n=xArr.length, mx=xArr.reduce((a,b)=>a+b)/n, my=yArr.reduce((a,b)=>a+b)/n;
+  const num=xArr.reduce((s,x,i)=>s+(x-mx)*(yArr[i]-my),0);
+  const den=xArr.reduce((s,x)=>s+(x-mx)**2,0);
+  const b1=num/den, b0=my-b1*mx;
+  return {b0,b1};
+}
+const {b0:OLS_B0,b1:OLS_B1}=lsq(xs,ys);
+const OLS_RSS=ys.reduce((s,y,i)=>s+(y-(OLS_B1*xs[i]+OLS_B0))**2,0);
+
+function calcMetrics(b0,b1,xArr,yArr){
+  const res=yArr.map((y,i)=>y-(b1*xArr[i]+b0));
+  const rss=res.reduce((s,e)=>s+e*e,0);
+  const mae=res.reduce((s,e)=>s+Math.abs(e),0)/res.length;
+  const rmse=Math.sqrt(rss/res.length);
+  const my=yArr.reduce((a,b)=>a+b)/yArr.length;
+  const ss_tot=yArr.reduce((s,y)=>s+(y-my)**2,0);
+  const r2=1-rss/ss_tot;
+  return {res,rss,mae,rmse,r2};
+}
+
+function fmt(n,d=2){return n.toFixed(d);}
+
+function show(id,btn){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ===================== CHART INSTANCES =====================
+let ch={};
+function mkChart(id,type,data,opts={}){
+  const ctx=document.getElementById(id).getContext('2d');
+  if(ch[id]) ch[id].destroy();
+  ch[id]=new Chart(ctx,{type,data,options:{
+    responsive:true, maintainAspectRatio:true,
+    plugins:{legend:{labels:{color:'#a0a0c0',font:{size:11}}}},
+    scales:{x:{ticks:{color:'#6060a0'},grid:{color:'#1e1e2e'}},
+            y:{ticks:{color:'#6060a0'},grid:{color:'#1e1e2e'}}},
+    ...opts
+  }});
+  return ch[id];
+}
+
+// ===================== SECTION 1 =====================
+let s1_b0=4, s1_b1=2.3;
+
+function updateS1(){
+  s1_b1=+document.getElementById('sl_slope').value;
+  s1_b0=+document.getElementById('sl_int').value;
+  document.getElementById('sv_slope').textContent=fmt(s1_b1);
+  document.getElementById('sv_int').textContent=fmt(s1_b0);
+  drawS1();
+}
+
+function setLine(b1,b0){
+  s1_b1=b1; s1_b0=b0;
+  document.getElementById('sl_slope').value=b1;
+  document.getElementById('sl_int').value=b0;
+  document.getElementById('sv_slope').textContent=fmt(b1);
+  document.getElementById('sv_int').textContent=fmt(b0);
+  drawS1();
+}
+
+function drawS1(){
+  const {res,rss,mae}=calcMetrics(s1_b0,s1_b1,xs,ys);
+  document.getElementById('m_rss').textContent=fmt(rss,1);
+  document.getElementById('m_mae').textContent=fmt(mae,2);
+  document.getElementById('m_ols_rss').textContent=fmt(OLS_RSS,1);
+
+  const isOLS = Math.abs(s1_b1-OLS_B1)<0.11 && Math.abs(s1_b0-OLS_B0)<0.6;
+  const pct = Math.min(100, ((rss-OLS_RSS)/OLS_RSS*100));
+  document.getElementById('s1_msg').innerHTML = isOLS
+    ? `<strong>✅ OLS 최적선!</strong> RSS = ${fmt(rss,1)} — 이보다 낮게 만드는 직선은 존재하지 않습니다.`
+    : `현재 RSS = <strong>${fmt(rss,1)}</strong> &nbsp;|&nbsp; OLS 최솟값보다 <strong style="color:var(--a2)">${fmt(pct,0)}% 높음</strong><br>⭐ OLS 최적선 버튼을 눌러 최솟값과 비교해보세요.`;
+
+  // Scatter + residual lines
+  const lineY=xs.map(x=>s1_b1*x+s1_b0);
+  const datasets=[
+    {label:'데이터 포인트',data:xs.map((x,i)=>({x,y:ys[i]})),type:'scatter',
+     backgroundColor:'rgba(124,111,255,0.7)',pointRadius:5},
+    {label:'회귀선',data:xs.map((x,i)=>({x,y:lineY[i]})),type:'line',
+     borderColor:'#ff6b6b',borderWidth:2,pointRadius:0,fill:false},
+  ];
+  // Add residual segments
+  res.forEach((e,i)=>{
+    datasets.push({
+      label:i===0?'잔차':undefined,showInLegend:i===0,
+      data:[{x:xs[i],y:ys[i]},{x:xs[i],y:lineY[i]}],
+      type:'line',borderColor:e>0?'rgba(67,233,142,0.5)':'rgba(255,107,107,0.5)',
+      borderWidth:1.5,pointRadius:0,fill:false,borderDash:[3,2]
+    });
+  });
+
+  mkChart('c_residual','scatter',{datasets},{
+    plugins:{legend:{display:false}},
+    scales:{x:{title:{display:true,text:'X',color:'#6060a0'}},
+            y:{title:{display:true,text:'Y',color:'#6060a0'}}}
+  });
+
+  // Residual bar
+  mkChart('c_resbar','bar',{
+    labels:xs.map(x=>fmt(x,1)),
+    datasets:[{
+      label:'잔차 (실제-예측)',
+      data:res,
+      backgroundColor:res.map(e=>e>0?'rgba(67,233,142,0.7)':'rgba(255,107,107,0.7)'),
+      borderRadius:3
+    }]
+  },{
+    plugins:{legend:{labels:{color:'#a0a0c0'}}},
+    scales:{x:{display:false},y:{title:{display:true,text:'잔차',color:'#6060a0'},
+      ticks:{color:'#6060a0'},grid:{color:'#1e1e2e'},
+      afterBuildTicks:axis=>{},
+      suggestedMin:-6,suggestedMax:6}}
+  });
+}
+
+// ===================== SECTION 2 =====================
+const s2_rng = seed(99);
+const base_xs = Array.from({length:20},(_,i)=>i*0.5);
+const base_ys = base_xs.map(x=>1.5*x+3+(s2_rng()-0.5)*2);
+let outlier_xs=[...base_xs], outlier_ys=[...base_ys];
+
+function huber(e,delta=1.5){return Math.abs(e)<=delta ? 0.5*e*e : delta*(Math.abs(e)-0.5*delta);}
+
+function lsqRobust(xArr,yArr,method){
+  // Iteratively reweighted - simplified: use standard for MSE, median for MAE, huber approx
+  if(method==='mse') return lsq(xArr,yArr);
+  if(method==='mae'){
+    // LAD approximation via IRLS
+    let {b0,b1}=lsq(xArr,yArr);
+    for(let iter=0;iter<30;iter++){
+      const res=yArr.map((y,i)=>y-(b1*xArr[i]+b0));
+      const w=res.map(e=>1/Math.max(Math.abs(e),0.01));
+      const sw=w.reduce((a,b)=>a+b);
+      const mx=xArr.reduce((s,x,i)=>s+w[i]*x,0)/sw;
+      const my=yArr.reduce((s,y,i)=>s+w[i]*y,0)/sw;
+      const num=xArr.reduce((s,x,i)=>s+w[i]*(x-mx)*(yArr[i]-my),0);
+      const den=xArr.reduce((s,x,i)=>s+w[i]*(x-mx)**2,0);
+      b1=num/den; b0=my-b1*mx;
+    }
+    return {b0,b1};
+  }
+  if(method==='huber'){
+    let {b0,b1}=lsq(xArr,yArr);
+    const d=1.5;
+    for(let iter=0;iter<30;iter++){
+      const res=yArr.map((y,i)=>y-(b1*xArr[i]+b0));
+      const w=res.map(e=>Math.abs(e)<=d?1:d/Math.abs(e));
+      const sw=w.reduce((a,b)=>a+b);
+      const mx=xArr.reduce((s,x,i)=>s+w[i]*x,0)/sw;
+      const my=yArr.reduce((s,y,i)=>s+w[i]*y,0)/sw;
+      const num=xArr.reduce((s,x,i)=>s+w[i]*(x-mx)*(yArr[i]-my),0);
+      const den=xArr.reduce((s,x,i)=>s+w[i]*(x-mx)**2,0);
+      b1=num/den; b0=my-b1*mx;
+    }
+    return {b0,b1};
+  }
+}
+
+function addOutlier(){
+  const ox = 2 + Math.random()*6;
+  const oy = -8 + Math.random()*3;
+  outlier_xs.push(ox); outlier_ys.push(oy);
+  drawS2();
+}
+function removeOutlier(){
+  if(outlier_xs.length>base_xs.length){outlier_xs.pop();outlier_ys.pop();}
+  drawS2();
+}
+function resetOutlier(){outlier_xs=[...base_xs];outlier_ys=[...base_ys];drawS2();}
+
+function drawS2(){
+  const n_out = outlier_xs.length - base_xs.length;
+  const mse_fit=lsqRobust(outlier_xs,outlier_ys,'mse');
+  const mae_fit=lsqRobust(outlier_xs,outlier_ys,'mae');
+  const hub_fit=lsqRobust(outlier_xs,outlier_ys,'huber');
+  const xr=[0,10];
+
+  const mse_loss = outlier_ys.reduce((s,y,i)=>s+(y-(mse_fit.b1*outlier_xs[i]+mse_fit.b0))**2,0);
+  const mae_loss = outlier_ys.reduce((s,y,i)=>s+Math.abs(y-(mae_fit.b1*outlier_xs[i]+mae_fit.b0)),0);
+  const hub_loss = outlier_ys.reduce((s,y,i)=>s+huber(y-(hub_fit.b1*outlier_xs[i]+hub_fit.b0)),0);
+
+  const maxLoss = Math.max(mse_loss,mae_loss,hub_loss,1);
+
+  document.getElementById('outlier_count_msg').innerHTML =
+    n_out===0
+    ? '이상치 0개 — 세 손실함수 값이 비슷합니다.'
+    : `이상치 <strong style="color:var(--a2)">${n_out}개</strong> 추가됨 — MSE 직선이 크게 끌려가는 것을 확인하세요!`;
+
+  // Scatter
+  const out_pts = Array.from({length:n_out},(_,i)=>({x:outlier_xs[base_xs.length+i],y:outlier_ys[base_xs.length+i]}));
+  mkChart('c_loss','scatter',{datasets:[
+    {label:'일반 데이터',data:base_xs.map((x,i)=>({x,y:base_ys[i]})),backgroundColor:'rgba(160,160,255,0.6)',pointRadius:5},
+    {label:'이상치',data:out_pts,backgroundColor:'rgba(255,80,80,0.9)',pointRadius:8,pointStyle:'triangle'},
+    {label:'MSE 직선',data:xr.map(x=>({x,y:mse_fit.b1*x+mse_fit.b0})),type:'line',borderColor:'#7c6fff',borderWidth:2.5,pointRadius:0},
+    {label:'MAE 직선',data:xr.map(x=>({x,y:mae_fit.b1*x+mae_fit.b0})),type:'line',borderColor:'#ff6b6b',borderWidth:2.5,pointRadius:0,borderDash:[5,3]},
+    {label:'Huber 직선',data:xr.map(x=>({x,y:hub_fit.b1*x+hub_fit.b0})),type:'line',borderColor:'#3ecf8e',borderWidth:2.5,pointRadius:0,borderDash:[2,2]},
+  ]},{plugins:{legend:{labels:{color:'#a0a0c0',font:{size:11}}}},
+     scales:{x:{ticks:{color:'#6060a0'},grid:{color:'#1e1e2e'},min:0,max:10},
+             y:{ticks:{color:'#6060a0'},grid:{color:'#1e1e2e'}}}});
+
+  // Loss bars
+  const bars = [
+    {label:'MSE',val:mse_loss,color:'#7c6fff'},
+    {label:'MAE',val:mae_loss,color:'#ff6b6b'},
+    {label:'Huber',val:hub_loss,color:'#3ecf8e'},
+  ];
+  document.getElementById('loss_bars').innerHTML = bars.map(b=>{
+    const w = Math.min(95,(b.val/maxLoss)*95);
+    return `<div class="loss-bar-row">
+      <span class="loss-bar-label">${b.label}</span>
+      <div class="loss-bar-track"><div class="loss-bar-fill" style="width:${w}%;background:${b.color}">${fmt(b.val,1)}</div></div>
+    </div>`;
+  }).join('');
+
+  // Loss shape chart
+  const errs=Array.from({length:100},(_,i)=>-5+i*0.1);
+  mkChart('c_lossshape','line',{
+    labels:errs.map(e=>fmt(e,1)),
+    datasets:[
+      {label:'MSE (e²)',data:errs.map(e=>e*e),borderColor:'#7c6fff',borderWidth:2,pointRadius:0},
+      {label:'MAE (|e|)',data:errs.map(e=>Math.abs(e)),borderColor:'#ff6b6b',borderWidth:2,pointRadius:0},
+      {label:'Huber',data:errs.map(e=>huber(e)),borderColor:'#3ecf8e',borderWidth:2,pointRadius:0},
+    ]
+  },{scales:{x:{ticks:{color:'#6060a0',maxTicksLimit:11},grid:{color:'#1e1e2e'},title:{display:true,text:'오차 e',color:'#6060a0'}},
+             y:{ticks:{color:'#6060a0'},grid:{color:'#1e1e2e'},max:20,title:{display:true,text:'손실값',color:'#6060a0'}}}});
+}
+
+// ===================== SECTION 3 =====================
+let s3_corr=0.1;
+const s3_rng=seed(77);
+function makeCorrData(r){
+  const n=60;
+  const x1=Array.from({length:n},()=>s3_rng()*4-2);
+  const noise1=Array.from({length:n},()=>s3_rng()*2-1);
+  const x2=x1.map((v,i)=>r*v+Math.sqrt(1-r*r)*noise1[i]);
+  const noise2=Array.from({length:n},()=>(s3_rng()-0.5)*2);
+  const y=x1.map((v,i)=>2*v+3*x2[i]+1.5+noise2[i]);
+  return {x1,x2,y,n};
+}
+
+function calcVIF(corr){
+  // VIF = 1/(1-R²) where R² is the correlation between x1 and x2
+  return 1/(1-corr*corr+0.001);
+}
+
+// Store coefficient estimates across repeated samples to show variance
+function coeffVariance(r){
+  const trials=30;
+  let b1s=[], b2s=[];
+  for(let t=0;t<trials;t++){
+    const rng2=seed(t*13+7);
+    const n=40;
+    const x1=Array.from({length:n},()=>rng2()*4-2);
+    const ni=Array.from({length:n},()=>rng2()*2-1);
+    const x2=x1.map((v,i)=>r*v+Math.sqrt(Math.max(0,1-r*r))*ni[i]);
+    const ny=Array.from({length:n},()=>(rng2()-0.5)*2);
+    const y=x1.map((v,i)=>2*v+3*x2[i]+1+ny[i]);
+    // Multiple regression via normal equations
+    const X=x1.map((v,i)=>[1,v,x2[i]]);
+    // Use simplified 2-variable regression
+    const mx1=x1.reduce((a,b)=>a+b)/n, mx2=x2.reduce((a,b)=>a+b)/n, my=y.reduce((a,b)=>a+b)/n;
+    const s11=x1.reduce((s,v)=>s+(v-mx1)**2,0);
+    const s22=x2.reduce((s,v)=>s+(v-mx2)**2,0);
+    const s12=x1.reduce((s,v,i)=>s+(v-mx1)*(x2[i]-mx2),0);
+    const s1y=x1.reduce((s,v,i)=>s+(v-mx1)*(y[i]-my),0);
+    const s2y=x2.reduce((s,v,i)=>s+(v-mx2)*(y[i]-my),0);
+    const det=s11*s22-s12*s12;
+    if(Math.abs(det)<0.0001) continue;
+    b1s.push((s1y*s22-s2y*s12)/det);
+    b2s.push((s2y*s11-s1y*s12)/det);
+  }
+  return {b1s,b2s};
+}
+
+function updateS3(){
+  s3_corr=+document.getElementById('sl_corr').value;
+  document.getElementById('sv_corr').textContent=fmt(s3_corr,2);
+  drawS3();
+}
+
+function drawS3(){
+  const vif=calcVIF(s3_corr);
+  const {b1s,b2s}=coeffVariance(s3_corr);
+
+  // VIF meters
+  const vars=[{name:'X₁',vif},{name:'X₂',vif}];
+  document.getElementById('vif_meters').innerHTML=vars.map(v=>{
+    const pct=Math.min(100,(v.vif/20)*100);
+    const col=v.vif<5?'#3ecf8e':v.vif<10?'#f7b731':'#ff6b6b';
+    const status=v.vif<5?'✅ 양호':v.vif<10?'⚠️ 주의':'🚨 심각';
+    return `<div class="vif-meter">
+      <label style="color:#a0a0c0">${v.name} VIF</label>
+      <div class="vif-track"><div class="vif-fill" style="width:${pct}%;background:${col}"></div></div>
+      <span class="vif-val" style="color:${col}">${fmt(v.vif,1)}</span>
+      <span class="vif-status" style="color:${col}">${status}</span>
+    </div>`;
+  }).join('');
+
+  // Message
+  document.getElementById('s3_msg').innerHTML = vif<5
+    ? `<strong>상관계수 ${fmt(s3_corr,2)}</strong> → VIF ${fmt(vif,1)} — β계수가 안정적입니다. 각 변수의 독립적 영향력을 신뢰할 수 있습니다.`
+    : vif<10
+    ? `<strong>상관계수 ${fmt(s3_corr,2)}</strong> → VIF ${fmt(vif,1)} ⚠️ 계수가 불안정해지기 시작합니다. Ridge 규제 고려를 권장합니다.`
+    : `<strong>상관계수 ${fmt(s3_corr,2)}</strong> → VIF ${fmt(vif,1)} 🚨 심각한 다중공선성! β값이 크게 흔들립니다. <strong>변수 제거 또는 Ridge 필수.</strong>`;
+
+  // Coefficient scatter (30 trials)
+  mkChart('c_coeff','scatter',{datasets:[
+    {label:'β₁ 추정값 (진짜: 2)',data:b1s.map((v,i)=>({x:i,y:v})),backgroundColor:'rgba(124,111,255,0.6)',pointRadius:5},
+    {label:'β₂ 추정값 (진짜: 3)',data:b2s.map((v,i)=>({x:i,y:v})),backgroundColor:'rgba(62,207,142,0.6)',pointRadius:5},
+    {label:'β₁ 참값',data:[{x:0,y:2},{x:29,y:2}],type:'line',borderColor:'rgba(124,111,255,0.4)',borderWidth:1.5,pointRadius:0,borderDash:[4,2]},
+    {label:'β₂ 참값',data:[{x:0,y:3},{x:29,y:3}],type:'line',borderColor:'rgba(62,207,142,0.4)',borderWidth:1.5,pointRadius:0,borderDash:[4,2]},
+  ]},{plugins:{legend:{labels:{color:'#a0a0c0',font:{size:11}}}},
+     scales:{x:{ticks:{display:false},title:{display:true,text:'30번 반복 시뮬레이션',color:'#6060a0'},grid:{color:'#1e1e2e'}},
+             y:{ticks:{color:'#6060a0'},grid:{color:'#1e1e2e'},title:{display:true,text:'β 추정값',color:'#6060a0'}}}});
+
+  // Heatmap (simple 2x2)
+  const d=document.getElementById('c_heatmap');
+  const ctx=d.getContext('2d');
+  if(ch['c_heatmap']){ch['c_heatmap'].destroy();}
+  ctx.clearRect(0,0,d.width,d.height);
+  const labels=['X₁','X₂','Y'];
+  const corrs=[[1,s3_corr,0.8],[s3_corr,1,0.75],[0.8,0.75,1]];
+  mkChart('c_heatmap','bar',{
+    labels:['X₁↔X₂ 상관','X₁↔Y 상관','X₂↔Y 상관'],
+    datasets:[{
+      data:[Math.abs(s3_corr),0.8,0.75],
+      backgroundColor:[
+        `rgba(${Math.floor(255*Math.abs(s3_corr))},${Math.floor(100*(1-Math.abs(s3_corr)))},100,0.8)`,
+        'rgba(100,200,100,0.8)','rgba(100,180,200,0.8)'
+      ],
+      borderRadius:6
+    }]
+  },{plugins:{legend:{display:false}},
+    scales:{x:{ticks:{color:'#a0a0c0'},grid:{color:'#1e1e2e'}},
+            y:{min:0,max:1,ticks:{color:'#6060a0'},grid:{color:'#1e1e2e'},title:{display:true,text:'|상관계수|',color:'#6060a0'}}}});
+}
+
+// ===================== SECTION 4 =====================
+const s4_rng=seed(55);
+const s4N=40;
+const s4x=Array.from({length:s4N},(_,i)=>i*0.25);
+
+const scenarios=[
+  {
+    name:'좋은 모델',
+    gen:()=>{
+      const y=s4x.map(x=>1.8*x+2+(s4_rng()-0.5)*1.2);
+      return {y,b0:2,b1:1.8};
+    },
+    r2_tr:0.94, r2_te:0.91, verdict:`<strong style="color:var(--a3)">✅ 좋은 모델</strong><br>
+    R² 높고 잔차 랜덤 → 이상적입니다.<br>
+    RMSE ≈ MAE → 이상치 없음. 이 상태를 목표로 하세요.`
+  },
+  {
+    name:'이상치 있음',
+    gen:()=>{
+      const y=s4x.map(x=>1.8*x+2+(s4_rng()-0.5)*1.2);
+      y[5]-=12; y[20]+=10; y[33]-=9;
+      return {y,b0:2,b1:1.8};
+    },
+    r2_tr:0.82, r2_te:0.79, verdict:`<strong style="color:var(--a4)">⚠️ 이상치 존재</strong><br>
+    R²는 나쁘지 않지만 <strong>RMSE ≫ MAE</strong> — 큰 오차(이상치)가 일부 있다는 신호입니다.<br>
+    해결책: Huber Loss, RANSAC, 이상치 제거/대체`
+  },
+  {
+    name:'과적합',
+    gen:()=>{
+      // 훈련 데이터: 매우 잘 맞는 고차 다항
+      const y=s4x.map(x=>1.8*x+2+(s4_rng()-0.5)*0.3);
+      return {y,b0:2,b1:1.8};
+    },
+    r2_tr:0.99, r2_te:0.41, verdict:`<strong style="color:var(--a2)">📉 과적합 (Overfitting)</strong><br>
+    Train R² = 0.99 vs Test R² = 0.41 — <strong>큰 차이</strong>가 과적합의 핵심 신호입니다.<br>
+    모델이 훈련 데이터를 "외워버려서" 새 데이터에 일반화 실패.<br>
+    해결책: 규제(Ridge/Lasso), 더 많은 데이터, 피처 줄이기`
+  },
+  {
+    name:'비선형 구조',
+    gen:()=>{
+      const y=s4x.map(x=>-0.3*x*x+2*x+1+(s4_rng()-0.5)*1.5);
+      return {y,b0:1,b1:1.2}; // wrong: linear fit on curve
+    },
+    r2_tr:0.58, r2_te:0.52, verdict:`<strong style="color:var(--hi)">〰️ 비선형 구조 누락</strong><br>
+    R²가 낮고 <strong>잔차 산점도에 U자 패턴</strong>이 보임 → 모델이 곡선 구조를 놓치고 있습니다.<br>
+    해결책: PolynomialFeatures(x²항 추가), Tree 기반 모델`
+  },
+];
+
+let s4_cur=0;
+function setScenario(idx,el){
+  s4_cur=idx;
+  document.querySelectorAll('.scenario-card').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');
+  drawS4();
+}
+
+function drawS4(){
+  const sc=scenarios[s4_cur];
+  const {y,b0,b1}=sc.gen();
+  const {res,rss,mae,rmse,r2}=calcMetrics(b0,b1,s4x,y);
+  document.getElementById('m4_r2').textContent=fmt(sc.r2_tr,2);
+  document.getElementById('m4_r2t').textContent=fmt(sc.r2_te,2);
+  document.getElementById('m4_mae').textContent=fmt(mae,2);
+  document.getElementById('m4_rmse').textContent=fmt(rmse,2);
+  document.getElementById('s4_verdict').innerHTML=sc.verdict;
+
+  const lineY=s4x.map(x=>b1*x+b0);
+  mkChart('c_scatter4','scatter',{datasets:[
+    {label:'데이터',data:s4x.map((x,i)=>({x,y:y[i]})),backgroundColor:'rgba(124,111,255,0.6)',pointRadius:4},
+    {label:'회귀선',data:s4x.map((x,i)=>({x,y:lineY[i]})),type:'line',borderColor:'#ff6b6b',borderWidth:2,pointRadius:0},
+  ]},{plugins:{legend:{labels:{color:'#a0a0c0'}}},
+     scales:{x:{ticks:{color:'#6060a0'},grid:{color:'#1e1e2e'}},y:{ticks:{color:'#6060a0'},grid:{color:'#1e1e2e'}}}});
+
+  // Residual scatter
+  mkChart('c_resid4','scatter',{datasets:[
+    {label:'잔차',data:s4x.map((x,i)=>({x,y:res[i]})),
+     backgroundColor:res.map(e=>e>0?'rgba(62,207,142,0.6)':'rgba(255,107,107,0.6)'),pointRadius:5},
+    {label:'y=0',data:[{x:0,y:0},{x:s4x[s4x.length-1],y:0}],type:'line',
+     borderColor:'rgba(255,255,255,0.2)',borderWidth:1.5,pointRadius:0},
+  ]},{plugins:{legend:{display:false}},
+     scales:{x:{ticks:{color:'#6060a0'},grid:{color:'#1e1e2e'},title:{display:true,text:'X',color:'#6060a0'}},
+             y:{ticks:{color:'#6060a0'},grid:{color:'#1e1e2e'},title:{display:true,text:'잔차',color:'#6060a0'}}}});
+}
+
+// ===================== INIT =====================
+drawS1();
+drawS2();
+drawS3();
+drawS4();
+</script>
+</body>
+</html>
