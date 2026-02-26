@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -la \"$LOCALAPPDATA\")",
+      "Bash(where antigravity)",
+      "Bash(ls -la \"$LOCALAPPDATA/Programs/Antigravity\")",
+      "Bash(ls -la \"$APPDATA/Antigravity\")",
+      "Bash(ls -la \"$APPDATA/Antigravity/User\")",
+      "Read(//c/Users/gorhk/AppData/Roaming/Antigravity/User/**)",
+      "Bash(echo $VSCODE_INJECTION)",
+      "Bash(ls -lt \"$APPDATA/Antigravity/logs\")",
+      "Bash(ls -lt \"$APPDATA/Antigravity/logs/\")"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
