@@ -23,3 +23,4 @@ Thumbs.db
 
 # 통계 실습 세션 하위 저장소로 따로 관리하므로 gitignore 추가 260208
 03_Coding_Study/05_Statistics/02_Statistics_Session/02_Statistics_Practice/
+03_Coding_Study/07_AI_Text_Analysis/text-analysis-ml/
