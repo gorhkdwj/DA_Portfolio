@@ -1,0 +1,2151 @@
+2026-03-19,10:55:13 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:13 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:13 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,10:55:13 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3, _arg4):
+ 
+ import numpy as np
+ from sklearn.cluster import KMeans, MiniBatchKMeans
+ 
+ x1 = np.asarray(_arg1, dtype=np.float32)
+ x2 = np.asarray(_arg2, dtype=np.float32)
+ algo = _arg3[0]; k = int(_arg4[0])
+ 
+ X = np.column_stack((x1, x2))
+ n = X.shape[0]; k = max(1, min(k, n))
+ 
+ if algo == 'KMeans':
+     labels = KMeans(n_clusters=k, n_init=5, random_state=59).fit_predict(X)
+ else:
+     labels = MiniBatchKMeans(n_clusters=k, batch_size=20, random_state=59).fit_predict(X)
+ 
+ return labels.tolist()
+
+2026-03-19,10:55:13 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 32.71ms
+2026-03-19,10:55:13 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:13 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:13 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:13 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:13 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:13 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:13 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:13 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:13 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:13 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:13 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:13 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:13 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:13 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,10:55:13 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:13 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,10:55:13 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,10:55:13 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,10:55:13 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,10:55:13 [INFO] (web.py:web:2418): 200 GET /info (::1) 1.57ms
+2026-03-19,10:55:13 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:13 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:13 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:13 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:13 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:13 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:13 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:13 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:13 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:13 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:13 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:13 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:13 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:13 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,10:55:13 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3, _arg4):
+ 
+ import numpy as np
+ from sklearn.cluster import KMeans, MiniBatchKMeans
+ 
+ x1 = np.asarray(_arg1, dtype=np.float32)
+ x2 = np.asarray(_arg2, dtype=np.float32)
+ algo = _arg3[0]; k = int(_arg4[0])
+ 
+ X = np.column_stack((x1, x2))
+ n = X.shape[0]; k = max(1, min(k, n))
+ 
+ if algo == 'KMeans':
+     labels = KMeans(n_clusters=k, n_init=5, random_state=59).fit_predict(X)
+ else:
+     labels = MiniBatchKMeans(n_clusters=k, batch_size=20, random_state=59).fit_predict(X)
+ 
+ return labels.tolist()
+
+2026-03-19,10:55:13 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 30.12ms
+2026-03-19,10:55:14 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:14 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:14 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:14 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:14 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:14 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:14 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:14 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:14 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:14 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:14 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:14 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:14 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:14 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,10:55:14 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:14 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,10:55:14 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,10:55:14 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,10:55:14 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,10:55:14 [INFO] (web.py:web:2418): 200 GET /info (::1) 1.55ms
+2026-03-19,10:55:14 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:14 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:14 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:14 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:14 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:14 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:14 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:14 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:14 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:14 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:14 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:14 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:14 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:14 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,10:55:14 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3, _arg4):
+ 
+ import numpy as np
+ from sklearn.cluster import KMeans, MiniBatchKMeans
+ 
+ x1 = np.asarray(_arg1, dtype=np.float32)
+ x2 = np.asarray(_arg2, dtype=np.float32)
+ algo = _arg3[0]; k = int(_arg4[0])
+ 
+ X = np.column_stack((x1, x2))
+ n = X.shape[0]; k = max(1, min(k, n))
+ 
+ if algo == 'KMeans':
+     labels = KMeans(n_clusters=k, n_init=5, random_state=59).fit_predict(X)
+ else:
+     labels = MiniBatchKMeans(n_clusters=k, batch_size=20, random_state=59).fit_predict(X)
+ 
+ return labels.tolist()
+
+2026-03-19,10:55:14 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 37.94ms
+2026-03-19,10:55:14 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:14 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:14 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:14 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:14 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:14 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:14 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:14 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:14 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:14 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:14 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:14 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:14 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:14 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,10:55:14 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:14 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,10:55:14 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,10:55:14 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,10:55:14 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,10:55:14 [INFO] (web.py:web:2418): 200 GET /info (::1) 1.54ms
+2026-03-19,10:55:14 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:14 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:14 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:14 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:14 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:14 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:14 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:14 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:14 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:14 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:14 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:14 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:14 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:14 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,10:55:14 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3, _arg4):
+ 
+ import numpy as np
+ from sklearn.cluster import KMeans, MiniBatchKMeans
+ 
+ x1 = np.asarray(_arg1, dtype=np.float32)
+ x2 = np.asarray(_arg2, dtype=np.float32)
+ algo = _arg3[0]; k = int(_arg4[0])
+ 
+ X = np.column_stack((x1, x2))
+ n = X.shape[0]; k = max(1, min(k, n))
+ 
+ if algo == 'KMeans':
+     labels = KMeans(n_clusters=k, n_init=5, random_state=59).fit_predict(X)
+ else:
+     labels = MiniBatchKMeans(n_clusters=k, batch_size=20, random_state=59).fit_predict(X)
+ 
+ return labels.tolist()
+
+2026-03-19,10:55:14 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 36.90ms
+2026-03-19,10:55:14 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:14 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:14 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:14 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:14 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:14 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:14 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:14 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:14 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:14 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:14 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:14 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:14 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:14 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,10:55:14 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:14 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,10:55:14 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,10:55:14 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,10:55:14 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,10:55:14 [INFO] (web.py:web:2418): 200 GET /info (::1) 2.07ms
+2026-03-19,10:55:14 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:14 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:14 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:14 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:14 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:14 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:14 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:14 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:14 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:14 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:14 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:14 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:14 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:14 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,10:55:14 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3, _arg4):
+ 
+ import numpy as np
+ from sklearn.cluster import KMeans, MiniBatchKMeans
+ 
+ x1 = np.asarray(_arg1, dtype=np.float32)
+ x2 = np.asarray(_arg2, dtype=np.float32)
+ algo = _arg3[0]; k = int(_arg4[0])
+ 
+ X = np.column_stack((x1, x2))
+ n = X.shape[0]; k = max(1, min(k, n))
+ 
+ if algo == 'KMeans':
+     labels = KMeans(n_clusters=k, n_init=5, random_state=59).fit_predict(X)
+ else:
+     labels = MiniBatchKMeans(n_clusters=k, batch_size=20, random_state=59).fit_predict(X)
+ 
+ return labels.tolist()
+
+2026-03-19,10:55:14 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 37.31ms
+2026-03-19,10:55:14 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:14 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:14 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:14 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:14 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:14 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:14 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:14 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:14 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:14 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:14 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:14 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:14 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:14 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,10:55:14 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:14 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,10:55:14 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,10:55:14 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,10:55:14 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,10:55:14 [INFO] (web.py:web:2418): 200 GET /info (::1) 1.54ms
+2026-03-19,10:55:14 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:14 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:14 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:14 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:14 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:14 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:14 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:14 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:14 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:14 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:14 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:14 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:14 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:15 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,10:55:15 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3, _arg4):
+ 
+ import numpy as np
+ from sklearn.cluster import KMeans, MiniBatchKMeans
+ 
+ x1 = np.asarray(_arg1, dtype=np.float32)
+ x2 = np.asarray(_arg2, dtype=np.float32)
+ algo = _arg3[0]; k = int(_arg4[0])
+ 
+ X = np.column_stack((x1, x2))
+ n = X.shape[0]; k = max(1, min(k, n))
+ 
+ if algo == 'KMeans':
+     labels = KMeans(n_clusters=k, n_init=5, random_state=59).fit_predict(X)
+ else:
+     labels = MiniBatchKMeans(n_clusters=k, batch_size=20, random_state=59).fit_predict(X)
+ 
+ return labels.tolist()
+
+2026-03-19,10:55:15 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 37.87ms
+2026-03-19,10:55:16 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:16 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:16 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:16 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:16 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:16 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:16 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:16 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:16 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:16 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:16 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:16 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:16 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:16 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,10:55:16 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:16 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,10:55:16 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,10:55:16 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,10:55:16 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,10:55:16 [INFO] (web.py:web:2418): 200 GET /info (::1) 1.54ms
+2026-03-19,10:55:16 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:16 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:16 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:16 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:16 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:16 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:16 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:16 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:16 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:16 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:16 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:16 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:16 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:16 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,10:55:16 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3, _arg4):
+ 
+ import numpy as np
+ from sklearn.cluster import KMeans, MiniBatchKMeans
+ 
+ x1 = np.asarray(_arg1, dtype=np.float32)
+ x2 = np.asarray(_arg2, dtype=np.float32)
+ algo = _arg3[0]; k = int(_arg4[0])
+ 
+ X = np.column_stack((x1, x2))
+ n = X.shape[0]; k = max(1, min(k, n))
+ 
+ if algo == 'KMeans':
+     labels = KMeans(n_clusters=k, n_init=5, random_state=59).fit_predict(X)
+ else:
+     labels = MiniBatchKMeans(n_clusters=k, batch_size=20, random_state=59).fit_predict(X)
+ 
+ return labels.tolist()
+
+2026-03-19,10:55:16 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 47.31ms
+2026-03-19,10:55:16 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:16 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:16 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:16 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:16 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:16 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:16 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:16 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:16 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:16 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:16 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:16 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:16 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:16 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,10:55:16 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:16 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,10:55:16 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,10:55:16 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,10:55:16 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,10:55:16 [INFO] (web.py:web:2418): 200 GET /info (::1) 1.56ms
+2026-03-19,10:55:16 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:16 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:16 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:16 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:16 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:16 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:16 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:16 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:16 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:16 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:16 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:16 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:16 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:16 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,10:55:16 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3, _arg4):
+ 
+ import numpy as np
+ from sklearn.cluster import KMeans, MiniBatchKMeans
+ 
+ x1 = np.asarray(_arg1, dtype=np.float32)
+ x2 = np.asarray(_arg2, dtype=np.float32)
+ algo = _arg3[0]; k = int(_arg4[0])
+ 
+ X = np.column_stack((x1, x2))
+ n = X.shape[0]; k = max(1, min(k, n))
+ 
+ if algo == 'KMeans':
+     labels = KMeans(n_clusters=k, n_init=5, random_state=59).fit_predict(X)
+ else:
+     labels = MiniBatchKMeans(n_clusters=k, batch_size=20, random_state=59).fit_predict(X)
+ 
+ return labels.tolist()
+
+2026-03-19,10:55:16 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 45.27ms
+2026-03-19,10:55:17 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:17 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:17 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:17 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:17 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:17 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:17 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:17 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:17 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:17 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:17 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:17 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:17 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:17 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,10:55:17 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:17 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,10:55:17 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,10:55:17 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,10:55:17 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,10:55:17 [INFO] (web.py:web:2418): 200 GET /info (::1) 1.54ms
+2026-03-19,10:55:17 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:17 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:17 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:17 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:17 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:17 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:17 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:17 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:17 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:17 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:17 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:17 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:17 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:17 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,10:55:17 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3, _arg4):
+ 
+ import numpy as np
+ from sklearn.cluster import KMeans, MiniBatchKMeans
+ 
+ x1 = np.asarray(_arg1, dtype=np.float32)
+ x2 = np.asarray(_arg2, dtype=np.float32)
+ algo = _arg3[0]; k = int(_arg4[0])
+ 
+ X = np.column_stack((x1, x2))
+ n = X.shape[0]; k = max(1, min(k, n))
+ 
+ if algo == 'KMeans':
+     labels = KMeans(n_clusters=k, n_init=5, random_state=59).fit_predict(X)
+ else:
+     labels = MiniBatchKMeans(n_clusters=k, batch_size=20, random_state=59).fit_predict(X)
+ 
+ return labels.tolist()
+
+2026-03-19,10:55:17 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 41.00ms
+2026-03-19,10:55:17 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:17 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:17 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:17 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:17 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:17 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:17 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:17 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:17 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:17 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:17 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:17 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:17 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:17 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,10:55:17 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:17 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,10:55:17 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,10:55:17 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,10:55:17 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,10:55:17 [INFO] (web.py:web:2418): 200 GET /info (::1) 1.53ms
+2026-03-19,10:55:17 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:17 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:17 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:17 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:17 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:17 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:17 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:17 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:17 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:17 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:17 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:17 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:17 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:17 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,10:55:17 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3, _arg4):
+ 
+ import numpy as np
+ from sklearn.cluster import KMeans, MiniBatchKMeans
+ 
+ x1 = np.asarray(_arg1, dtype=np.float32)
+ x2 = np.asarray(_arg2, dtype=np.float32)
+ algo = _arg3[0]; k = int(_arg4[0])
+ 
+ X = np.column_stack((x1, x2))
+ n = X.shape[0]; k = max(1, min(k, n))
+ 
+ if algo == 'KMeans':
+     labels = KMeans(n_clusters=k, n_init=5, random_state=59).fit_predict(X)
+ else:
+     labels = MiniBatchKMeans(n_clusters=k, batch_size=20, random_state=59).fit_predict(X)
+ 
+ return labels.tolist()
+
+2026-03-19,10:55:17 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 41.14ms
+2026-03-19,10:55:20 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:20 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:20 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:20 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:20 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:20 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:20 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:20 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:20 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:20 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:20 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:20 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:20 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:20 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,10:55:20 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:20 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,10:55:20 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,10:55:20 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,10:55:20 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,10:55:20 [INFO] (web.py:web:2418): 200 GET /info (::1) 2.05ms
+2026-03-19,10:55:20 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:20 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:20 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:20 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:20 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:20 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:20 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:20 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:20 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:20 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:20 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:20 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:20 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:20 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,10:55:20 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3, _arg4):
+ 
+ import numpy as np
+ from sklearn.cluster import KMeans, MiniBatchKMeans
+ 
+ x1 = np.asarray(_arg1, dtype=np.float32)
+ x2 = np.asarray(_arg2, dtype=np.float32)
+ algo = _arg3[0]; k = int(_arg4[0])
+ 
+ X = np.column_stack((x1, x2))
+ n = X.shape[0]; k = max(1, min(k, n))
+ 
+ if algo == 'KMeans':
+     labels = KMeans(n_clusters=k, n_init=5, random_state=59).fit_predict(X)
+ else:
+     labels = MiniBatchKMeans(n_clusters=k, batch_size=20, random_state=59).fit_predict(X)
+ 
+ return labels.tolist()
+
+2026-03-19,10:55:20 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 38.36ms
+2026-03-19,10:55:20 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:20 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:20 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:20 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:20 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:20 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:20 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:20 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:20 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:20 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:20 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:20 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:20 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:20 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,10:55:20 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:20 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,10:55:20 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,10:55:20 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,10:55:20 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,10:55:20 [INFO] (web.py:web:2418): 200 GET /info (::1) 1.06ms
+2026-03-19,10:55:20 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:20 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:20 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:20 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:20 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:20 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:20 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:20 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:20 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:20 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:20 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:20 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:20 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:20 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,10:55:20 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3, _arg4):
+ 
+ import numpy as np
+ from sklearn.cluster import KMeans, MiniBatchKMeans
+ 
+ x1 = np.asarray(_arg1, dtype=np.float32)
+ x2 = np.asarray(_arg2, dtype=np.float32)
+ algo = _arg3[0]; k = int(_arg4[0])
+ 
+ X = np.column_stack((x1, x2))
+ n = X.shape[0]; k = max(1, min(k, n))
+ 
+ if algo == 'KMeans':
+     labels = KMeans(n_clusters=k, n_init=5, random_state=59).fit_predict(X)
+ else:
+     labels = MiniBatchKMeans(n_clusters=k, batch_size=20, random_state=59).fit_predict(X)
+ 
+ return labels.tolist()
+
+2026-03-19,10:55:20 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 34.27ms
+2026-03-19,10:55:20 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:20 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:20 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:20 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:20 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:20 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:20 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:20 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:20 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:20 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:20 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:20 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:20 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:20 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,10:55:20 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:20 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,10:55:20 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,10:55:20 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,10:55:20 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,10:55:20 [INFO] (web.py:web:2418): 200 GET /info (::1) 1.54ms
+2026-03-19,10:55:20 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:20 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:20 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:20 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:20 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:20 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:20 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:20 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:20 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:20 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:20 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:20 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:20 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:20 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,10:55:20 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3, _arg4):
+ 
+ import numpy as np
+ from sklearn.cluster import KMeans, MiniBatchKMeans
+ 
+ x1 = np.asarray(_arg1, dtype=np.float32)
+ x2 = np.asarray(_arg2, dtype=np.float32)
+ algo = _arg3[0]; k = int(_arg4[0])
+ 
+ X = np.column_stack((x1, x2))
+ n = X.shape[0]; k = max(1, min(k, n))
+ 
+ if algo == 'KMeans':
+     labels = KMeans(n_clusters=k, n_init=5, random_state=59).fit_predict(X)
+ else:
+     labels = MiniBatchKMeans(n_clusters=k, batch_size=20, random_state=59).fit_predict(X)
+ 
+ return labels.tolist()
+
+2026-03-19,10:55:20 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 40.04ms
+2026-03-19,10:55:20 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:20 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:20 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:20 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:20 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:20 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:20 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:20 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:20 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:20 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:20 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:20 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:20 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:20 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,10:55:20 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:20 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,10:55:20 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,10:55:20 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,10:55:20 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,10:55:20 [INFO] (web.py:web:2418): 200 GET /info (::1) 1.02ms
+2026-03-19,10:55:20 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:20 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:20 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:20 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:20 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:20 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:20 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:20 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:20 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:20 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:20 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:20 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:20 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:20 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,10:55:20 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3, _arg4):
+ 
+ import numpy as np
+ from sklearn.cluster import KMeans, MiniBatchKMeans
+ 
+ x1 = np.asarray(_arg1, dtype=np.float32)
+ x2 = np.asarray(_arg2, dtype=np.float32)
+ algo = _arg3[0]; k = int(_arg4[0])
+ 
+ X = np.column_stack((x1, x2))
+ n = X.shape[0]; k = max(1, min(k, n))
+ 
+ if algo == 'KMeans':
+     labels = KMeans(n_clusters=k, n_init=5, random_state=59).fit_predict(X)
+ else:
+     labels = MiniBatchKMeans(n_clusters=k, batch_size=20, random_state=59).fit_predict(X)
+ 
+ return labels.tolist()
+
+2026-03-19,10:55:20 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 40.02ms
+2026-03-19,10:55:22 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:22 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:22 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:22 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:22 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:22 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:22 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:22 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:22 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:22 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:22 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:22 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:22 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:22 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,10:55:22 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:22 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,10:55:22 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,10:55:22 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,10:55:22 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,10:55:22 [INFO] (web.py:web:2418): 200 GET /info (::1) 1.53ms
+2026-03-19,10:55:22 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:22 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:22 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:22 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:22 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:22 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:22 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:22 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:22 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:22 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:22 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:22 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:22 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:22 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,10:55:22 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3, _arg4):
+ 
+ import numpy as np
+ from sklearn.cluster import KMeans, MiniBatchKMeans
+ 
+ x1 = np.asarray(_arg1, dtype=np.float32)
+ x2 = np.asarray(_arg2, dtype=np.float32)
+ algo = _arg3[0]; k = int(_arg4[0])
+ 
+ X = np.column_stack((x1, x2))
+ n = X.shape[0]; k = max(1, min(k, n))
+ 
+ if algo == 'KMeans':
+     labels = KMeans(n_clusters=k, n_init=5, random_state=59).fit_predict(X)
+ else:
+     labels = MiniBatchKMeans(n_clusters=k, batch_size=20, random_state=59).fit_predict(X)
+ 
+ return labels.tolist()
+
+2026-03-19,10:55:22 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 35.34ms
+2026-03-19,10:55:22 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:22 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:22 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:22 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:22 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:22 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:22 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:22 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:22 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:22 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:22 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:22 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:22 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:22 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,10:55:22 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:22 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,10:55:22 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,10:55:22 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,10:55:22 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,10:55:22 [INFO] (web.py:web:2418): 200 GET /info (::1) 1.65ms
+2026-03-19,10:55:22 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:22 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:22 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:22 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:22 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:22 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:22 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:22 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:22 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:22 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:22 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:22 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:22 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:22 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,10:55:22 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3, _arg4):
+ 
+ import numpy as np
+ from sklearn.cluster import KMeans, MiniBatchKMeans
+ 
+ x1 = np.asarray(_arg1, dtype=np.float32)
+ x2 = np.asarray(_arg2, dtype=np.float32)
+ algo = _arg3[0]; k = int(_arg4[0])
+ 
+ X = np.column_stack((x1, x2))
+ n = X.shape[0]; k = max(1, min(k, n))
+ 
+ if algo == 'KMeans':
+     labels = KMeans(n_clusters=k, n_init=5, random_state=59).fit_predict(X)
+ else:
+     labels = MiniBatchKMeans(n_clusters=k, batch_size=20, random_state=59).fit_predict(X)
+ 
+ return labels.tolist()
+
+2026-03-19,10:55:22 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 34.74ms
+2026-03-19,10:55:22 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:22 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:22 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:22 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:22 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:22 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:22 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:22 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:22 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:22 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:22 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:22 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:22 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:22 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,10:55:22 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:22 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,10:55:22 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,10:55:22 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,10:55:22 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,10:55:22 [INFO] (web.py:web:2418): 200 GET /info (::1) 1.54ms
+2026-03-19,10:55:22 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:22 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:22 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:22 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:22 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:22 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:22 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:22 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:22 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:22 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:22 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:22 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:22 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:22 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,10:55:22 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3, _arg4):
+ 
+ import numpy as np
+ from sklearn.cluster import KMeans, MiniBatchKMeans
+ 
+ x1 = np.asarray(_arg1, dtype=np.float32)
+ x2 = np.asarray(_arg2, dtype=np.float32)
+ algo = _arg3[0]; k = int(_arg4[0])
+ 
+ X = np.column_stack((x1, x2))
+ n = X.shape[0]; k = max(1, min(k, n))
+ 
+ if algo == 'KMeans':
+     labels = KMeans(n_clusters=k, n_init=5, random_state=59).fit_predict(X)
+ else:
+     labels = MiniBatchKMeans(n_clusters=k, batch_size=20, random_state=59).fit_predict(X)
+ 
+ return labels.tolist()
+
+2026-03-19,10:55:22 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 35.93ms
+2026-03-19,10:55:22 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:22 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:22 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:22 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:22 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:22 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:22 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:22 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:22 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:22 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:22 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:22 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:22 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:22 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,10:55:22 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:22 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,10:55:22 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,10:55:22 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,10:55:22 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,10:55:22 [INFO] (web.py:web:2418): 200 GET /info (::1) 1.05ms
+2026-03-19,10:55:22 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:22 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:22 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:22 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:22 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:22 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:22 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:22 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:22 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:22 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:22 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:22 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:22 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:22 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,10:55:22 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3, _arg4):
+ 
+ import numpy as np
+ from sklearn.cluster import KMeans, MiniBatchKMeans
+ 
+ x1 = np.asarray(_arg1, dtype=np.float32)
+ x2 = np.asarray(_arg2, dtype=np.float32)
+ algo = _arg3[0]; k = int(_arg4[0])
+ 
+ X = np.column_stack((x1, x2))
+ n = X.shape[0]; k = max(1, min(k, n))
+ 
+ if algo == 'KMeans':
+     labels = KMeans(n_clusters=k, n_init=5, random_state=59).fit_predict(X)
+ else:
+     labels = MiniBatchKMeans(n_clusters=k, batch_size=20, random_state=59).fit_predict(X)
+ 
+ return labels.tolist()
+
+2026-03-19,10:55:22 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 35.18ms
+2026-03-19,10:55:24 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:24 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:24 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:24 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:24 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:24 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:24 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:24 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:24 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:24 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:24 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:24 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:24 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:24 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,10:55:24 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:24 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,10:55:24 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,10:55:24 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,10:55:24 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,10:55:24 [INFO] (web.py:web:2418): 200 GET /info (::1) 1.03ms
+2026-03-19,10:55:24 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:24 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:24 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:24 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:24 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:24 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:24 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:24 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:24 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:24 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:24 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:24 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:24 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:24 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,10:55:24 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3, _arg4):
+ 
+ import numpy as np
+ from sklearn.cluster import KMeans, MiniBatchKMeans
+ 
+ x1 = np.asarray(_arg1, dtype=np.float32)
+ x2 = np.asarray(_arg2, dtype=np.float32)
+ algo = _arg3[0]; k = int(_arg4[0])
+ 
+ X = np.column_stack((x1, x2))
+ n = X.shape[0]; k = max(1, min(k, n))
+ 
+ if algo == 'KMeans':
+     labels = KMeans(n_clusters=k, n_init=5, random_state=59).fit_predict(X)
+ else:
+     labels = MiniBatchKMeans(n_clusters=k, batch_size=20, random_state=59).fit_predict(X)
+ 
+ return labels.tolist()
+
+2026-03-19,10:55:24 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 37.26ms
+2026-03-19,10:55:24 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:24 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:24 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:24 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:24 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:24 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:24 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:24 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:24 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:24 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:24 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:24 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:24 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:24 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,10:55:24 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:24 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,10:55:24 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,10:55:24 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,10:55:24 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,10:55:24 [INFO] (web.py:web:2418): 200 GET /info (::1) 1.03ms
+2026-03-19,10:55:24 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:24 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:24 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:24 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:24 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:24 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:24 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:24 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:24 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:24 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:24 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:24 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:24 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:24 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,10:55:24 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3, _arg4):
+ 
+ import numpy as np
+ from sklearn.cluster import KMeans, MiniBatchKMeans
+ 
+ x1 = np.asarray(_arg1, dtype=np.float32)
+ x2 = np.asarray(_arg2, dtype=np.float32)
+ algo = _arg3[0]; k = int(_arg4[0])
+ 
+ X = np.column_stack((x1, x2))
+ n = X.shape[0]; k = max(1, min(k, n))
+ 
+ if algo == 'KMeans':
+     labels = KMeans(n_clusters=k, n_init=5, random_state=59).fit_predict(X)
+ else:
+     labels = MiniBatchKMeans(n_clusters=k, batch_size=20, random_state=59).fit_predict(X)
+ 
+ return labels.tolist()
+
+2026-03-19,10:55:24 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 38.97ms
+2026-03-19,10:55:24 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:24 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:24 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:24 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:24 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:24 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:24 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:24 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:24 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:24 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:24 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:24 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:24 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:24 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,10:55:24 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:24 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,10:55:24 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,10:55:24 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,10:55:24 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,10:55:24 [INFO] (web.py:web:2418): 200 GET /info (::1) 2.09ms
+2026-03-19,10:55:24 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:24 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:24 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:24 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:24 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:24 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:24 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:24 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:24 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:24 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:24 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:24 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:24 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:24 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,10:55:24 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3, _arg4):
+ 
+ import numpy as np
+ from sklearn.cluster import KMeans, MiniBatchKMeans
+ 
+ x1 = np.asarray(_arg1, dtype=np.float32)
+ x2 = np.asarray(_arg2, dtype=np.float32)
+ algo = _arg3[0]; k = int(_arg4[0])
+ 
+ X = np.column_stack((x1, x2))
+ n = X.shape[0]; k = max(1, min(k, n))
+ 
+ if algo == 'KMeans':
+     labels = KMeans(n_clusters=k, n_init=5, random_state=59).fit_predict(X)
+ else:
+     labels = MiniBatchKMeans(n_clusters=k, batch_size=20, random_state=59).fit_predict(X)
+ 
+ return labels.tolist()
+
+2026-03-19,10:55:24 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 36.33ms
+2026-03-19,10:55:24 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:24 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:24 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:24 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:24 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:24 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:24 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:24 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:24 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:24 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:24 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:24 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:24 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:24 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,10:55:24 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:24 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,10:55:24 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,10:55:24 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,10:55:24 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,10:55:24 [INFO] (web.py:web:2418): 200 GET /info (::1) 1.56ms
+2026-03-19,10:55:24 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:24 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:24 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:24 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:24 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:24 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:24 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:24 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:24 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:24 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:24 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:24 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:24 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:24 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,10:55:24 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3, _arg4):
+ 
+ import numpy as np
+ from sklearn.cluster import KMeans, MiniBatchKMeans
+ 
+ x1 = np.asarray(_arg1, dtype=np.float32)
+ x2 = np.asarray(_arg2, dtype=np.float32)
+ algo = _arg3[0]; k = int(_arg4[0])
+ 
+ X = np.column_stack((x1, x2))
+ n = X.shape[0]; k = max(1, min(k, n))
+ 
+ if algo == 'KMeans':
+     labels = KMeans(n_clusters=k, n_init=5, random_state=59).fit_predict(X)
+ else:
+     labels = MiniBatchKMeans(n_clusters=k, batch_size=20, random_state=59).fit_predict(X)
+ 
+ return labels.tolist()
+
+2026-03-19,10:55:24 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 36.35ms
+2026-03-19,10:55:27 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:27 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:27 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:27 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:27 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:27 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:27 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:27 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:27 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:27 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:27 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:27 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:27 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:27 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,10:55:27 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:27 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,10:55:27 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,10:55:27 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,10:55:27 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,10:55:27 [INFO] (web.py:web:2418): 200 GET /info (::1) 1.55ms
+2026-03-19,10:55:27 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:27 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:27 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:27 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:27 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:27 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:27 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:27 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:27 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:27 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:27 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:27 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:27 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:27 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,10:55:27 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3, _arg4):
+ 
+ import numpy as np
+ from sklearn.cluster import KMeans, MiniBatchKMeans
+ 
+ x1 = np.asarray(_arg1, dtype=np.float32)
+ x2 = np.asarray(_arg2, dtype=np.float32)
+ algo = _arg3[0]; k = int(_arg4[0])
+ 
+ X = np.column_stack((x1, x2))
+ n = X.shape[0]; k = max(1, min(k, n))
+ 
+ if algo == 'KMeans':
+     labels = KMeans(n_clusters=k, n_init=5, random_state=59).fit_predict(X)
+ else:
+     labels = MiniBatchKMeans(n_clusters=k, batch_size=20, random_state=59).fit_predict(X)
+ 
+ return labels.tolist()
+
+2026-03-19,10:55:27 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 39.64ms
+2026-03-19,10:55:27 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:27 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:27 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:27 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:27 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:27 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:27 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:27 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:27 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:27 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:27 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:27 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:27 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:27 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,10:55:27 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:27 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,10:55:27 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,10:55:27 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,10:55:27 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,10:55:27 [INFO] (web.py:web:2418): 200 GET /info (::1) 1.55ms
+2026-03-19,10:55:27 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:27 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:27 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:27 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:27 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:27 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:27 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:27 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:27 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:27 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:27 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:27 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:27 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:27 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,10:55:27 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3, _arg4):
+ 
+ import numpy as np
+ from sklearn.cluster import KMeans, MiniBatchKMeans
+ 
+ x1 = np.asarray(_arg1, dtype=np.float32)
+ x2 = np.asarray(_arg2, dtype=np.float32)
+ algo = _arg3[0]; k = int(_arg4[0])
+ 
+ X = np.column_stack((x1, x2))
+ n = X.shape[0]; k = max(1, min(k, n))
+ 
+ if algo == 'KMeans':
+     labels = KMeans(n_clusters=k, n_init=5, random_state=59).fit_predict(X)
+ else:
+     labels = MiniBatchKMeans(n_clusters=k, batch_size=20, random_state=59).fit_predict(X)
+ 
+ return labels.tolist()
+
+2026-03-19,10:55:27 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 39.11ms
+2026-03-19,10:55:27 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:27 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:27 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:27 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:27 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:27 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:27 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:27 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:27 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:27 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:27 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:27 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:27 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:27 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,10:55:27 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:27 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,10:55:27 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,10:55:27 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,10:55:27 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,10:55:27 [INFO] (web.py:web:2418): 200 GET /info (::1) 1.57ms
+2026-03-19,10:55:27 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:27 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:27 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:27 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:27 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:27 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:27 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:27 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:27 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:27 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:27 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:27 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:27 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:27 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,10:55:27 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3, _arg4):
+ 
+ import numpy as np
+ from sklearn.cluster import KMeans, MiniBatchKMeans
+ 
+ x1 = np.asarray(_arg1, dtype=np.float32)
+ x2 = np.asarray(_arg2, dtype=np.float32)
+ algo = _arg3[0]; k = int(_arg4[0])
+ 
+ X = np.column_stack((x1, x2))
+ n = X.shape[0]; k = max(1, min(k, n))
+ 
+ if algo == 'KMeans':
+     labels = KMeans(n_clusters=k, n_init=5, random_state=59).fit_predict(X)
+ else:
+     labels = MiniBatchKMeans(n_clusters=k, batch_size=20, random_state=59).fit_predict(X)
+ 
+ return labels.tolist()
+
+2026-03-19,10:55:27 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 40.00ms
+2026-03-19,10:55:27 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:27 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:27 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:27 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:27 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:27 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:27 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:27 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:27 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:27 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:27 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:27 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:27 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:27 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,10:55:27 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:27 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,10:55:27 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,10:55:27 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,10:55:27 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,10:55:27 [INFO] (web.py:web:2418): 200 GET /info (::1) 1.55ms
+2026-03-19,10:55:27 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:27 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:27 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:27 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:27 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:27 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:27 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:27 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:27 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:27 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:27 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:27 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:27 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:27 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,10:55:27 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3, _arg4):
+ 
+ import numpy as np
+ from sklearn.cluster import KMeans, MiniBatchKMeans
+ 
+ x1 = np.asarray(_arg1, dtype=np.float32)
+ x2 = np.asarray(_arg2, dtype=np.float32)
+ algo = _arg3[0]; k = int(_arg4[0])
+ 
+ X = np.column_stack((x1, x2))
+ n = X.shape[0]; k = max(1, min(k, n))
+ 
+ if algo == 'KMeans':
+     labels = KMeans(n_clusters=k, n_init=5, random_state=59).fit_predict(X)
+ else:
+     labels = MiniBatchKMeans(n_clusters=k, batch_size=20, random_state=59).fit_predict(X)
+ 
+ return labels.tolist()
+
+2026-03-19,10:55:27 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 37.98ms
+2026-03-19,10:55:51 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:51 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:51 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:51 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:51 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:51 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:51 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:51 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:51 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:51 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:51 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:51 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:51 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:51 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,10:55:51 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:51 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,10:55:51 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,10:55:51 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,10:55:51 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,10:55:51 [INFO] (web.py:web:2418): 200 GET /info (::1) 1.53ms
+2026-03-19,10:55:51 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:51 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:51 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:51 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:51 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:51 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:51 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:51 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:51 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:51 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:51 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:51 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:51 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:51 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,10:55:51 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3, _arg4):
+ 
+ import numpy as np
+ from sklearn.cluster import KMeans, MiniBatchKMeans
+ 
+ x1 = np.asarray(_arg1, dtype=np.float32)
+ x2 = np.asarray(_arg2, dtype=np.float32)
+ algo = _arg3[0]; k = int(_arg4[0])
+ 
+ X = np.column_stack((x1, x2))
+ n = X.shape[0]; k = max(1, min(k, n))
+ 
+ if algo == 'KMeans':
+     labels = KMeans(n_clusters=k, n_init=5, random_state=59).fit_predict(X)
+ else:
+     labels = MiniBatchKMeans(n_clusters=k, batch_size=20, random_state=59).fit_predict(X)
+ 
+ return labels.tolist()
+
+2026-03-19,10:55:51 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 44.05ms
+2026-03-19,10:55:51 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:51 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:51 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:51 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:51 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:51 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:51 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:51 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:51 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:51 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:51 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:51 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:51 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:51 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,10:55:51 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:51 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,10:55:51 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,10:55:51 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,10:55:51 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,10:55:51 [INFO] (web.py:web:2418): 200 GET /info (::1) 1.53ms
+2026-03-19,10:55:51 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:51 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:51 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:51 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:51 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:51 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:51 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:51 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:51 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:51 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:51 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:51 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:51 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:51 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,10:55:51 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3, _arg4):
+ 
+ import numpy as np
+ from sklearn.cluster import KMeans, MiniBatchKMeans
+ 
+ x1 = np.asarray(_arg1, dtype=np.float32)
+ x2 = np.asarray(_arg2, dtype=np.float32)
+ algo = _arg3[0]; k = int(_arg4[0])
+ 
+ X = np.column_stack((x1, x2))
+ n = X.shape[0]; k = max(1, min(k, n))
+ 
+ if algo == 'KMeans':
+     labels = KMeans(n_clusters=k, n_init=5, random_state=59).fit_predict(X)
+ else:
+     labels = MiniBatchKMeans(n_clusters=k, batch_size=20, random_state=59).fit_predict(X)
+ 
+ return labels.tolist()
+
+2026-03-19,10:55:51 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 46.80ms
+2026-03-19,10:55:51 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:51 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:51 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:51 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:51 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:51 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:51 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:51 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:51 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:51 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:51 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:51 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:51 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:51 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,10:55:51 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:51 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,10:55:51 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,10:55:51 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,10:55:51 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,10:55:51 [INFO] (web.py:web:2418): 200 GET /info (::1) 1.54ms
+2026-03-19,10:55:51 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:51 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:51 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:51 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:51 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:51 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:51 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:51 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:51 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:51 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:51 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:51 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:51 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:51 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,10:55:51 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3, _arg4):
+ 
+ import numpy as np
+ from sklearn.cluster import KMeans, MiniBatchKMeans
+ 
+ x1 = np.asarray(_arg1, dtype=np.float32)
+ x2 = np.asarray(_arg2, dtype=np.float32)
+ algo = _arg3[0]; k = int(_arg4[0])
+ 
+ X = np.column_stack((x1, x2))
+ n = X.shape[0]; k = max(1, min(k, n))
+ 
+ if algo == 'KMeans':
+     labels = KMeans(n_clusters=k, n_init=5, random_state=59).fit_predict(X)
+ else:
+     labels = MiniBatchKMeans(n_clusters=k, batch_size=20, random_state=59).fit_predict(X)
+ 
+ return labels.tolist()
+
+2026-03-19,10:55:51 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 37.95ms
+2026-03-19,10:55:51 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:51 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:51 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:51 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:51 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:51 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:51 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:51 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:51 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:51 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:51 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:51 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:51 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:51 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,10:55:51 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:51 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,10:55:51 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,10:55:51 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,10:55:51 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,10:55:51 [INFO] (web.py:web:2418): 200 GET /info (::1) 1.53ms
+2026-03-19,10:55:51 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:51 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:51 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:51 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:51 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:51 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:51 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:51 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:51 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:51 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:51 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:51 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:51 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:51 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,10:55:51 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3, _arg4):
+ 
+ import numpy as np
+ from sklearn.cluster import KMeans, MiniBatchKMeans
+ 
+ x1 = np.asarray(_arg1, dtype=np.float32)
+ x2 = np.asarray(_arg2, dtype=np.float32)
+ algo = _arg3[0]; k = int(_arg4[0])
+ 
+ X = np.column_stack((x1, x2))
+ n = X.shape[0]; k = max(1, min(k, n))
+ 
+ if algo == 'KMeans':
+     labels = KMeans(n_clusters=k, n_init=5, random_state=59).fit_predict(X)
+ else:
+     labels = MiniBatchKMeans(n_clusters=k, batch_size=20, random_state=59).fit_predict(X)
+ 
+ return labels.tolist()
+
+2026-03-19,10:55:51 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 36.92ms
+2026-03-19,10:55:58 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:58 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:58 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:58 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:58 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:58 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:58 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:58 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:58 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:58 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:58 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:58 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:58 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:58 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,10:55:58 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:58 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,10:55:58 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,10:55:58 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,10:55:58 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,10:55:58 [INFO] (web.py:web:2418): 200 GET /info (::1) 1.03ms
+2026-03-19,10:55:58 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:58 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:58 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:58 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:58 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:58 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:58 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:58 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:58 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:58 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:58 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:58 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:58 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:58 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,10:55:58 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3, _arg4):
+ 
+ import numpy as np
+ from sklearn.cluster import KMeans, MiniBatchKMeans
+ 
+ x1 = np.asarray(_arg1, dtype=np.float32)
+ x2 = np.asarray(_arg2, dtype=np.float32)
+ algo = _arg3[0]; k = int(_arg4[0])
+ 
+ X = np.column_stack((x1, x2))
+ n = X.shape[0]; k = max(1, min(k, n))
+ 
+ if algo == 'KMeans':
+     labels = KMeans(n_clusters=k, n_init=5, random_state=59).fit_predict(X)
+ else:
+     labels = MiniBatchKMeans(n_clusters=k, batch_size=20, random_state=59).fit_predict(X)
+ 
+ return labels.tolist()
+
+2026-03-19,10:55:58 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 43.14ms
+2026-03-19,10:55:58 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:58 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:58 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:58 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:58 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:58 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:58 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:58 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:58 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:58 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:58 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:58 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:58 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:58 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,10:55:58 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:58 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,10:55:58 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,10:55:58 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,10:55:58 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,10:55:58 [INFO] (web.py:web:2418): 200 GET /info (::1) 1.54ms
+2026-03-19,10:55:58 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:58 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:58 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:58 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:58 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:58 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:58 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:58 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:58 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:58 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:58 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:58 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:58 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:58 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,10:55:58 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3, _arg4):
+ 
+ import numpy as np
+ from sklearn.cluster import KMeans, MiniBatchKMeans
+ 
+ x1 = np.asarray(_arg1, dtype=np.float32)
+ x2 = np.asarray(_arg2, dtype=np.float32)
+ algo = _arg3[0]; k = int(_arg4[0])
+ 
+ X = np.column_stack((x1, x2))
+ n = X.shape[0]; k = max(1, min(k, n))
+ 
+ if algo == 'KMeans':
+     labels = KMeans(n_clusters=k, n_init=5, random_state=59).fit_predict(X)
+ else:
+     labels = MiniBatchKMeans(n_clusters=k, batch_size=20, random_state=59).fit_predict(X)
+ 
+ return labels.tolist()
+
+2026-03-19,10:55:58 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 44.76ms
+2026-03-19,10:55:58 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:58 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:58 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:58 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:58 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:58 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:58 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:58 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:58 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:58 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:58 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:58 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:58 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:58 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,10:55:58 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:58 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,10:55:58 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,10:55:58 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,10:55:58 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,10:55:58 [INFO] (web.py:web:2418): 200 GET /info (::1) 1.53ms
+2026-03-19,10:55:58 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:58 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:58 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:58 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:58 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:58 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:58 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:58 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:58 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:58 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:58 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:58 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:58 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:58 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,10:55:58 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3, _arg4):
+ 
+ import numpy as np
+ from sklearn.cluster import KMeans, MiniBatchKMeans
+ 
+ x1 = np.asarray(_arg1, dtype=np.float32)
+ x2 = np.asarray(_arg2, dtype=np.float32)
+ algo = _arg3[0]; k = int(_arg4[0])
+ 
+ X = np.column_stack((x1, x2))
+ n = X.shape[0]; k = max(1, min(k, n))
+ 
+ if algo == 'KMeans':
+     labels = KMeans(n_clusters=k, n_init=5, random_state=59).fit_predict(X)
+ else:
+     labels = MiniBatchKMeans(n_clusters=k, batch_size=20, random_state=59).fit_predict(X)
+ 
+ return labels.tolist()
+
+2026-03-19,10:55:58 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 43.60ms
+2026-03-19,10:55:58 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:58 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:58 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:58 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:58 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:58 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:58 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:58 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:58 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:58 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:58 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:58 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:58 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:58 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,10:55:58 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:58 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,10:55:58 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,10:55:58 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,10:55:58 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,10:55:58 [INFO] (web.py:web:2418): 200 GET /info (::1) 1.02ms
+2026-03-19,10:55:58 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,10:55:58 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,10:55:58 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,10:55:58 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,10:55:58 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,10:55:58 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,10:55:58 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,10:55:58 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,10:55:58 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:58 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,10:55:58 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:58 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,10:55:58 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,10:55:58 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,10:55:58 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3, _arg4):
+ 
+ import numpy as np
+ from sklearn.cluster import KMeans, MiniBatchKMeans
+ 
+ x1 = np.asarray(_arg1, dtype=np.float32)
+ x2 = np.asarray(_arg2, dtype=np.float32)
+ algo = _arg3[0]; k = int(_arg4[0])
+ 
+ X = np.column_stack((x1, x2))
+ n = X.shape[0]; k = max(1, min(k, n))
+ 
+ if algo == 'KMeans':
+     labels = KMeans(n_clusters=k, n_init=5, random_state=59).fit_predict(X)
+ else:
+     labels = MiniBatchKMeans(n_clusters=k, batch_size=20, random_state=59).fit_predict(X)
+ 
+ return labels.tolist()
+
+2026-03-19,10:55:58 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 44.66ms
+2026-03-19,11:14:18 [INFO] (app.py:app:316): Parsing config file C:\Users\gorhk\DA_Portfolio\.venv\Lib\site-packages\tabpy\tabpy_server\app\..\common\default.conf
+2026-03-19,11:14:18 [DEBUG] (app.py:app:277): Parameter port set to "9004" from default value
+2026-03-19,11:14:18 [DEBUG] (app.py:app:277): Parameter server_version set to "2.13.0" from default value
+2026-03-19,11:14:18 [DEBUG] (app.py:app:277): Parameter evaluate_enabled set to "True" from default value
+2026-03-19,11:14:18 [DEBUG] (app.py:app:277): Parameter evaluate_timeout set to "30" from default value
+2026-03-19,11:14:18 [DEBUG] (app.py:app:277): Parameter upload_dir set to "C:\Users\gorhk\DA_Portfolio\.venv\Lib\site-packages\tabpy\tmp\query_objects" from default value
+2026-03-19,11:14:18 [DEBUG] (app.py:app:277): Parameter transfer_protocol set to "http" from default value
+2026-03-19,11:14:18 [DEBUG] (app.py:app:284): Parameter certificate_file is not set
+2026-03-19,11:14:18 [DEBUG] (app.py:app:284): Parameter key_file is not set
+2026-03-19,11:14:18 [DEBUG] (app.py:app:277): Parameter minimum_tls_version set to "TLSv1_2" from default value
+2026-03-19,11:14:18 [DEBUG] (app.py:app:277): Parameter state_file_path set to "C:\Users\gorhk\DA_Portfolio\.venv\Lib\site-packages\tabpy\tabpy_server" from default value
+2026-03-19,11:14:18 [DEBUG] (app.py:app:277): Parameter static_path set to "C:\Users\gorhk\DA_Portfolio\.venv\Lib\site-packages\tabpy\tabpy_server\static" from default value
+2026-03-19,11:14:18 [DEBUG] (app.py:app:284): Parameter TABPY_PWD_FILE is not set
+2026-03-19,11:14:18 [DEBUG] (app.py:app:277): Parameter log_request_context set to "false" from default value
+2026-03-19,11:14:18 [DEBUG] (app.py:app:277): Parameter max_request_size_in_mb set to "100" from default value
+2026-03-19,11:14:18 [DEBUG] (app.py:app:277): Parameter gzip_enabled set to "True" from default value
+2026-03-19,11:14:18 [DEBUG] (app.py:app:277): Parameter arrow_enabled set to "False" from default value
+2026-03-19,11:14:18 [DEBUG] (app.py:app:277): Parameter arrowflight_port set to "13622" from default value
+2026-03-19,11:14:18 [INFO] (app.py:app:381): Setting max request size to 104857600 bytes
+2026-03-19,11:14:18 [INFO] (app.py:app:545): Loading state from state file C:\Users\gorhk\DA_Portfolio\.venv\Lib\site-packages\tabpy\tabpy_server\state.ini
+2026-03-19,11:14:18 [DEBUG] (app.py:app:397): Static pages folder set to "C:\Users\gorhk\DA_Portfolio\.venv\Lib\site-packages\tabpy\tabpy_server\static"
+2026-03-19,11:14:22 [INFO] (app.py:app:510): Password file is not specified: Authentication is not enabled
+2026-03-19,11:14:22 [INFO] (app.py:app:429): Call context logging is disabled
+2026-03-19,11:14:22 [INFO] (app.py:app:197): Initializing TabPy...
+2026-03-19,11:14:22 [DEBUG] (proactor_events.py:proactor_events:634): Using proactor: IocpProactor
+2026-03-19,11:14:22 [INFO] (callbacks.py:callbacks:43): Initializing TabPy Server...
+2026-03-19,11:14:22 [DEBUG] (state.py:state:628): Loading option 'None' from section [Query Objects Service Versions]...
+2026-03-19,11:14:22 [DEBUG] (state.py:state:650): Returning value '[]'
+2026-03-19,11:14:22 [DEBUG] (state.py:state:148): Collected endpoints: {}
+2026-03-19,11:14:22 [INFO] (app.py:app:201): Done initializing TabPy.
+2026-03-19,11:14:22 [DEBUG] (selector_events.py:selector_events:64): Using selector: SelectSelector
+2026-03-19,11:14:22 [INFO] (callbacks.py:callbacks:64): Initializing models...
+2026-03-19,11:14:22 [DEBUG] (state.py:state:628): Loading option 'None' from section [Query Objects Service Versions]...
+2026-03-19,11:14:22 [DEBUG] (state.py:state:650): Returning value '[]'
+2026-03-19,11:14:22 [DEBUG] (state.py:state:148): Collected endpoints: {}
+2026-03-19,11:14:22 [INFO] (app.py:app:167): Web service listening on port 9004
+2026-03-19,11:14:50 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,11:14:50 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,11:14:50 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,11:14:50 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,11:14:50 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,11:14:50 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,11:14:50 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,11:14:50 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,11:14:50 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:14:50 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,11:14:50 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:14:50 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,11:14:50 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:14:50 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,11:14:50 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:14:50 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,11:14:50 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,11:14:50 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,11:14:50 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,11:14:50 [INFO] (web.py:web:2418): 200 GET /info (::1) 3.10ms
+2026-03-19,11:14:51 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,11:14:51 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,11:14:51 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,11:14:51 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,11:14:51 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,11:14:51 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,11:14:51 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,11:14:51 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,11:14:51 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:14:51 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,11:14:51 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:14:51 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,11:14:51 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:14:51 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,11:14:51 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:14:51 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,11:14:51 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,11:14:51 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,11:14:51 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,11:14:51 [INFO] (web.py:web:2418): 200 GET /info (::1) 3.75ms
+2026-03-19,11:14:51 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,11:14:51 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,11:14:51 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,11:14:51 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,11:14:51 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,11:14:51 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,11:14:51 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,11:14:51 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,11:14:51 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:14:51 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,11:14:51 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:14:51 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,11:14:51 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:14:51 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,11:14:51 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3, _arg4):
+ 
+ import numpy as np
+ from sklearn.cluster import KMeans, MiniBatchKMeans
+ 
+ x1 = np.asarray(_arg1, dtype=np.float32)
+ x2 = np.asarray(_arg2, dtype=np.float32)
+ algo = _arg3[0]; k = int(_arg4[0])
+ 
+ X = np.column_stack((x1, x2))
+ n = X.shape[0]; k = max(1, min(k, n))
+ 
+ if algo == 'KMeans':
+     labels = KMeans(n_clusters=k, n_init=5, random_state=59).fit_predict(X)
+ else:
+     labels = MiniBatchKMeans(n_clusters=k, batch_size=20, random_state=59).fit_predict(X)
+ 
+ return labels.tolist()
+
+2026-03-19,11:14:59 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,11:14:59 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,11:14:59 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,11:14:59 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,11:14:59 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,11:14:59 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,11:14:59 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,11:14:59 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,11:14:59 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:14:59 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,11:14:59 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:14:59 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,11:14:59 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:14:59 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,11:14:59 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:14:59 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,11:14:59 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,11:14:59 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,11:14:59 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,11:14:59 [INFO] (web.py:web:2418): 200 GET /info (::1) 3.08ms
+2026-03-19,11:15:00 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,11:15:00 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,11:15:00 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,11:15:00 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,11:15:00 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,11:15:00 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,11:15:00 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,11:15:00 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,11:15:00 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:15:00 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,11:15:00 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:15:00 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,11:15:00 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:15:00 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,11:15:00 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:15:00 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,11:15:00 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,11:15:00 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,11:15:00 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,11:15:00 [INFO] (web.py:web:2418): 200 GET /info (::1) 4.13ms
+2026-03-19,11:15:00 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,11:15:00 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,11:15:00 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,11:15:00 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,11:15:00 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,11:15:00 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,11:15:00 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,11:15:00 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,11:15:00 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:15:00 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,11:15:00 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:15:00 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,11:15:00 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:15:00 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,11:15:00 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3, _arg4):
+ 
+ import numpy as np
+ from sklearn.cluster import KMeans, MiniBatchKMeans
+ 
+ x1 = np.asarray(_arg1, dtype=np.float32)
+ x2 = np.asarray(_arg2, dtype=np.float32)
+ algo = _arg3[0]; k = int(_arg4[0])
+ 
+ X = np.column_stack((x1, x2))
+ n = X.shape[0]; k = max(1, min(k, n))
+ 
+ if algo == 'KMeans':
+     labels = KMeans(n_clusters=k, n_init=5, random_state=59).fit_predict(X)
+ else:
+     labels = MiniBatchKMeans(n_clusters=k, batch_size=20, random_state=59).fit_predict(X)
+ 
+ return labels.tolist()
+
+2026-03-19,11:15:05 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 13549.30ms
+2026-03-19,11:15:08 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 8631.31ms
+2026-03-19,11:15:08 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,11:15:08 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,11:15:08 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,11:15:08 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,11:15:08 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,11:15:08 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,11:15:08 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,11:15:08 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,11:15:08 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:15:08 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,11:15:08 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:15:08 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,11:15:08 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:15:08 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,11:15:08 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:15:08 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,11:15:08 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,11:15:08 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,11:15:08 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,11:15:08 [INFO] (web.py:web:2418): 200 GET /info (::1) 3.07ms
+2026-03-19,11:15:08 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,11:15:08 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,11:15:08 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,11:15:08 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,11:15:08 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,11:15:08 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,11:15:08 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,11:15:08 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,11:15:08 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:15:08 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,11:15:08 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:15:08 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,11:15:08 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:15:08 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,11:15:08 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3, _arg4):
+ 
+ import numpy as np
+ from sklearn.cluster import KMeans, MiniBatchKMeans
+ 
+ x1 = np.asarray(_arg1, dtype=np.float32)
+ x2 = np.asarray(_arg2, dtype=np.float32)
+ algo = _arg3[0]; k = int(_arg4[0])
+ 
+ X = np.column_stack((x1, x2))
+ n = X.shape[0]; k = max(1, min(k, n))
+ 
+ if algo == 'KMeans':
+     labels = KMeans(n_clusters=k, n_init=5, random_state=59).fit_predict(X)
+ else:
+     labels = MiniBatchKMeans(n_clusters=k, batch_size=20, random_state=59).fit_predict(X)
+ 
+ return labels.tolist()
+
+2026-03-19,11:15:08 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 80.75ms
+2026-03-19,11:15:08 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,11:15:08 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,11:15:08 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,11:15:08 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,11:15:08 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,11:15:08 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,11:15:08 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,11:15:08 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,11:15:08 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:15:08 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,11:15:08 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:15:08 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,11:15:08 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:15:08 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,11:15:08 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:15:08 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,11:15:08 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,11:15:08 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,11:15:08 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,11:15:08 [INFO] (web.py:web:2418): 200 GET /info (::1) 3.12ms
+2026-03-19,11:15:08 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,11:15:08 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,11:15:08 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,11:15:08 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,11:15:08 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,11:15:08 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,11:15:08 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,11:15:08 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,11:15:08 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:15:08 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,11:15:08 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:15:08 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,11:15:08 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:15:08 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,11:15:08 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3, _arg4):
+ 
+ import numpy as np
+ from sklearn.cluster import KMeans, MiniBatchKMeans
+ 
+ x1 = np.asarray(_arg1, dtype=np.float32)
+ x2 = np.asarray(_arg2, dtype=np.float32)
+ algo = _arg3[0]; k = int(_arg4[0])
+ 
+ X = np.column_stack((x1, x2))
+ n = X.shape[0]; k = max(1, min(k, n))
+ 
+ if algo == 'KMeans':
+     labels = KMeans(n_clusters=k, n_init=5, random_state=59).fit_predict(X)
+ else:
+     labels = MiniBatchKMeans(n_clusters=k, batch_size=20, random_state=59).fit_predict(X)
+ 
+ return labels.tolist()
+
+2026-03-19,11:15:08 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 61.53ms
+2026-03-19,11:15:08 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,11:15:08 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,11:15:08 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,11:15:08 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,11:15:08 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,11:15:08 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,11:15:08 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,11:15:08 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,11:15:08 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:15:08 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,11:15:08 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:15:08 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,11:15:08 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:15:08 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,11:15:08 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:15:08 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,11:15:08 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,11:15:08 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,11:15:08 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,11:15:08 [INFO] (web.py:web:2418): 200 GET /info (::1) 2.55ms
+2026-03-19,11:15:08 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,11:15:08 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,11:15:08 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,11:15:08 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,11:15:08 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,11:15:08 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,11:15:08 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,11:15:08 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,11:15:08 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:15:08 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,11:15:08 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:15:08 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,11:15:08 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:15:08 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,11:15:08 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3, _arg4):
+ 
+ import numpy as np
+ from sklearn.cluster import KMeans, MiniBatchKMeans
+ 
+ x1 = np.asarray(_arg1, dtype=np.float32)
+ x2 = np.asarray(_arg2, dtype=np.float32)
+ algo = _arg3[0]; k = int(_arg4[0])
+ 
+ X = np.column_stack((x1, x2))
+ n = X.shape[0]; k = max(1, min(k, n))
+ 
+ if algo == 'KMeans':
+     labels = KMeans(n_clusters=k, n_init=5, random_state=59).fit_predict(X)
+ else:
+     labels = MiniBatchKMeans(n_clusters=k, batch_size=20, random_state=59).fit_predict(X)
+ 
+ return labels.tolist()
+
+2026-03-19,11:15:08 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 55.31ms
