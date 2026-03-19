@@ -2149,3 +2149,1331 @@
  return labels.tolist()
 
 2026-03-19,11:15:08 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 55.31ms
+2026-03-19,11:24:57 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,11:24:57 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,11:24:57 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,11:24:57 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,11:24:57 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,11:24:57 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,11:24:57 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,11:24:57 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,11:24:57 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:24:57 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,11:24:57 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:24:57 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,11:24:57 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:24:57 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,11:24:57 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:24:57 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,11:24:57 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,11:24:57 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,11:24:57 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,11:24:57 [INFO] (web.py:web:2418): 200 GET /info (::1) 2.05ms
+2026-03-19,11:24:57 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,11:24:57 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,11:24:57 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,11:24:57 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,11:24:57 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,11:24:57 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,11:24:57 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,11:24:57 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,11:24:57 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:24:57 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,11:24:57 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:24:57 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,11:24:57 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:24:57 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,11:24:57 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3):
+ 
+ import pandas as pd
+ import numpy as np
+ from prophet import Prophet
+ 
+ # 1) 스캐폴드(뷰의 전체 날짜)
+ scaf = pd.DataFrame({'ds': _arg1})
+ scaf['ds'] = pd.to_datetime(scaf['ds'], errors='coerce')
+ scaf = scaf.dropna().sort_values('ds')
+ 
+ # 2) 히스토리(실데이터) 구성
+ hist = pd.DataFrame({'ds': _arg1, 'y': _arg2})
+ hist['ds'] = pd.to_datetime(hist['ds'], errors='coerce')
+ hist = hist.dropna(subset=['ds','y']).sort_values('ds')
+ hist = hist.groupby('ds', as_index=False)['y'].sum()
+ 
+ if len(hist) < 2:
+     return [float('nan')] * len(scaf)
+ 
+ # 3) 예측 기간 = 파라미터만 사용
+ try:
+     periods = int(_arg3[0])
+ except:
+     periods = 0
+ periods = max(0, periods)
+ 
+ # 4) 모델 학습 & 예측
+ m = Prophet(yearly_seasonality=True,
+             weekly_seasonality=True,
+             daily_seasonality=False,
+             seasonality_mode='multiplicative')
+ m.fit(hist)
+ 
+ future = m.make_future_dataframe(periods=periods, freq='D')
+ fcst = m.predict(future)[['ds','yhat']]
+ 
+ # 5) 스캐폴드와 정합 → 뷰 길이에 맞춰 반환
+ out = scaf.merge(fcst, on='ds', how='left')['yhat'].tolist()
+ return out
+
+2026-03-19,11:24:57 [DEBUG] (__init__.py:__init__:342): matplotlib data path: C:\Users\gorhk\DA_Portfolio\.venv\Lib\site-packages\matplotlib\mpl-data
+2026-03-19,11:24:57 [DEBUG] (__init__.py:__init__:342): CONFIGDIR=C:\Users\gorhk\.matplotlib
+2026-03-19,11:24:57 [DEBUG] (__init__.py:__init__:1560): interactive is False
+2026-03-19,11:24:57 [DEBUG] (__init__.py:__init__:1561): platform is win32
+2026-03-19,11:24:57 [DEBUG] (__init__.py:__init__:342): CACHEDIR=C:\Users\gorhk\.matplotlib
+2026-03-19,11:24:57 [DEBUG] (font_manager.py:font_manager:1635): Using fontManager instance from C:\Users\gorhk\.matplotlib\fontlist-v390.json
+2026-03-19,11:24:58 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 898.52ms
+2026-03-19,11:25:26 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,11:25:26 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,11:25:26 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,11:25:26 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,11:25:26 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,11:25:26 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,11:25:26 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,11:25:26 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,11:25:26 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:25:26 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,11:25:26 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:25:26 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,11:25:26 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:25:26 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,11:25:26 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:25:26 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,11:25:26 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,11:25:26 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,11:25:26 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,11:25:26 [INFO] (web.py:web:2418): 200 GET /info (::1) 2.07ms
+2026-03-19,11:25:26 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,11:25:26 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,11:25:26 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,11:25:26 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,11:25:26 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,11:25:26 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,11:25:26 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,11:25:26 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,11:25:26 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:25:26 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,11:25:26 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:25:26 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,11:25:26 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:25:26 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,11:25:26 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3):
+ 
+ import pandas as pd
+ import numpy as np
+ from prophet import Prophet
+ 
+ # 1) 스캐폴드(뷰의 전체 날짜)
+ scaf = pd.DataFrame({'ds': _arg1})
+ scaf['ds'] = pd.to_datetime(scaf['ds'], errors='coerce')
+ scaf = scaf.dropna().sort_values('ds')
+ 
+ # 2) 히스토리(실데이터) 구성
+ hist = pd.DataFrame({'ds': _arg1, 'y': _arg2})
+ hist['ds'] = pd.to_datetime(hist['ds'], errors='coerce')
+ hist = hist.dropna(subset=['ds','y']).sort_values('ds')
+ hist = hist.groupby('ds', as_index=False)['y'].sum()
+ 
+ if len(hist) < 2:
+     return [float('nan')] * len(scaf)
+ 
+ # 3) 예측 기간 = 파라미터만 사용
+ try:
+     periods = int(_arg3[0])
+ except:
+     periods = 0
+ periods = max(0, periods)
+ 
+ # 4) 모델 학습 & 예측
+ m = Prophet(yearly_seasonality=True,
+             weekly_seasonality=True,
+             daily_seasonality=False,
+             seasonality_mode='multiplicative')
+ m.fit(hist)
+ 
+ future = m.make_future_dataframe(periods=periods, freq='D')
+ fcst = m.predict(future)[['ds','yhat']]
+ 
+ # 5) 스캐폴드와 정합 → 뷰 길이에 맞춰 반환
+ out = scaf.merge(fcst, on='ds', how='left')['yhat'].tolist()
+ return out
+
+2026-03-19,11:25:26 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 5.75ms
+2026-03-19,11:25:59 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,11:25:59 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,11:25:59 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,11:25:59 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,11:25:59 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,11:25:59 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,11:25:59 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,11:25:59 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,11:25:59 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:25:59 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,11:25:59 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:25:59 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,11:25:59 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:25:59 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,11:25:59 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:25:59 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,11:25:59 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,11:25:59 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,11:25:59 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,11:25:59 [INFO] (web.py:web:2418): 200 GET /info (::1) 1.55ms
+2026-03-19,11:25:59 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,11:25:59 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,11:25:59 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,11:25:59 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,11:25:59 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,11:25:59 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,11:25:59 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,11:25:59 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,11:25:59 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:25:59 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,11:25:59 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:25:59 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,11:25:59 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:25:59 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,11:25:59 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3):
+ 
+ import pandas as pd
+ import numpy as np
+ from prophet import Prophet
+ 
+ # 1) 스캐폴드(뷰의 전체 날짜)
+ scaf = pd.DataFrame({'ds': _arg1})
+ scaf['ds'] = pd.to_datetime(scaf['ds'], errors='coerce')
+ scaf = scaf.dropna().sort_values('ds')
+ 
+ # 2) 히스토리(실데이터) 구성
+ hist = pd.DataFrame({'ds': _arg1, 'y': _arg2})
+ hist['ds'] = pd.to_datetime(hist['ds'], errors='coerce')
+ hist = hist.dropna(subset=['ds','y']).sort_values('ds')
+ hist = hist.groupby('ds', as_index=False)['y'].sum()
+ 
+ if len(hist) < 2:
+     return [float('nan')] * len(scaf)
+ 
+ # 3) 예측 기간 = 파라미터만 사용
+ try:
+     periods = int(_arg3[0])
+ except:
+     periods = 0
+ periods = max(0, periods)
+ 
+ # 4) 모델 학습 & 예측
+ m = Prophet(yearly_seasonality=True,
+             weekly_seasonality=True,
+             daily_seasonality=False,
+             seasonality_mode='multiplicative')
+ m.fit(hist)
+ 
+ future = m.make_future_dataframe(periods=periods, freq='D')
+ fcst = m.predict(future)[['ds','yhat']]
+ 
+ # 5) 스캐폴드와 정합 → 뷰 길이에 맞춰 반환
+ out = scaf.merge(fcst, on='ds', how='left')['yhat'].tolist()
+ return out
+
+2026-03-19,11:25:59 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 4.21ms
+2026-03-19,11:26:49 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,11:26:49 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,11:26:49 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,11:26:49 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,11:26:49 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,11:26:49 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,11:26:49 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,11:26:49 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,11:26:49 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:26:49 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,11:26:49 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:26:49 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,11:26:49 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:26:49 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,11:26:49 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:26:49 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,11:26:49 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,11:26:49 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,11:26:49 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,11:26:49 [INFO] (web.py:web:2418): 200 GET /info (::1) 1.53ms
+2026-03-19,11:26:49 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,11:26:49 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,11:26:49 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,11:26:49 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,11:26:49 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,11:26:49 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,11:26:49 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,11:26:49 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,11:26:49 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:26:49 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,11:26:49 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:26:49 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,11:26:49 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:26:49 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,11:26:49 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3):
+ 
+ import pandas as pd
+ import numpy as np
+ from prophet import Prophet
+ 
+ # 1) 스캐폴드(뷰의 전체 날짜)
+ scaf = pd.DataFrame({'ds': _arg1})
+ scaf['ds'] = pd.to_datetime(scaf['ds'], errors='coerce')
+ scaf = scaf.dropna().sort_values('ds')
+ 
+ # 2) 히스토리(실데이터) 구성
+ hist = pd.DataFrame({'ds': _arg1, 'y': _arg2})
+ hist['ds'] = pd.to_datetime(hist['ds'], errors='coerce')
+ hist = hist.dropna(subset=['ds','y']).sort_values('ds')
+ hist = hist.groupby('ds', as_index=False)['y'].sum()
+ 
+ if len(hist) < 2:
+     return [float('nan')] * len(scaf)
+ 
+ # 3) 예측 기간 = 파라미터만 사용
+ try:
+     periods = int(_arg3[0])
+ except:
+     periods = 0
+ periods = max(0, periods)
+ 
+ # 4) 모델 학습 & 예측
+ m = Prophet(yearly_seasonality=True,
+             weekly_seasonality=True,
+             daily_seasonality=False,
+             seasonality_mode='multiplicative')
+ m.fit(hist)
+ 
+ future = m.make_future_dataframe(periods=periods, freq='D')
+ fcst = m.predict(future)[['ds','yhat']]
+ 
+ # 5) 스캐폴드와 정합 → 뷰 길이에 맞춰 반환
+ out = scaf.merge(fcst, on='ds', how='left')['yhat'].tolist()
+ return out
+
+2026-03-19,11:26:49 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 4.60ms
+2026-03-19,11:27:11 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,11:27:11 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,11:27:11 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,11:27:11 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,11:27:11 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,11:27:11 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,11:27:11 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,11:27:11 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,11:27:11 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:27:11 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,11:27:11 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:27:11 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,11:27:11 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:27:11 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,11:27:11 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:27:11 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,11:27:11 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,11:27:11 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,11:27:11 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,11:27:11 [INFO] (web.py:web:2418): 200 GET /info (::1) 1.54ms
+2026-03-19,11:27:11 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,11:27:11 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,11:27:11 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,11:27:11 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,11:27:11 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,11:27:11 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,11:27:11 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,11:27:11 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,11:27:11 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:27:11 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,11:27:11 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:27:11 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,11:27:11 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:27:11 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,11:27:11 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3):
+ 
+ import pandas as pd
+ import numpy as np
+ from prophet import Prophet
+ 
+ # 1) 스캐폴드(뷰의 전체 날짜)
+ scaf = pd.DataFrame({'ds': _arg1})
+ scaf['ds'] = pd.to_datetime(scaf['ds'], errors='coerce')
+ scaf = scaf.dropna().sort_values('ds')
+ 
+ # 2) 히스토리(실데이터) 구성
+ hist = pd.DataFrame({'ds': _arg1, 'y': _arg2})
+ hist['ds'] = pd.to_datetime(hist['ds'], errors='coerce')
+ hist = hist.dropna(subset=['ds','y']).sort_values('ds')
+ hist = hist.groupby('ds', as_index=False)['y'].sum()
+ 
+ if len(hist) < 2:
+     return [float('nan')] * len(scaf)
+ 
+ # 3) 예측 기간 = 파라미터만 사용
+ try:
+     periods = int(_arg3[0])
+ except:
+     periods = 0
+ periods = max(0, periods)
+ 
+ # 4) 모델 학습 & 예측
+ m = Prophet(yearly_seasonality=True,
+             weekly_seasonality=True,
+             daily_seasonality=False,
+             seasonality_mode='multiplicative')
+ m.fit(hist)
+ 
+ future = m.make_future_dataframe(periods=periods, freq='D')
+ fcst = m.predict(future)[['ds','yhat']]
+ 
+ # 5) 스캐폴드와 정합 → 뷰 길이에 맞춰 반환
+ out = scaf.merge(fcst, on='ds', how='left')['yhat'].tolist()
+ return out
+
+2026-03-19,11:27:11 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 14.50ms
+2026-03-19,11:27:11 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,11:27:11 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,11:27:11 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,11:27:11 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,11:27:11 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,11:27:11 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,11:27:11 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,11:27:11 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,11:27:11 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:27:11 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,11:27:11 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:27:11 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,11:27:11 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:27:11 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,11:27:11 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:27:11 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,11:27:11 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,11:27:11 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,11:27:11 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,11:27:11 [INFO] (web.py:web:2418): 200 GET /info (::1) 1.02ms
+2026-03-19,11:27:11 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,11:27:11 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,11:27:11 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,11:27:11 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,11:27:11 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,11:27:11 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,11:27:11 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,11:27:11 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,11:27:11 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:27:11 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,11:27:11 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:27:11 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,11:27:11 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:27:11 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,11:27:11 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3):
+ 
+ import pandas as pd
+ import numpy as np
+ from prophet import Prophet
+ 
+ # 1) 스캐폴드(뷰의 전체 날짜)
+ scaf = pd.DataFrame({'ds': _arg1})
+ scaf['ds'] = pd.to_datetime(scaf['ds'], errors='coerce')
+ scaf = scaf.dropna().sort_values('ds')
+ 
+ # 2) 히스토리(실데이터) 구성
+ hist = pd.DataFrame({'ds': _arg1, 'y': _arg2})
+ hist['ds'] = pd.to_datetime(hist['ds'], errors='coerce')
+ hist = hist.dropna(subset=['ds','y']).sort_values('ds')
+ hist = hist.groupby('ds', as_index=False)['y'].sum()
+ 
+ if len(hist) < 2:
+     return [float('nan')] * len(scaf)
+ 
+ # 3) 예측 기간 = 파라미터만 사용
+ try:
+     periods = int(_arg3[0])
+ except:
+     periods = 0
+ periods = max(0, periods)
+ 
+ # 4) 모델 학습 & 예측
+ m = Prophet(yearly_seasonality=True,
+             weekly_seasonality=True,
+             daily_seasonality=False,
+             seasonality_mode='multiplicative')
+ m.fit(hist)
+ 
+ future = m.make_future_dataframe(periods=periods, freq='D')
+ fcst = m.predict(future)[['ds','yhat']]
+ 
+ # 5) 스캐폴드와 정합 → 뷰 길이에 맞춰 반환
+ out = scaf.merge(fcst, on='ds', how='left')['yhat'].tolist()
+ return out
+
+2026-03-19,11:27:11 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 5.11ms
+2026-03-19,11:27:14 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,11:27:14 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,11:27:14 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,11:27:14 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,11:27:14 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,11:27:14 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,11:27:14 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,11:27:14 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,11:27:14 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:27:14 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,11:27:14 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:27:14 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,11:27:14 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:27:14 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,11:27:14 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:27:14 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,11:27:14 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,11:27:14 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,11:27:14 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,11:27:14 [INFO] (web.py:web:2418): 200 GET /info (::1) 1.65ms
+2026-03-19,11:27:14 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,11:27:14 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,11:27:14 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,11:27:14 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,11:27:14 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,11:27:14 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,11:27:14 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,11:27:14 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,11:27:14 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:27:14 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,11:27:14 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:27:14 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,11:27:14 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:27:14 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,11:27:14 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3):
+ 
+ import pandas as pd
+ import numpy as np
+ from prophet import Prophet
+ 
+ # 1) 스캐폴드(뷰의 전체 날짜)
+ scaf = pd.DataFrame({'ds': _arg1})
+ scaf['ds'] = pd.to_datetime(scaf['ds'], errors='coerce')
+ scaf = scaf.dropna().sort_values('ds')
+ 
+ # 2) 히스토리(실데이터) 구성
+ hist = pd.DataFrame({'ds': _arg1, 'y': _arg2})
+ hist['ds'] = pd.to_datetime(hist['ds'], errors='coerce')
+ hist = hist.dropna(subset=['ds','y']).sort_values('ds')
+ hist = hist.groupby('ds', as_index=False)['y'].sum()
+ 
+ if len(hist) < 2:
+     return [float('nan')] * len(scaf)
+ 
+ # 3) 예측 기간 = 파라미터만 사용
+ try:
+     periods = int(_arg3[0])
+ except:
+     periods = 0
+ periods = max(0, periods)
+ 
+ # 4) 모델 학습 & 예측
+ m = Prophet(yearly_seasonality=True,
+             weekly_seasonality=True,
+             daily_seasonality=False,
+             seasonality_mode='multiplicative')
+ m.fit(hist)
+ 
+ future = m.make_future_dataframe(periods=periods, freq='D')
+ fcst = m.predict(future)[['ds','yhat']]
+ 
+ # 5) 스캐폴드와 정합 → 뷰 길이에 맞춰 반환
+ out = scaf.merge(fcst, on='ds', how='left')['yhat'].tolist()
+ return out
+
+2026-03-19,11:27:14 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 5.14ms
+2026-03-19,11:27:15 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,11:27:15 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,11:27:15 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,11:27:15 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,11:27:15 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,11:27:15 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,11:27:15 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,11:27:15 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,11:27:15 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:27:15 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,11:27:15 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:27:15 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,11:27:15 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:27:15 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,11:27:15 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:27:15 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,11:27:15 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,11:27:15 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,11:27:15 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,11:27:15 [INFO] (web.py:web:2418): 200 GET /info (::1) 1.56ms
+2026-03-19,11:27:15 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,11:27:15 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,11:27:15 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,11:27:15 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,11:27:15 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,11:27:15 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,11:27:15 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,11:27:15 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,11:27:15 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:27:15 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,11:27:15 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:27:15 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,11:27:15 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:27:15 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,11:27:15 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3):
+ 
+ import pandas as pd
+ import numpy as np
+ from prophet import Prophet
+ 
+ # 1) 스캐폴드(뷰의 전체 날짜)
+ scaf = pd.DataFrame({'ds': _arg1})
+ scaf['ds'] = pd.to_datetime(scaf['ds'], errors='coerce')
+ scaf = scaf.dropna().sort_values('ds')
+ 
+ # 2) 히스토리(실데이터) 구성
+ hist = pd.DataFrame({'ds': _arg1, 'y': _arg2})
+ hist['ds'] = pd.to_datetime(hist['ds'], errors='coerce')
+ hist = hist.dropna(subset=['ds','y']).sort_values('ds')
+ hist = hist.groupby('ds', as_index=False)['y'].sum()
+ 
+ if len(hist) < 2:
+     return [float('nan')] * len(scaf)
+ 
+ # 3) 예측 기간 = 파라미터만 사용
+ try:
+     periods = int(_arg3[0])
+ except:
+     periods = 0
+ periods = max(0, periods)
+ 
+ # 4) 모델 학습 & 예측
+ m = Prophet(yearly_seasonality=True,
+             weekly_seasonality=True,
+             daily_seasonality=False,
+             seasonality_mode='multiplicative')
+ m.fit(hist)
+ 
+ future = m.make_future_dataframe(periods=periods, freq='D')
+ fcst = m.predict(future)[['ds','yhat']]
+ 
+ # 5) 스캐폴드와 정합 → 뷰 길이에 맞춰 반환
+ out = scaf.merge(fcst, on='ds', how='left')['yhat'].tolist()
+ return out
+
+2026-03-19,11:27:15 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 4.59ms
+2026-03-19,11:27:16 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,11:27:16 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,11:27:16 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,11:27:16 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,11:27:16 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,11:27:16 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,11:27:16 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,11:27:16 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,11:27:16 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:27:16 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,11:27:16 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:27:16 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,11:27:16 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:27:16 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,11:27:16 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:27:16 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,11:27:16 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,11:27:16 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,11:27:16 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,11:27:16 [INFO] (web.py:web:2418): 200 GET /info (::1) 1.67ms
+2026-03-19,11:27:16 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,11:27:16 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,11:27:16 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,11:27:16 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,11:27:16 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,11:27:16 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,11:27:16 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,11:27:16 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,11:27:16 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:27:16 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,11:27:16 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:27:16 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,11:27:16 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:27:16 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,11:27:16 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3):
+ 
+ import pandas as pd
+ import numpy as np
+ from prophet import Prophet
+ 
+ # 1) 스캐폴드(뷰의 전체 날짜)
+ scaf = pd.DataFrame({'ds': _arg1})
+ scaf['ds'] = pd.to_datetime(scaf['ds'], errors='coerce')
+ scaf = scaf.dropna().sort_values('ds')
+ 
+ # 2) 히스토리(실데이터) 구성
+ hist = pd.DataFrame({'ds': _arg1, 'y': _arg2})
+ hist['ds'] = pd.to_datetime(hist['ds'], errors='coerce')
+ hist = hist.dropna(subset=['ds','y']).sort_values('ds')
+ hist = hist.groupby('ds', as_index=False)['y'].sum()
+ 
+ if len(hist) < 2:
+     return [float('nan')] * len(scaf)
+ 
+ # 3) 예측 기간 = 파라미터만 사용
+ try:
+     periods = int(_arg3[0])
+ except:
+     periods = 0
+ periods = max(0, periods)
+ 
+ # 4) 모델 학습 & 예측
+ m = Prophet(yearly_seasonality=True,
+             weekly_seasonality=True,
+             daily_seasonality=False,
+             seasonality_mode='multiplicative')
+ m.fit(hist)
+ 
+ future = m.make_future_dataframe(periods=periods, freq='D')
+ fcst = m.predict(future)[['ds','yhat']]
+ 
+ # 5) 스캐폴드와 정합 → 뷰 길이에 맞춰 반환
+ out = scaf.merge(fcst, on='ds', how='left')['yhat'].tolist()
+ return out
+
+2026-03-19,11:27:16 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 5.15ms
+2026-03-19,11:27:23 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,11:27:23 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,11:27:23 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,11:27:23 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,11:27:23 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,11:27:23 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,11:27:23 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,11:27:23 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,11:27:23 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:27:23 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,11:27:23 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:27:23 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,11:27:23 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:27:23 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,11:27:23 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:27:23 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,11:27:23 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,11:27:23 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,11:27:23 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,11:27:23 [INFO] (web.py:web:2418): 200 GET /info (::1) 1.56ms
+2026-03-19,11:27:23 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,11:27:23 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,11:27:23 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,11:27:23 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,11:27:23 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,11:27:23 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,11:27:23 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,11:27:23 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,11:27:23 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:27:23 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,11:27:23 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:27:23 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,11:27:23 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:27:23 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,11:27:23 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3):
+ 
+ import pandas as pd
+ import numpy as np
+ from prophet import Prophet
+ 
+ # 1) 스캐폴드(뷰의 전체 날짜)
+ scaf = pd.DataFrame({'ds': _arg1})
+ scaf['ds'] = pd.to_datetime(scaf['ds'], errors='coerce')
+ scaf = scaf.dropna().sort_values('ds')
+ 
+ # 2) 히스토리(실데이터) 구성
+ hist = pd.DataFrame({'ds': _arg1, 'y': _arg2})
+ hist['ds'] = pd.to_datetime(hist['ds'], errors='coerce')
+ hist = hist.dropna(subset=['ds','y']).sort_values('ds')
+ hist = hist.groupby('ds', as_index=False)['y'].sum()
+ 
+ if len(hist) < 2:
+     return [float('nan')] * len(scaf)
+ 
+ # 3) 예측 기간 = 파라미터만 사용
+ try:
+     periods = int(_arg3[0])
+ except:
+     periods = 0
+ periods = max(0, periods)
+ 
+ # 4) 모델 학습 & 예측
+ m = Prophet(yearly_seasonality=True,
+             weekly_seasonality=True,
+             daily_seasonality=False,
+             seasonality_mode='multiplicative')
+ m.fit(hist)
+ 
+ future = m.make_future_dataframe(periods=periods, freq='D')
+ fcst = m.predict(future)[['ds','yhat']]
+ 
+ # 5) 스캐폴드와 정합 → 뷰 길이에 맞춰 반환
+ out = scaf.merge(fcst, on='ds', how='left')['yhat'].tolist()
+ return out
+
+2026-03-19,11:27:23 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 5.61ms
+2026-03-19,11:28:23 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,11:28:23 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,11:28:23 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,11:28:23 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,11:28:23 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,11:28:23 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,11:28:23 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,11:28:23 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,11:28:23 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:28:23 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,11:28:23 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:28:23 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,11:28:23 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:28:23 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,11:28:23 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:28:23 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,11:28:23 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,11:28:23 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,11:28:23 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,11:28:23 [INFO] (web.py:web:2418): 200 GET /info (::1) 2.06ms
+2026-03-19,11:28:23 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,11:28:23 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,11:28:23 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,11:28:23 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,11:28:23 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,11:28:23 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,11:28:23 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,11:28:23 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,11:28:23 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:28:23 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,11:28:23 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:28:23 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,11:28:23 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:28:23 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,11:28:23 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3):
+ 
+ import pandas as pd
+ import numpy as np
+ from prophet import Prophet
+ 
+ # 1) 스캐폴드(뷰의 전체 날짜)
+ scaf = pd.DataFrame({'ds': _arg1})
+ scaf['ds'] = pd.to_datetime(scaf['ds'], errors='coerce')
+ scaf = scaf.dropna().sort_values('ds')
+ 
+ # 2) 히스토리(실데이터) 구성
+ hist = pd.DataFrame({'ds': _arg1, 'y': _arg2})
+ hist['ds'] = pd.to_datetime(hist['ds'], errors='coerce')
+ hist = hist.dropna(subset=['ds','y']).sort_values('ds')
+ hist = hist.groupby('ds', as_index=False)['y'].sum()
+ 
+ if len(hist) < 2:
+     return [float('nan')] * len(scaf)
+ 
+ # 3) 예측 기간 = 파라미터만 사용
+ try:
+     periods = int(_arg3[0])
+ except:
+     periods = 0
+ periods = max(0, periods)
+ 
+ # 4) 모델 학습 & 예측
+ m = Prophet(yearly_seasonality=True,
+             weekly_seasonality=True,
+             daily_seasonality=False,
+             seasonality_mode='multiplicative')
+ m.fit(hist)
+ 
+ future = m.make_future_dataframe(periods=periods, freq='D')
+ fcst = m.predict(future)[['ds','yhat']]
+ 
+ # 5) 스캐폴드와 정합 → 뷰 길이에 맞춰 반환
+ out = scaf.merge(fcst, on='ds', how='left')['yhat'].tolist()
+ return out
+
+2026-03-19,11:28:23 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 4.59ms
+2026-03-19,11:28:55 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,11:28:55 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,11:28:55 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,11:28:55 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,11:28:55 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,11:28:55 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,11:28:55 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,11:28:55 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,11:28:55 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:28:55 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,11:28:55 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:28:55 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,11:28:55 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:28:55 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,11:28:55 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:28:55 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,11:28:55 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,11:28:55 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,11:28:55 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,11:28:55 [INFO] (web.py:web:2418): 200 GET /info (::1) 1.67ms
+2026-03-19,11:28:55 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,11:28:55 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,11:28:55 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,11:28:55 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,11:28:55 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,11:28:55 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,11:28:55 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,11:28:55 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,11:28:55 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:28:55 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,11:28:55 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:28:55 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,11:28:55 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:28:55 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,11:28:55 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3):
+ 
+ import pandas as pd
+ import numpy as np
+ from prophet import Prophet
+ 
+ # 1) 스캐폴드(뷰의 전체 날짜)
+ scaf = pd.DataFrame({'ds': _arg1})
+ scaf['ds'] = pd.to_datetime(scaf['ds'], errors='coerce')
+ scaf = scaf.dropna().sort_values('ds')
+ 
+ # 2) 히스토리(실데이터) 구성
+ hist = pd.DataFrame({'ds': _arg1, 'y': _arg2})
+ hist['ds'] = pd.to_datetime(hist['ds'], errors='coerce')
+ hist = hist.dropna(subset=['ds','y']).sort_values('ds')
+ hist = hist.groupby('ds', as_index=False)['y'].sum()
+ 
+ if len(hist) < 2:
+     return [float('nan')] * len(scaf)
+ 
+ # 3) 예측 기간 = 파라미터만 사용
+ try:
+     periods = int(_arg3[0])
+ except:
+     periods = 0
+ periods = max(0, periods)
+ 
+ # 4) 모델 학습 & 예측
+ m = Prophet(yearly_seasonality=True,
+             weekly_seasonality=True,
+             daily_seasonality=False,
+             seasonality_mode='multiplicative')
+ m.fit(hist)
+ 
+ future = m.make_future_dataframe(periods=periods, freq='D')
+ fcst = m.predict(future)[['ds','yhat']]
+ 
+ # 5) 스캐폴드와 정합 → 뷰 길이에 맞춰 반환
+ out = scaf.merge(fcst, on='ds', how='left')['yhat'].tolist()
+ return out
+
+2026-03-19,11:28:55 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 4.61ms
+2026-03-19,11:29:21 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,11:29:21 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,11:29:21 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,11:29:21 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,11:29:21 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,11:29:21 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,11:29:21 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,11:29:21 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,11:29:21 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:29:21 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,11:29:21 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:29:21 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,11:29:21 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:29:21 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,11:29:21 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:29:21 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,11:29:21 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,11:29:21 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,11:29:21 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,11:29:21 [INFO] (web.py:web:2418): 200 GET /info (::1) 2.16ms
+2026-03-19,11:29:21 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,11:29:21 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,11:29:21 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,11:29:21 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,11:29:21 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,11:29:21 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,11:29:21 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,11:29:21 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,11:29:21 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:29:21 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,11:29:21 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:29:21 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,11:29:21 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:29:21 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,11:29:21 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3):
+ 
+ import pandas as pd
+ import numpy as np
+ from prophet import Prophet
+ 
+ # 1) 스캐폴드(뷰의 전체 날짜)
+ scaf = pd.DataFrame({'ds': _arg1})
+ scaf['ds'] = pd.to_datetime(scaf['ds'], errors='coerce')
+ scaf = scaf.dropna().sort_values('ds')
+ 
+ # 2) 히스토리(실데이터) 구성
+ hist = pd.DataFrame({'ds': _arg1, 'y': _arg2})
+ hist['ds'] = pd.to_datetime(hist['ds'], errors='coerce')
+ hist = hist.dropna(subset=['ds','y']).sort_values('ds')
+ hist = hist.groupby('ds', as_index=False)['y'].sum()
+ 
+ if len(hist) < 2:
+     return [float('nan')] * len(scaf)
+ 
+ # 3) 예측 기간 = 파라미터만 사용
+ try:
+     periods = int(_arg3[0])
+ except:
+     periods = 0
+ periods = max(0, periods)
+ 
+ # 4) 모델 학습 & 예측
+ m = Prophet(yearly_seasonality=True,
+             weekly_seasonality=True,
+             daily_seasonality=False,
+             seasonality_mode='multiplicative')
+ m.fit(hist)
+ 
+ future = m.make_future_dataframe(periods=periods, freq='D')
+ fcst = m.predict(future)[['ds','yhat']]
+ 
+ # 5) 스캐폴드와 정합 → 뷰 길이에 맞춰 반환
+ out = scaf.merge(fcst, on='ds', how='left')['yhat'].tolist()
+ return out
+
+2026-03-19,11:29:21 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 4.62ms
+2026-03-19,11:29:30 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,11:29:30 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,11:29:30 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,11:29:30 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,11:29:30 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,11:29:30 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,11:29:30 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,11:29:30 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,11:29:30 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:29:30 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,11:29:30 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:29:30 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,11:29:30 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:29:30 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,11:29:30 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:29:30 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,11:29:30 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,11:29:30 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,11:29:30 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,11:29:30 [INFO] (web.py:web:2418): 200 GET /info (::1) 1.54ms
+2026-03-19,11:29:30 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,11:29:30 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,11:29:30 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,11:29:30 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,11:29:30 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,11:29:30 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,11:29:30 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,11:29:30 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,11:29:30 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:29:30 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,11:29:30 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:29:30 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,11:29:30 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:29:30 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,11:29:30 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3):
+ 
+ import pandas as pd
+ import numpy as np
+ from prophet import Prophet
+ 
+ # 1) 스캐폴드(뷰의 전체 날짜)
+ scaf = pd.DataFrame({'ds': _arg1})
+ scaf['ds'] = pd.to_datetime(scaf['ds'], errors='coerce')
+ scaf = scaf.dropna().sort_values('ds')
+ 
+ # 2) 히스토리(실데이터) 구성
+ hist = pd.DataFrame({'ds': _arg1, 'y': _arg2})
+ hist['ds'] = pd.to_datetime(hist['ds'], errors='coerce')
+ hist = hist.dropna(subset=['ds','y']).sort_values('ds')
+ hist = hist.groupby('ds', as_index=False)['y'].sum()
+ 
+ if len(hist) < 2:
+     return [float('nan')] * len(scaf)
+ 
+ # 3) 예측 기간 = 파라미터만 사용
+ try:
+     periods = int(_arg3[0])
+ except:
+     periods = 0
+ periods = max(0, periods)
+ 
+ # 4) 모델 학습 & 예측
+ m = Prophet(yearly_seasonality=True,
+             weekly_seasonality=True,
+             daily_seasonality=False,
+             seasonality_mode='multiplicative')
+ m.fit(hist)
+ 
+ future = m.make_future_dataframe(periods=periods, freq='D')
+ fcst = m.predict(future)[['ds','yhat']]
+ 
+ # 5) 스캐폴드와 정합 → 뷰 길이에 맞춰 반환
+ out = scaf.merge(fcst, on='ds', how='left')['yhat'].tolist()
+ return out
+
+2026-03-19,11:29:31 [DEBUG] (command.py:command:38): cmd: where.exe tbb.dll
+cwd: None
+2026-03-19,11:29:31 [DEBUG] (model.py:model:243): Adding TBB (C:\Users\gorhk\DA_Portfolio\.venv\Lib\site-packages\prophet\stan_model\cmdstan-2.37.0\stan\lib\stan_math\lib\tbb) to PATH
+2026-03-19,11:29:31 [DEBUG] (filesystem.py:filesystem:121): input tempfile: C:\Users\gorhk\AppData\Local\Temp\tmptk2dfjy8\oyk8yhjj.json
+2026-03-19,11:29:31 [DEBUG] (filesystem.py:filesystem:121): input tempfile: C:\Users\gorhk\AppData\Local\Temp\tmptk2dfjy8\qwwq6m33.json
+2026-03-19,11:29:31 [DEBUG] (model.py:model:2088): idx 0
+2026-03-19,11:29:31 [DEBUG] (model.py:model:2089): running CmdStan, num_threads: None
+2026-03-19,11:29:31 [DEBUG] (model.py:model:2101): CmdStan args: ['C:\\Users\\gorhk\\DA_Portfolio\\.venv\\Lib\\site-packages\\prophet\\stan_model\\prophet_model.bin', 'random', 'seed=41107', 'data', 'file=C:\\Users\\gorhk\\AppData\\Local\\Temp\\tmptk2dfjy8\\oyk8yhjj.json', 'init=C:\\Users\\gorhk\\AppData\\Local\\Temp\\tmptk2dfjy8\\qwwq6m33.json', 'output', 'file=C:\\Users\\gorhk\\AppData\\Local\\Temp\\tmptk2dfjy8\\prophet_model6tznono2\\prophet_model-20260319112931.csv', 'method=optimize', 'algorithm=lbfgs', 'iter=10000']
+2026-03-19,11:29:31 [INFO] (model.py:model:2104): Chain [1] start processing
+2026-03-19,11:29:31 [INFO] (model.py:model:2161): Chain [1] done processing
+2026-03-19,11:29:31 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 880.21ms
+2026-03-19,11:29:40 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,11:29:40 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,11:29:40 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,11:29:40 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,11:29:40 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,11:29:40 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,11:29:40 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,11:29:40 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,11:29:40 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:29:40 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,11:29:40 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:29:40 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,11:29:40 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:29:40 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,11:29:40 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:29:40 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,11:29:40 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,11:29:40 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,11:29:40 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,11:29:40 [INFO] (web.py:web:2418): 200 GET /info (::1) 1.54ms
+2026-03-19,11:29:40 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,11:29:40 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,11:29:40 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,11:29:40 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,11:29:40 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,11:29:40 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,11:29:40 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,11:29:40 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,11:29:40 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:29:40 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,11:29:40 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:29:40 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,11:29:40 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:29:40 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,11:29:40 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3):
+ 
+ import pandas as pd
+ import numpy as np
+ from prophet import Prophet
+ 
+ # 1) 스캐폴드(뷰의 전체 날짜)
+ scaf = pd.DataFrame({'ds': _arg1})
+ scaf['ds'] = pd.to_datetime(scaf['ds'], errors='coerce')
+ scaf = scaf.dropna().sort_values('ds')
+ 
+ # 2) 히스토리(실데이터) 구성
+ hist = pd.DataFrame({'ds': _arg1, 'y': _arg2})
+ hist['ds'] = pd.to_datetime(hist['ds'], errors='coerce')
+ hist = hist.dropna(subset=['ds','y']).sort_values('ds')
+ hist = hist.groupby('ds', as_index=False)['y'].sum()
+ 
+ if len(hist) < 2:
+     return [float('nan')] * len(scaf)
+ 
+ # 3) 예측 기간 = 파라미터만 사용
+ try:
+     periods = int(_arg3[0])
+ except:
+     periods = 0
+ periods = max(0, periods)
+ 
+ # 4) 모델 학습 & 예측
+ m = Prophet(yearly_seasonality=True,
+             weekly_seasonality=True,
+             daily_seasonality=False,
+             seasonality_mode='multiplicative')
+ m.fit(hist)
+ 
+ future = m.make_future_dataframe(periods=periods, freq='D')
+ fcst = m.predict(future)[['ds','yhat']]
+ 
+ # 5) 스캐폴드와 정합 → 뷰 길이에 맞춰 반환
+ out = scaf.merge(fcst, on='ds', how='left')['yhat'].tolist()
+ return out
+
+2026-03-19,11:29:40 [DEBUG] (command.py:command:38): cmd: where.exe tbb.dll
+cwd: None
+2026-03-19,11:29:40 [DEBUG] (model.py:model:252): TBB already found in load path
+2026-03-19,11:29:40 [DEBUG] (filesystem.py:filesystem:121): input tempfile: C:\Users\gorhk\AppData\Local\Temp\tmptk2dfjy8\awkrl3rp.json
+2026-03-19,11:29:40 [DEBUG] (filesystem.py:filesystem:121): input tempfile: C:\Users\gorhk\AppData\Local\Temp\tmptk2dfjy8\f71dydmv.json
+2026-03-19,11:29:40 [DEBUG] (model.py:model:2088): idx 0
+2026-03-19,11:29:40 [DEBUG] (model.py:model:2089): running CmdStan, num_threads: None
+2026-03-19,11:29:40 [DEBUG] (model.py:model:2101): CmdStan args: ['C:\\Users\\gorhk\\DA_Portfolio\\.venv\\Lib\\site-packages\\prophet\\stan_model\\prophet_model.bin', 'random', 'seed=59380', 'data', 'file=C:\\Users\\gorhk\\AppData\\Local\\Temp\\tmptk2dfjy8\\awkrl3rp.json', 'init=C:\\Users\\gorhk\\AppData\\Local\\Temp\\tmptk2dfjy8\\f71dydmv.json', 'output', 'file=C:\\Users\\gorhk\\AppData\\Local\\Temp\\tmptk2dfjy8\\prophet_model9_ehig9k\\prophet_model-20260319112940.csv', 'method=optimize', 'algorithm=lbfgs', 'iter=10000']
+2026-03-19,11:29:40 [INFO] (model.py:model:2104): Chain [1] start processing
+2026-03-19,11:29:40 [INFO] (model.py:model:2161): Chain [1] done processing
+2026-03-19,11:29:40 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 408.09ms
+2026-03-19,11:36:38 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,11:36:38 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,11:36:38 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,11:36:38 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,11:36:38 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,11:36:38 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,11:36:38 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,11:36:38 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,11:36:38 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:36:38 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,11:36:38 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:36:38 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,11:36:38 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:36:38 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,11:36:38 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:36:38 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,11:36:38 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,11:36:38 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,11:36:38 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,11:36:38 [INFO] (web.py:web:2418): 200 GET /info (::1) 2.15ms
+2026-03-19,11:36:38 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,11:36:38 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,11:36:38 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,11:36:38 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,11:36:38 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,11:36:38 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,11:36:38 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,11:36:38 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,11:36:38 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:36:38 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,11:36:38 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:36:38 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,11:36:38 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:36:38 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,11:36:38 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3):
+ 
+ import pandas as pd
+ import numpy as np
+ from prophet import Prophet
+ 
+ # 1) 스캐폴드(뷰의 전체 날짜)
+ scaf = pd.DataFrame({'ds': _arg1})
+ scaf['ds'] = pd.to_datetime(scaf['ds'], errors='coerce')
+ scaf = scaf.dropna().sort_values('ds')
+ 
+ # 2) 히스토리(실데이터) 구성
+ hist = pd.DataFrame({'ds': _arg1, 'y': _arg2})
+ hist['ds'] = pd.to_datetime(hist['ds'], errors='coerce')
+ hist = hist.dropna(subset=['ds','y']).sort_values('ds')
+ hist = hist.groupby('ds', as_index=False)['y'].sum()
+ 
+ if len(hist) < 2:
+     return [float('nan')] * len(scaf)
+ 
+ # 3) 예측 기간 = 파라미터만 사용
+ try:
+     periods = int(_arg3[0])
+ except:
+     periods = 0
+ periods = max(0, periods)
+ 
+ # 4) 모델 학습 & 예측
+ m = Prophet(yearly_seasonality=True,
+             weekly_seasonality=True,
+             daily_seasonality=False,
+             seasonality_mode='multiplicative')
+ m.fit(hist)
+ 
+ future = m.make_future_dataframe(periods=periods, freq='D')
+ fcst = m.predict(future)[['ds','yhat']]
+ 
+ # 5) 스캐폴드와 정합 → 뷰 길이에 맞춰 반환
+ out = scaf.merge(fcst, on='ds', how='left')['yhat'].tolist()
+ return out
+
+2026-03-19,11:36:38 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 5.13ms
+2026-03-19,11:36:43 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,11:36:43 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,11:36:43 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,11:36:43 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,11:36:43 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,11:36:43 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,11:36:43 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,11:36:43 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,11:36:43 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:36:43 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,11:36:43 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:36:43 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,11:36:43 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:36:43 [DEBUG] (state.py:state:628): Loading option 'Description' from section [Service Info]...
+2026-03-19,11:36:43 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:36:43 [DEBUG] (state.py:state:628): Loading option 'Creation Time' from section [Service Info]...
+2026-03-19,11:36:43 [DEBUG] (state.py:state:650): Returning value '0'
+2026-03-19,11:36:43 [DEBUG] (state.py:state:628): Loading option 'Name' from section [Service Info]...
+2026-03-19,11:36:43 [DEBUG] (state.py:state:650): Returning value 'TabPy Server'
+2026-03-19,11:36:43 [INFO] (web.py:web:2418): 200 GET /info (::1) 1.02ms
+2026-03-19,11:36:43 [DEBUG] (base_handler.py:base_handler:115): Checking if need to handle authentication
+2026-03-19,11:36:43 [DEBUG] (base_handler.py:base_handler:115): Handling authentication
+2026-03-19,11:36:43 [INFO] (base_handler.py:base_handler:115): Authentication is not a required feature for API "v1"
+2026-03-19,11:36:43 [DEBUG] (base_handler.py:base_handler:115): Checking request headers for authentication data
+2026-03-19,11:36:43 [INFO] (base_handler.py:base_handler:115): Authorization header not found
+2026-03-19,11:36:43 [DEBUG] (base_handler.py:base_handler:115): authentication not required, username and password are none
+2026-03-19,11:36:43 [DEBUG] (state.py:state:526): Collecting Access-Control-Allow-Origin from state file ...
+2026-03-19,11:36:43 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Origin' from section [Service Info]...
+2026-03-19,11:36:43 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:36:43 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Headers' from section [Service Info]...
+2026-03-19,11:36:43 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:36:43 [DEBUG] (state.py:state:628): Loading option 'Access-Control-Allow-Methods' from section [Service Info]...
+2026-03-19,11:36:43 [DEBUG] (state.py:state:650): Returning value ''
+2026-03-19,11:36:43 [DEBUG] (base_handler.py:base_handler:115): Processing POST request...
+2026-03-19,11:36:43 [INFO] (base_handler.py:base_handler:115): function to evaluate=def _user_script(tabpy, _arg1, _arg2, _arg3):
+ 
+ import pandas as pd
+ import numpy as np
+ from prophet import Prophet
+ 
+ # 1) 스캐폴드(뷰의 전체 날짜)
+ scaf = pd.DataFrame({'ds': _arg1})
+ scaf['ds'] = pd.to_datetime(scaf['ds'], errors='coerce')
+ scaf = scaf.dropna().sort_values('ds')
+ 
+ # 2) 히스토리(실데이터) 구성
+ hist = pd.DataFrame({'ds': _arg1, 'y': _arg2})
+ hist['ds'] = pd.to_datetime(hist['ds'], errors='coerce')
+ hist = hist.dropna(subset=['ds','y']).sort_values('ds')
+ hist = hist.groupby('ds', as_index=False)['y'].sum()
+ 
+ if len(hist) < 2:
+     return [float('nan')] * len(scaf)
+ 
+ # 3) 예측 기간 = 파라미터만 사용
+ try:
+     periods = int(_arg3[0])
+ except:
+     periods = 0
+ periods = max(0, periods)
+ 
+ # 4) 모델 학습 & 예측
+ m = Prophet(yearly_seasonality=True,
+             weekly_seasonality=True,
+             daily_seasonality=False,
+             seasonality_mode='multiplicative')
+ m.fit(hist)
+ 
+ future = m.make_future_dataframe(periods=periods, freq='D')
+ fcst = m.predict(future)[['ds','yhat']]
+ 
+ # 5) 스캐폴드와 정합 → 뷰 길이에 맞춰 반환
+ out = scaf.merge(fcst, on='ds', how='left')['yhat'].tolist()
+ return out
+
+2026-03-19,11:36:43 [DEBUG] (command.py:command:38): cmd: where.exe tbb.dll
+cwd: None
+2026-03-19,11:36:43 [DEBUG] (model.py:model:252): TBB already found in load path
+2026-03-19,11:36:43 [DEBUG] (filesystem.py:filesystem:121): input tempfile: C:\Users\gorhk\AppData\Local\Temp\tmptk2dfjy8\eqemcqgv.json
+2026-03-19,11:36:44 [DEBUG] (filesystem.py:filesystem:121): input tempfile: C:\Users\gorhk\AppData\Local\Temp\tmptk2dfjy8\emkf2qki.json
+2026-03-19,11:36:44 [DEBUG] (model.py:model:2088): idx 0
+2026-03-19,11:36:44 [DEBUG] (model.py:model:2089): running CmdStan, num_threads: None
+2026-03-19,11:36:44 [DEBUG] (model.py:model:2101): CmdStan args: ['C:\\Users\\gorhk\\DA_Portfolio\\.venv\\Lib\\site-packages\\prophet\\stan_model\\prophet_model.bin', 'random', 'seed=93882', 'data', 'file=C:\\Users\\gorhk\\AppData\\Local\\Temp\\tmptk2dfjy8\\eqemcqgv.json', 'init=C:\\Users\\gorhk\\AppData\\Local\\Temp\\tmptk2dfjy8\\emkf2qki.json', 'output', 'file=C:\\Users\\gorhk\\AppData\\Local\\Temp\\tmptk2dfjy8\\prophet_modelf6p_t7_f\\prophet_model-20260319113644.csv', 'method=optimize', 'algorithm=lbfgs', 'iter=10000']
+2026-03-19,11:36:44 [INFO] (model.py:model:2104): Chain [1] start processing
+2026-03-19,11:36:44 [INFO] (model.py:model:2161): Chain [1] done processing
+2026-03-19,11:36:44 [INFO] (web.py:web:2418): 200 POST /evaluate (::1) 460.15ms
