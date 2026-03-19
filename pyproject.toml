@@ -28,6 +28,7 @@ dependencies = [
     "squarify>=0.4.4",
     "statsmodels>=0.14.6",
     "streamlit>=1.53.0",
+    "tabpy>=2.13.0",
     "xgboost>=3.2.0",
     "xlrd>=2.0.2",
 ]
