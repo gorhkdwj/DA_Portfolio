@@ -1,0 +1,126 @@
+
+========================================
+>>> profile.csv
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 17000 entries, 0 to 16999
+Data columns (total 6 columns):
+ #   Column            Non-Null Count  Dtype  
+---  ------            --------------  -----  
+ 0   Unnamed: 0        17000 non-null  int64  
+ 1   gender            14825 non-null  object 
+ 2   age               17000 non-null  int64  
+ 3   id                17000 non-null  object 
+ 4   became_member_on  17000 non-null  int64  
+ 5   income            14825 non-null  float64
+dtypes: float64(1), int64(3), object(2)
+memory usage: 797.0+ KB
+
+--- FIRST 3 ROWS ---
+|    |   Unnamed: 0 | gender   |   age | id                               |   became_member_on |   income |
+|---:|-------------:|:---------|------:|:---------------------------------|-------------------:|---------:|
+|  0 |            0 | nan      |   118 | 68be06ca386d4c31939f3a4f0e3dd783 |           20170212 |      nan |
+|  1 |            1 | F        |    55 | 0610b486422d4921ae7d2bf64640c50b |           20170715 |   112000 |
+|  2 |            2 | nan      |   118 | 38fe809add3b4fcf9315a9694bb96ff5 |           20180712 |      nan |
+--- MISSING VALUES ---
+Unnamed: 0             0
+gender              2175
+age                    0
+id                     0
+became_member_on       0
+income              2175
+
+========================================
+>>> Courses.csv
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 641138 entries, 0 to 641137
+Data columns (total 21 columns):
+ #   Column             Non-Null Count   Dtype  
+---  ------             --------------   -----  
+ 0   index              641138 non-null  int64  
+ 1   course_id          641138 non-null  object 
+ 2   userid_DI          641138 non-null  object 
+ 3   registered         641138 non-null  int64  
+ 4   viewed             641138 non-null  int64  
+ 5   explored           641138 non-null  int64  
+ 6   certified          641138 non-null  int64  
+ 7   final_cc_cname_DI  641138 non-null  object 
+ 8   LoE_DI             535130 non-null  object 
+ 9   YoB                544533 non-null  float64
+ 10  gender             554332 non-null  object 
+ 11  grade              592766 non-null  object 
+ 12  start_time_DI      641138 non-null  object 
+ 13  last_event_DI      462184 non-null  object 
+ 14  nevents            441987 non-null  float64
+ 15  ndays_act          478395 non-null  float64
+ 16  nplay_video        183608 non-null  float64
+ 17  nchapters          382385 non-null  float64
+ 18  nforum_posts       641138 non-null  int64  
+ 19  roles              0 non-null       float64
+ 20  incomplete_flag    100161 non-null  float64
+dtypes: float64(7), int64(6), object(8)
+memory usage: 102.7+ MB
+
+--- FIRST 3 ROWS ---
+|    |   index | course_id                  | userid_DI      |   registered |   viewed |   explored |   certified | final_cc_cname_DI   |   LoE_DI |   YoB |   gender |   grade | start_time_DI   | last_event_DI   |   nevents |   ndays_act |   nplay_video |   nchapters |   nforum_posts |   roles |   incomplete_flag |
+|---:|--------:|:---------------------------|:---------------|-------------:|---------:|-----------:|------------:|:--------------------|---------:|------:|---------:|--------:|:----------------|:----------------|----------:|------------:|--------------:|------------:|---------------:|--------:|------------------:|
+|  0 |       0 | HarvardX/CB22x/2013_Spring | MHxPC130442623 |            1 |        0 |          0 |           0 | United States       |      nan |   nan |      nan |       0 | 2012-12-19      | 2013-11-17      |       nan |           9 |           nan |         nan |              0 |     nan |                 1 |
+|  1 |       1 | HarvardX/CS50x/2012        | MHxPC130442623 |            1 |        1 |          0 |           0 | United States       |      nan |   nan |      nan |       0 | 2012-10-15      | nan             |       nan |           9 |           nan |           1 |              0 |     nan |                 1 |
+|  2 |       2 | HarvardX/CB22x/2013_Spring | MHxPC130275857 |            1 |        0 |          0 |           0 | United States       |      nan |   nan |      nan |       0 | 2013-02-08      | 2013-11-17      |       nan |          16 |           nan |         nan |              0 |     nan |                 1 |
+--- MISSING VALUES ---
+index                     0
+course_id                 0
+userid_DI                 0
+registered                0
+viewed                    0
+explored                  0
+certified                 0
+final_cc_cname_DI         0
+LoE_DI               106008
+YoB                   96605
+gender                86806
+grade                 48372
+start_time_DI             0
+last_event_DI        178954
+nevents              199151
+ndays_act            162743
+nplay_video          457530
+nchapters            258753
+nforum_posts              0
+roles                641138
+incomplete_flag      540977
+
+========================================
+>>> stock_details_5_years.csv
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 602962 entries, 0 to 602961
+Data columns (total 9 columns):
+ #   Column        Non-Null Count   Dtype  
+---  ------        --------------   -----  
+ 0   Date          602962 non-null  object 
+ 1   Open          602962 non-null  float64
+ 2   High          602962 non-null  float64
+ 3   Low           602962 non-null  float64
+ 4   Close         602962 non-null  float64
+ 5   Volume        602962 non-null  int64  
+ 6   Dividends     602962 non-null  float64
+ 7   Stock Splits  602962 non-null  float64
+ 8   Company       602962 non-null  object 
+dtypes: float64(6), int64(1), object(2)
+memory usage: 41.4+ MB
+
+--- FIRST 3 ROWS ---
+|    | Date                      |     Open |     High |      Low |    Close |    Volume |   Dividends |   Stock Splits | Company   |
+|---:|:--------------------------|---------:|---------:|---------:|---------:|----------:|------------:|---------------:|:----------|
+|  0 | 2018-11-29 00:00:00-05:00 |  43.8298 |  43.8634 |  42.6396 |  43.0835 | 167080000 |           0 |              0 | AAPL      |
+|  1 | 2018-11-29 00:00:00-05:00 | 104.769  | 105.519  | 103.535  | 104.636  |  28123200 |           0 |              0 | MSFT      |
+|  2 | 2018-11-29 00:00:00-05:00 |  54.1765 |  55.0075 |  54.1    |  54.729  |  31004000 |           0 |              0 | GOOGL     |
+--- MISSING VALUES ---
+Date            0
+Open            0
+High            0
+Low             0
+Close           0
+Volume          0
+Dividends       0
+Stock Splits    0
+Company         0

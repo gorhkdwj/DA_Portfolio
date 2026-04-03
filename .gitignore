@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # 가상환경 폴더 (가장 중요! 절대 깃에 올리면 안 됨)
 .venv/
 venv/
@@ -25,3 +24,4 @@ Thumbs.db
 # 통계 실습 세션 하위 저장소로 따로 관리하므로 gitignore 추가 260208
 03_Coding_Study/05_Statistics/02_Statistics_Session/02_Statistics_Practice/
 03_Coding_Study/07_AI_Text_Analysis/text-analysis-ml/
+03_Coding_Study/09_LLM/text-analysis-llm/
