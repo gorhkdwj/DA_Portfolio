@@ -1,0 +1,47 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "FocusFlow - Vite Dev Server",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 5173,
+      "cwd": "07_AI_Study/01_Vibe_Coding/01_Pomodoro_Timer"
+    },
+    {
+      "name": "FocusFlow - Electron App",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "electron:dev"],
+      "port": 5173,
+      "cwd": "07_AI_Study/01_Vibe_Coding/01_Pomodoro_Timer"
+    },
+    {
+      "name": "No-show Predictor - Streamlit",
+      "runtimeExecutable": "streamlit",
+      "runtimeArgs": ["run", "app.py"],
+      "port": 8501,
+      "cwd": "03_Coding_Study/02_EDA/06_EDA_6강/06_Session/data"
+    },
+    {
+      "name": "Jupyter Lab - 루트 포트폴리오",
+      "runtimeExecutable": "jupyter",
+      "runtimeArgs": ["lab", "--no-browser", "--port=8888"],
+      "port": 8888,
+      "cwd": "."
+    },
+    {
+      "name": "Jupyter Lab - LLM 프로젝트",
+      "runtimeExecutable": "jupyter",
+      "runtimeArgs": ["lab", "--no-browser", "--port=8889"],
+      "port": 8889,
+      "cwd": "03_Coding_Study/09_LLM/text-analysis-llm"
+    },
+    {
+      "name": "Jupyter Lab - DA Agent",
+      "runtimeExecutable": "jupyter",
+      "runtimeArgs": ["lab", "--no-browser", "--port=8890"],
+      "port": 8890,
+      "cwd": "07_AI_Study/02_DA_Agent"
+    }
+  ]
+}
