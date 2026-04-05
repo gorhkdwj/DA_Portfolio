@@ -1,0 +1,117 @@
+{
+  "dataset_name": "Titanic Sample Dataset (300 rows)",
+  "overview": {
+    "rows": 300,
+    "columns": 11,
+    "numeric_columns": [
+      "PassengerId",
+      "Survived",
+      "Pclass",
+      "Age",
+      "SibSp",
+      "Parch",
+      "Fare"
+    ],
+    "categorical_columns": [
+      "Name",
+      "Sex",
+      "Embarked",
+      "Cabin"
+    ],
+    "total_missing_cells": 308
+  },
+  "missing_analysis": [
+    {
+      "column_name": "Cabin",
+      "missing_count": 231,
+      "missing_ratio": 77.0,
+      "recommendation": "결측 비율이 너무 높아 해당 컬럼 삭제 고려"
+    },
+    {
+      "column_name": "Age",
+      "missing_count": 68,
+      "missing_ratio": 22.67,
+      "recommendation": "중위값 또는 평균값으로 대체 혹은 KNN 보간 고려"
+    },
+    {
+      "column_name": "Embarked",
+      "missing_count": 7,
+      "missing_ratio": 2.33,
+      "recommendation": "최빈값으로 대체 권장"
+    },
+    {
+      "column_name": "Fare",
+      "missing_count": 2,
+      "missing_ratio": 0.67,
+      "recommendation": "중위값으로 대체 권장"
+    }
+  ],
+  "outlier_analysis": [
+    {
+      "column_name": "Fare",
+      "outlier_count": 12,
+      "outlier_ratio": 4.03,
+      "lower_bound": -42.005,
+      "upper_bound": 92.279,
+      "recommendation": "로그 변환 또는 제거 고려"
+    },
+    {
+      "column_name": "Age",
+      "outlier_count": 2,
+      "outlier_ratio": 0.86,
+      "lower_bound": -8.697,
+      "upper_bound": 67.277,
+      "recommendation": "정상 범위 내 수치로 조정하거나 유지"
+    },
+    {
+      "column_name": "Parch",
+      "outlier_count": 72,
+      "outlier_ratio": 24.0,
+      "lower_bound": 0.0,
+      "upper_bound": 0.0,
+      "recommendation": "이상치 비율이 높으므로 데이터의 특성임을 감안하여 분석 반영"
+    }
+  ],
+  "correlation_highlights": [
+    {
+      "col_a": "Parch",
+      "col_b": "Fare",
+      "correlation": 0.128,
+      "interpretation": "약한 양의 상관관계 (동반 가족 수가 많을수록 요금이 약간 높은 경향)"
+    },
+    {
+      "col_a": "Survived",
+      "col_b": "Pclass",
+      "correlation": 0.126,
+      "interpretation": "약한 양의 상관관계 (Pclass 수치와 생존 여부 간 약한 관계)"
+    },
+    {
+      "col_a": "PassengerId",
+      "col_b": "Survived",
+      "correlation": -0.112,
+      "interpretation": "약한 음의 상관관계 (PassengerId가 클수록 생존율이 약간 낮음)"
+    }
+  ],
+  "key_insights": [
+    {
+      "category": "결측치",
+      "insight": "Cabin 컬럼의 결측 비율이 77%로 매우 높아 데이터 활용에 주의가 필요함. Age(22.67%)도 적지 않은 결측치를 보유함.",
+      "priority": "높음"
+    },
+    {
+      "category": "이상치",
+      "insight": "Fare 컬럼에서 이상치가 다수 발견되어 데이터 분포 왜곡 가능성이 있음. Parch와 SibSp는 이상치 비율이 높은 편임.",
+      "priority": "중간"
+    },
+    {
+      "category": "데이터 분포",
+      "insight": "평균 연령은 약 29.6세이며, 생존율은 약 40% 수준임.",
+      "priority": "낮음"
+    }
+  ],
+  "next_steps": [
+    "Cabin 컬럼 삭제 여부 결정",
+    "Age 결측치 처리 및 이상치 정제 (Fare 컬럼 위주)",
+    "생존율에 영향을 주는 핵심 피처(Sex, Pclass 등) 심층 분석 수행"
+  ]
+}

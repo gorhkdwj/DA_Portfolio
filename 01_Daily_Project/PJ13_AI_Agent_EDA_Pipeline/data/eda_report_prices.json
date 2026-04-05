@@ -1,0 +1,107 @@
+{
+  "dataset_name": "금융 자산 가격 데이터",
+  "overview": {
+    "rows": 1825,
+    "columns": 13,
+    "numeric_columns": [
+      "SPY",
+      "QQQ",
+      "TLT",
+      "AGG",
+      "GLD",
+      "EEM",
+      "CL=F",
+      "GC=F, SI=F, BTC-USD, ETH-USD, ^VIX, DX-Y.NYB"
+    ],
+    "categorical_columns": [],
+    "total_missing_cells": 6273
+  },
+  "missing_analysis": [
+    {
+      "column_name": "SPY, QQQ, GLD, EEM, AGG, TLT, ^VIX",
+      "missing_count": 571,
+      "missing_ratio": 0.3129,
+      "recommendation": "시계열 데이터의 특성을 고려하여 선형 보간법 또는 직전 관측값으로 채우기(Forward Fill) 권장."
+    },
+    {
+      "column_name": "CL=F, GC=F, SI=F, DX-Y.NYB",
+      "missing_count": 569,
+      "missing_ratio": 0.3118,
+      "recommendation": "데이터 수집 주기 확인 후 필요시 제거 또는 보간법 사용."
+    }
+  ],
+  "outlier_analysis": [
+    {
+      "column_name": "CL=F (원유)",
+      "outlier_count": 68,
+      "outlier_ratio": 0.0541,
+      "lower_bound": 46.415,
+      "upper_bound": 103.215,
+      "recommendation": "에너지 시장 이벤트 확인 후 정상 범위인지 판단 필요."
+    },
+    {
+      "column_name": "GC=F (금 선물)",
+      "outlier_count": 65,
+      "outlier_ratio": 0.0518,
+      "lower_bound": 617.375,
+      "upper_bound": 3806.775,
+      "recommendation": "인플레이션 및 안전자산 선호 현상과의 연관성 분석 권장."
+    },
+    {
+      "column_name": "^VIX (변동성 지수)",
+      "outlier_count": 38,
+      "outlier_ratio": 0.0303,
+      "lower_bound": 6.189,
+      "upper_bound": 31.419,
+      "recommendation": "시장 충격 시기의 변동성 급증 사례로 간주하고 활용."
+    }
+  ],
+  "correlation_highlights": [
+    {
+      "col_a": "GLD",
+      "col_b": "GC=F",
+      "correlation": 1.0,
+      "interpretation": "금 현물 ETF(GLD)와 금 선물(GC=F)은 완벽한 양의 상관관계를 보입니다."
+    },
+    {
+      "col_a": "SPY",
+      "col_b": "QQQ",
+      "correlation": 0.991,
+      "interpretation": "S&P 500 ETF(SPY)와 나스닥 100 ETF(QQQ)는 매우 강력한 양의 상관관계를 가집니다."
+    },
+    {
+      "col_a": "GLD",
+      "col_b": "SI=F",
+      "correlation": 0.931,
+      "interpretation": "금과 은(SI=F) 가격은 강한 동조화 현상을 보입니다."
+    },
+    {
+      "col_a": "SPY",
+      "col_b": "GC=F",
+      "correlation": 0.929,
+      "interpretation": "주식 시장과 금 가격이 전반적으로 같은 방향으로 움직이는 경향이 있습니다."
+    }
+  ],
+  "key_insights": [
+    {
+      "category": "결측치",
+      "insight": "전체 데이터셋의 약 31%가 결측치로, 금융 데이터 수집 기간의 불일치로 판단됩니다.",
+      "priority": "High"
+    },
+    {
+      "category": "이상치",
+      "insight": "원자재(CL=F, GC=F, SI=F) 및 변동성 지수(^VIX)에서 유의미한 이상치가 발견되었습니다.",
+      "priority": "Medium"
+    },
+    {
+      "category": "상관관계",
+      "insight": "귀금속 간(금-은) 및 주식 시장 지수(SPY-QQQ) 간 매우 강력한 양의 상관관계가 존재합니다.",
+      "priority": "High"
+    }
+  ],
+  "next_steps": [
+    "결측치 처리 전략 수립 (Forward Fill 적용)",
+    "원자재 관련 이상치 원인 분석 (시장 급변기 여부 확인)",
+    "주요 자산 간 상관관계가 유지되는지 기간별(Rolling) 분석 수행"
+  ]
+}
