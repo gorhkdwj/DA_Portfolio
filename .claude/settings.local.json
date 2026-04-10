@@ -7,7 +7,31 @@
       "Bash(xargs grep:*)",
       "Bash(grep -r \"streamlit run\\\\|jupyter\\\\|flask\\\\|fastapi\" /c/Users/gorhk/DA_Portfolio --include=*.md --include=*.txt --include=*.sh)",
       "Bash(grep -r \"PORT\\\\|port\\\\|listen\" /c/Users/gorhk/DA_Portfolio --include=*.py --include=*.json --include=*.env)",
-      "mcp__Claude_Preview__preview_start"
+      "mcp__Claude_Preview__preview_start",
+      "Bash(.venv/Scripts/python.exe -)",
+      "Bash(.venv/Scripts/python.exe \"01_Daily_Project/PJ14_Sungnam_News_Crawling/naver_news_crawler.py\")",
+      "Bash(sort -k6,7)",
+      "Bash(uv pip:*)",
+      "Bash(uv add:*)",
+      "Bash(python3 -c ':*)",
+      "Bash(where pandoc:*)",
+      "Bash(where wkhtmltopdf:*)",
+      "Bash(pip show:*)",
+      "Bash(pip list:*)",
+      "Bash(python -c \"import sys; print\\(sys.executable\\); import markdown; print\\('ok'\\)\")",
+      "Bash(ls .venv/Scripts/python*)",
+      "Bash(.venv/Scripts/python -c \"import markdown, weasyprint; print\\('both OK'\\)\")",
+      "Bash(.venv/../../.venv/Scripts/python -c ':*)",
+      "Bash(C:/Users/gorhk/DA_Portfolio/.venv/Scripts/python.exe -c ':*)",
+      "Bash(\"C:/Users/gorhk/DA_Portfolio/.venv/Scripts/python.exe\" \"C:/Users/gorhk/DA_Portfolio/01_Daily_Project/PJ12_Asset_Simulater/md2pdf.py\")",
+      "Bash(python3)",
+      "Bash(\"C:/Users/gorhk/DA_Portfolio/.venv/Scripts/python.exe\" -c \"import nbformat; print\\('nbformat:', nbformat.__version__\\)\")",
+      "Bash(\"C:/Users/gorhk/DA_Portfolio/.venv/Scripts/python.exe\" -m jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=300 Step1_Data_Collection.ipynb --output Step1_Data_Collection.ipynb)",
+      "Bash(\"C:/Users/gorhk/DA_Portfolio/.venv/Scripts/python.exe\" -m jupyter --version)",
+      "Bash(\"C:/Users/gorhk/DA_Portfolio/.venv/Scripts/python.exe\" -c \"import nbconvert; print\\('nbconvert OK'\\)\")",
+      "Bash(\"C:/Users/gorhk/DA_Portfolio/.venv/Scripts/python.exe\" -m jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=300 --ExecutePreprocessor.kernel_name=python3 Step1_Data_Collection.ipynb --output Step1_Data_Collection.ipynb)",
+      "Bash(\"C:/Users/gorhk/DA_Portfolio/.venv/Scripts/python.exe\" -m ipykernel install --user --name=da_portfolio --display-name=\"DA Portfolio \\(venv\\)\")",
+      "Bash(\"C:/Users/gorhk/DA_Portfolio/.venv/Scripts/python.exe\" -m jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=300 --ExecutePreprocessor.kernel_name=da_portfolio Step1_Data_Collection.ipynb --output Step1_Data_Collection.ipynb)"
     ]
   }
 }
